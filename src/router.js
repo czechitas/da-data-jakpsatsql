@@ -6,6 +6,7 @@ import Theory from "./components/Theory"
 import Database from "./components/Database"
 import Relations from "./components/Relations"
 import Practice from "./components/Practice"
+import Tahak from "./components/Tahak"
 
 Vue.use(Router)
 
@@ -13,13 +14,13 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      meta: { title: "Homepage", icon: "home" },
+      meta: { title: "Bylo nebylo", icon: "home" },
       name: "Home",
       component: Home,
     },
     {
       path: "teorie",
-      meta: { title: "Teorie", icon: "cancel" },
+      meta: { title: "Teorie", icon: "language" },
       name: "Theory",
       component: Theory,
     },
@@ -31,13 +32,19 @@ const router = new Router({
     },
     {
       path: "relace",
-      meta: { title: "Fungující vztahy - relace", icon: "pregnant_woman" },
+      meta: { title: "Fungující vztahy - relace", icon: "sync" },
       name: "Relations",
       component: Relations,
     },
     {
+      path: "tahak",
+      meta: { title: "Tahák", icon: "help" },
+      name: "Tahak",
+      component: Tahak,
+    },
+    {
       path: "practice",
-      meta: { title: "Praxe", icon: "create" },
+      meta: { title: "Výuka", icon: "school" },
       name: "Practice",
       component: Practice,
     },  

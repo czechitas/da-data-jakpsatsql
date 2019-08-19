@@ -1,43 +1,36 @@
 <template>
   <v-app id="jak-psat-sql">
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
-
-      <v-list dense>
-        <div v-for="(menuItem, i) in $router.options.routes" :key="i">
-          <v-list-tile :to="{ name: menuItem.name }">
-            <v-list-tile-action>
-              <v-icon>{{ menuItem.meta.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ menuItem.meta.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </div>
-      </v-list>
+    <v-navigation-drawer v-model="drawer" fixed app dark id="app-drawer">
+      <navigation></navigation>
     </v-navigation-drawer>
-    <v-toolbar color="cyan" dark fixed app>
+
+    <v-toolbar
+    flat
+    app
+    prominent>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Jak psát SQL</v-toolbar-title>
+      <v-toolbar-title>{{ this.$router.currentRoute.meta.title }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+        <span class="overline">
+          &copy; 2019 by Ondřej Hošák and Pavel Chocholouš, source code is available on <a target="_blank" href="https://github.com/ondrej-hosak/JakPsatSQL">github</a>
+        </span>
+      
     </v-toolbar>
-    <v-content>
+
+    <v-content style="backgrond: #eee;">
        <router-view/>
     </v-content>
-    <v-footer color="cyan" dark height="auto" app>
-      <v-card flat tile class="cyan white--text text-xs-center">
-       <v-card-text class="white--text pt-0">
-        &copy; 2019 by Ondřej Hošák and Pavel Chocholouš, source code is available on <a target="_blank" href="https://github.com/ondrej-hosak/JakPsatSQL">github</a>
-       </v-card-text>
-      </v-card>
-    </v-footer>
   </v-app>
 </template>
 
 <script>
+  import Navigation from './components/Navigation.vue'
+
   export default {
+    components: {
+      Navigation,
+    },
     data: () => ({
       drawer: null
     }),
@@ -46,3 +39,9 @@
     }
   }
 </script>
+
+<style lang="scss">
+  #jak-psat-sql { background:#eee;}
+  .v-toolbar { background: #eee !important; }
+  .v-card__text img { width: 400px; }
+</style>
