@@ -108,6 +108,16 @@
               <v-tab-item>
                 <v-card flat color="basil">
                   <v-card-text>Lekce 2</v-card-text>
+                  <v-card-text>
+                      Vyber z tabulky útoky v Německu, kde zemřel alespoň jeden terorista. 
+                    </v-card-text>
+                    <v-card-text>
+                    	<pre v-highlightjs><code class="sql">
+Select * 
+from terror 
+where nkillter > 0 and countrytxt = 'Germany';
+                    	</code></pre>
+					</v-card-text>
                 </v-card>
               </v-tab-item>
               <v-tab-item>
