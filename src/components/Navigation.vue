@@ -29,13 +29,9 @@
 export default {
   name: "Navigation",
   data () {
-      return {
-        logo: '../assets/logo.svg',
-      }
-    },
-  mounted () {
-		console.log(this.$router.currentRoute);
-    this.$router.replace({ path: this.$router.currentRoute.path })
+    return {
+      logo: '../assets/logo.svg',
+    }
   }
 }
 </script>
