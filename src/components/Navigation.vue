@@ -1,16 +1,5 @@
 <template>
     <v-list>
-        <!-- <div v-for="(menuItem, i) in $router.options.routes" :key="i">
-          <v-list-tile :to="{ name: menuItem.name }">
-            <v-list-tile-action>
-              <v-icon>{{ menuItem.meta.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="body-1">{{ menuItem.meta.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </div> -->
-
         <v-list-tile avatar>
           <v-list-tile-avatar color="white">
             <v-img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" height="34"/>
@@ -23,20 +12,16 @@
         
         <v-divider style="padding-bottom: 15px;" />
 
-        <v-list-tile
-          v-for="(menuItem, i) in $router.options.routes"
-          :key="i"
-          :to="{ name: menuItem.name }"
-          avatar
-          class="v-list-item"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ menuItem.meta.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title
-            v-text="menuItem.meta.title"
-          />
-        </v-list-tile>
+        <div v-for="(menuItem, i) in $router.options.routes" :key="i">
+          <div v-if="!menuItem.meta.hideInMenu">
+              <v-list-tile :to="{ name: menuItem.name }" avatar class="v-list-item">
+                <v-list-tile-action>
+                  <v-icon>{{ menuItem.meta.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title v-text="menuItem.meta.title" />
+              </v-list-tile>
+          </div>
+        </div>
       </v-list>
 </template>
 
@@ -49,7 +34,8 @@ export default {
       }
     },
   mounted () {
-		//$router.push({ name: 'test' });
+		console.log(this.$router.currentRoute);
+    this.$router.replace({ path: this.$router.currentRoute.path })
   }
 }
 </script>

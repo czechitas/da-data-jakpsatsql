@@ -9,21 +9,21 @@
         <br />
         <br />
         <br />
-        <v-stepper v-model="e1">
+        <v-stepper v-model="current_index" non-linear>
             <v-stepper-header>
-              <v-stepper-step :complete="e1 > 1" step="1">Proč se učíme SQL?</v-stepper-step>
+              <v-stepper-step editable :color=color(1) complete-icon="check" edit-icon="check" @click=move(1) :complete=visited(1) step="1">Proč se učíme SQL?</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="e1 > 2" step="2">Americká tetka, IBM a SQL</v-stepper-step>
+              <v-stepper-step editable :color=color(2) complete-icon="check" edit-icon="check" @click=move(2) :complete=visited(2) step="2">Americká tetka, IBM a SQL</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="e1 > 3" step="3">Co to jsou data?</v-stepper-step>
+              <v-stepper-step editable :color=color(3) complete-icon="check" edit-icon="check" @click=move(3) :complete=visited(3) step="3">Co to jsou data?</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step step="4">Ok, data chápu, ale co je to ta databáze?</v-stepper-step>
+              <v-stepper-step editable :color=color(4) complete-icon="check" edit-icon="check" @click=move(4) :complete=visited(4) step="4">Ok, data chápu, ale co je to ta databáze?</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items>
@@ -38,7 +38,7 @@
                   </v-card-text>
                 </v-card>
 
-                <v-btn color="primary" @click="e1 = 2">
+                <v-btn color="primary" @click=move(2)>
                   Dále
                 </v-btn>
               </v-stepper-content>
@@ -58,11 +58,11 @@
                   </v-card-text>
                 </v-card>
 
-                <v-btn color="primary" @click="e1 = 3">
+                <v-btn color="primary" @click=move(3)>
                   Dále
                 </v-btn>
 
-                <v-btn color="secondary" @click="e1 = 1">
+                <v-btn color="secondary" @click=move(1)>
                   Zpět
                 </v-btn>
               </v-stepper-content>
@@ -79,11 +79,11 @@
                   </v-card-text>
                 </v-card>
                 
-                <v-btn color="primary" @click="e1 = 4">
+                <v-btn color="primary" @click=move(4)>
                   Dále
                 </v-btn>
 
-                <v-btn color="secondary" @click="e1 = 2">
+                <v-btn color="secondary" @click=move(2)>
                   Zpět
                 </v-btn>
               </v-stepper-content>
@@ -107,7 +107,7 @@
                   </v-card-text>
                 </v-card>
 
-                <v-btn color="secondary" @click="e1 = 3">
+                <v-btn color="secondary" @click=move(3)>
                   Zpět
                 </v-btn>
               </v-stepper-content>
@@ -123,8 +123,22 @@ export default {
   name: "Theory",
   data () {
       return {
-        e1: 0,
+        visited_indexes: [1],
+        current_index: 1
       }
     },
+  methods: {
+    visited(step) {
+      return this.visited_indexes.indexOf(step) != -1
+    },
+    color(step) {
+      return this.current_index == step ? "tertiary" : "primary"
+    },
+    move(step) {
+      this.current_index = step
+
+      if (this.visited_indexes.indexOf(step) === -1) this.visited_indexes.push(step);
+    }
+  }
 }
 </script>

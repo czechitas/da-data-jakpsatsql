@@ -7,47 +7,59 @@ import Database from "./components/Database"
 import Relations from "./components/Relations"
 import Practice from "./components/Practice"
 import Tahak from "./components/Tahak"
+import About from "./components/About"
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
-      path: "/",
+      path: "/home",
       meta: { title: "Bylo nebylo", icon: "home" },
       name: "Home",
       component: Home,
     },
     {
-      path: "teorie",
+      path: "/teorie",
       meta: { title: "Teorie", icon: "language" },
       name: "Theory",
       component: Theory,
     },
     {
-      path: "servery",
+      path: "/servery",
       meta: { title: "Databázový server a databáze", icon: "computer" },
       name: "Database",
       component: Database,
     },
     {
-      path: "relace",
+      path: "/relace",
       meta: { title: "Fungující vztahy - relace", icon: "sync" },
       name: "Relations",
       component: Relations,
     },
     {
-      path: "tahak",
+      path: "/tahak",
       meta: { title: "Tahák", icon: "help" },
       name: "Tahak",
       component: Tahak,
     },
     {
-      path: "practice",
+      path: "/practice",
       meta: { title: "Výuka", icon: "school" },
       name: "Practice",
       component: Practice,
-    },  
+    },
+    {
+      path: "/about",
+      meta: { title: "O stránkách", icon: "360" },
+      name: "About",
+      component: About,
+    },
+    {
+      path: "*",
+      redirect: "/home",
+      meta: { title: "test", icon: "help", hideInMenu: true }
+    }  
   ],
 })
 
