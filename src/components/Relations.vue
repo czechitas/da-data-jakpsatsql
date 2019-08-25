@@ -27,7 +27,7 @@
                       Vztahy mezi tabulkami jsou několika druhů. Auto může mít jen jednoho výrobce, ale ten vyrobí spoustu aut (1:N). VIN má každé auto jen jedno a naopak (1:1).
                       Majitelů může auto vystřídat i deset a stejně tak jeden chlápek může mít třeba dvacet aut (M:N). Normalizovaná databáze je šikovná pro většinu aplikací,
                       snadno se z ní dostane menší množství dat a stejně snadno se data v ní změní/přidají. Čitelnost lidským okem je sice mizerná, ale pro aplikace je normalizace naopak supervýhodná.
-                      Jediné, kde může normalizovaná databáze pokulhávat je analytika. Tam se hodí její sestra ze zrcadla - denormalizovaná tabulka.
+                      Jediné, kde může normalizovaná databáze pokulhávat, je analytika. Tam se hodí její sestra ze zrcadla - denormalizovaná tabulka.
                       Ta má na na každém řádku ve sloupečku barva uloženou barvu v majitele, jméno, příjmení, číslo technického průkazu, obec kraj a zemi jeh vydání,
                       prostě všechno na jedné hromadě, v lidsky čitelné podobě.
                     </p>
