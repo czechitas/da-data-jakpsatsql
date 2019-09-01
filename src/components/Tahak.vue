@@ -3,8 +3,7 @@
     <v-layout>
         <v-flex>
            <h1>Bude pripraveno Monikou Vlckovou :)</h1>
-
-
+			
             <v-card>
             	<v-tabs>
               	<v-tab>Barevnej select</v-tab>

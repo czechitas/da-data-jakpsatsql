@@ -64,6 +64,30 @@
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
+
+          ptalo se me nekolik z vas individualne, kde si hrat se SQL, az vypnu snowflake. Cest je nekolik:
+
+          ruzne *SQL fiddlery* (misto, kde si muzete zkouset psat dotazy nad nejakymi daty a ta vec vam ukaze, co to vraci):
+          - http://sqlfiddle.com/
+          - https://www.db-fiddle.com
+          - https://www.google.com/search?q=sql+fiddle+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+fidd&aqs=chrome.1.69i57j35i39j0l4.3029j0j7&sourceid=chrome&ie=UTF-8
+
+
+          dost podobny, ale s trochou zabavy navic jsou vselijaky *SQL challenges*, kde krom toho prostredi na dotazy dostanete i nejake ukoly k vyreseni:
+          - https://www.hackerrank.com/domains/sql
+          - https://sqlzoo.net/%7C
+          - https://www.google.com/search?q=sql+challenges+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+challenges+&aqs=chrome.1.69i57j0l5.6779j0j7&sourceid=chrome&ie=UTF-8
+
+          a pak nejaka vase *zadarmo cloudova databaze*, do ktere si muzete nalit data a hrat si s nima z SQL klienta, nebo nejake appky, skriptu, proste odkudkoliv
+          _uplne zadarmo_
+          - https://www.heroku.com/postgres (max 10000 radek)
+          - https://free.caspio.com/ (ruzny omezeni v zadarmo verzi, ale celkem dost toho je zadarmicko)
+          _na rok zadarmo_
+          - https://azure.microsoft.com/en-us/pricing/details/sql-database/managed
+          - https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=productcategories%23database
+
+
+          Peknej den
         </v-flex>
     </v-layout>
   </v-container>
