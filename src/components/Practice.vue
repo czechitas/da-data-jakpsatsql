@@ -38,21 +38,156 @@
                     <v-icon right dark>play_arrow</v-icon>
                   </v-btn>
 
+                  <div style="padding: 2em;"></div>
+
                   <ul>
-                    <li>první pokus<v-icon @click="iconClicked(0)">{{ icon }}</v-icon>
-                        <pre v-if="lesson1[0]" id="switch-first-try-panel" v-highlightjs><code class="sql">SELECT 1; -- vybere 1</code></pre>
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">První select</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(0)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[0] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[0]" v-highlightjs>
+                            <code class="sql">
+                              SELECT 1; -- vybere 1
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
                     </li>
-                    <li>vsechno<pre v-highlightjs><code class="sql">SELECT * FROM teror; -- vybere vsechny sloupce a radky z tabulky teror</code></pre></li>
-                    <li>omezeni sloupecku<pre v-highlightjs><code class="sql">SELECT nkillter FROM teror; -- vybere pouze sloupec nkillter z tabulky teror</code></pre></li>
-                    <li>filtrovani radek<pre v-highlightjs><code class="sql">SELECT nkillter FROM teror WHERE nkillter > 100; -- vybere vsechny radky, kde je nkillter vetsi jak 100</code></pre></li>
-                    <li>prejmenovani sloupecku<pre v-highlightjs><code class="sql">SELECT nkillter AS zabito_teroristu FROM teror;</code></pre></li>
-                    <li>spojeni sloupecku<pre v-highlightjs><code class="sql">SELECT mesto || stat FROM teror;</code></pre></li>
-                    <li>nasobeni, deleni<pre v-highlightjs><code class="sql">SELECT 25 * 30;</code></pre></li>
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Všechno</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(1)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[1] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[1]" v-highlightjs>
+                            <code class="sql">
+                              SELECT * FROM teror; -- vybere vsechny sloupce a radky z tabulky teror
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
+
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Omezení sloupečku</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(2)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[2] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[2]" v-highlightjs>
+                            <code class="sql">
+                              SELECT nkillter FROM teror; -- vybere pouze sloupec nkillter z tabulky teror
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
+
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Filtrovaní řádek</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(3)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[3] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[3]" v-highlightjs>
+                            <code class="sql">
+                              SELECT nkillter FROM teror WHERE nkillter > 100; -- vybere vsechny radky, kde je nkillter vetsi jak 100
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
+
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Přejmenovaní sloupečku</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(4)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[4] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[4]" v-highlightjs>
+                            <code class="sql">
+                              SELECT nkillter AS zabito_teroristu FROM teror;
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
+
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Spojeni sloupečků</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(5)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[5] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[5]" v-highlightjs>
+                            <code class="sql">
+                              SELECT mesto || stat FROM teror;
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
+
+                    <li>
+                      <v-layout row wrap>
+                        <v-flex xs4>
+                          <span class="headline">Násobení, dělení</span>
+                        </v-flex>
+                        <v-flex class="text-xs-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="iconClicked(6)" fab small dark outline>
+                            <v-icon>{{ lesson1_icons[6] }}</v-icon>
+                          </v-btn>
+                        </v-flex>
+                        <v-flex xs12>
+                          <pre v-if="lesson1[6]" v-highlightjs>
+                            <code class="sql">
+                              SELECT 25 * 30;
+                            </code>
+                          </pre>
+                        </v-flex>
+                      </v-layout>
+                    </li>
                   </ul>
                   
+                  <div style="padding: 2em;"></div>
+
                   <v-alert value="info" type="info" color="info" label="info" outline>
                     ÚKOLY
                   </v-alert>
+
+
                 </v-card-text>
               </v-card>
             </v-tab-item>
@@ -125,22 +260,22 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: "Practice",
   data() {
     return {
       lesson1: [false, false, false, false, false, false, false],
-      lesson1_icons: ["remove_red_eye", "remove_red_eye"],
-      icon: "remove_red_eye"
+      lesson1_icons: ["visibility", "visibility",  "visibility",  "visibility",  "visibility",  "visibility",  "visibility"]
     }
   },
   methods: {
     iconClicked(index) {
-      console.log(index)
-      console.log(this.lesson1[index])
-      this.lesson1[index] = !this.lesson1[index]
+      Vue.set(this.lesson1, index, !this.lesson1[index]);
+      //this.lesson1[index] = !this.lesson1[index]
       this.lesson1_icons[index] = this.lesson1[index] ? "visibility_off" : "visibility"
-      this.icon = this.lesson1[index] ? "visibility_off" : "visibility"
+      console.log(index)
     }
   }
 }
