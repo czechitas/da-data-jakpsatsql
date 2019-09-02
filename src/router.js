@@ -6,7 +6,7 @@ import Theory from "./components/Theory"
 import Database from "./components/Database"
 import Relations from "./components/Relations"
 import Practice from "./components/Practice"
-import Tahak from "./components/Tahak"
+import Tips from "./components/Tips"
 import About from "./components/About"
 
 Vue.use(Router)
@@ -38,10 +38,10 @@ const router = new Router({
       component: Relations,
     },
     {
-      path: "/tahak",
-      meta: { title: "Tahák", icon: "help" },
-      name: "Tahak",
-      component: Tahak,
+      path: "/tips",
+      meta: { title: "Užitečné", icon: "help" },
+      name: "Tips",
+      component: Tips,
     },
     {
       path: "/practice",
@@ -58,7 +58,7 @@ const router = new Router({
     {
       path: "*",
       redirect: "/home",
-      meta: { title: "test", icon: "help", hideInMenu: true }
+      meta: { title: "all", icon: "help", hideInMenu: true }
     }  
   ],
 })

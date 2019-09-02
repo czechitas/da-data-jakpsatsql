@@ -64,51 +64,6 @@
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
-
-          <p>
-          ptalo se me nekolik z vas individualne, kde si hrat se SQL, az vypnu snowflake. Cest je nekolik:
-          </p>
-          <p>
-          ruzne *SQL fiddlery* (misto, kde si muzete zkouset psat dotazy nad nejakymi daty a ta vec vam ukaze, co to vraci):
-          </p>
-          <ul>
-            <li><a href="http://sqlfiddle.com/">http://sqlfiddle.com/</a></li>
-            <li><a href="https://www.db-fiddle.com">https://www.db-fiddle.com/</a></li>
-            <li>
-              <a href="https://www.google.com/search?q=sql+fiddle+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+fidd&aqs=chrome.1.69i57j35i39j0l4.3029j0j7&sourceid=chrome&ie=UTF-8">
-                https://www.google.com/search?q=sql+fiddle+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+fidd&aqs=chrome.1.69i57j35i39j0l4.3029j0j7&sourceid=chrome&ie=UTF-8
-              </a>
-            </li>
-          </ul>
-          <p>
-            dost podobny, ale s trochou zabavy navic jsou vselijaky *SQL challenges*, kde krom toho prostredi na dotazy dostanete i nejake ukoly k vyreseni:
-          </p>
-          <ul>
-            <li><a href="https://www.hackerrank.com/domains/sql">https://www.hackerrank.com/domains/sql</a></li>
-            <li><a href="https://sqlzoo.net/%7C">https://sqlzoo.net/%7C</a></li>
-            <li>
-              <a href="https://www.google.com/search?q=sql+challenges+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+challenges+&aqs=chrome.1.69i57j0l5.6779j0j7&sourceid=chrome&ie=UTF-8">
-              https://www.google.com/search?q=sql+challenges+online&rlz=1C1GGRV_enCZ767CZ767&oq=sql+challenges+&aqs=chrome.1.69i57j0l5.6779j0j7&sourceid=chrome&ie=UTF-8</a>
-            </li>
-          </ul>
-          <p>
-            a pak nejaka vase *zadarmo cloudova databaze*, do ktere si muzete nalit data a hrat si s nima z SQL klienta, nebo nejake appky, skriptu, proste odkudkoliv
-          </p>
-          <p>_uplne zadarmo_</p>
-          <ul>
-            <li><a href="https://www.heroku.com/postgres">https://www.heroku.com/postgres (max 10000 radek)</a></li>
-            <li><a href="https://free.caspio.com/">https://free.caspio.com/ (ruzny omezeni v zadarmo verzi, ale celkem dost toho je zadarmicko)</a></li>
-          </ul>
-          <p>_na rok zadarmo_</p>
-          <ul>
-            <li><a href="https://azure.microsoft.com/en-us/pricing/details/sql-database/managed">https://azure.microsoft.com/en-us/pricing/details/sql-database/managed</a></li>
-            <li>
-              <a href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=productcategories%23database">
-                https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=productcategories%23database
-              </a>
-            </li>
-          </ul>
-          <p>Peknej den</p>
         </v-flex>
     </v-layout>
   </v-container>
