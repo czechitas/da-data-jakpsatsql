@@ -2,9 +2,8 @@
     <v-list>
         <v-list-tile avatar>
           <v-list-tile-avatar color="white">
-            <v-img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" height="34"/>
+            <img src="../assets/sql-logo.png" />
           </v-list-tile-avatar>
-
           <v-list-tile-title class="title">
             Jak psát SQL
           </v-list-tile-title>

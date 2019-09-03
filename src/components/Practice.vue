@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap>
-      <v-flex xs3 text-xs-center>
+      <!-- <v-flex xs3 text-xs-center>
         <a href="https://www.snowflake.com/" target="_blank"><img src="../assets/snowflake-logo-blue.png" alt="snowflake" title="snowflake"/></a>
       </v-flex>
       <v-flex xs6 text-xs-center>
@@ -18,7 +18,53 @@
       </v-flex>
       <v-flex xs3 text-xs-center>
         <a class="title" href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf" target="_blank">Codebook</a>
+      </v-flex> -->
+
+      <v-flex xs12 md4 lg4>
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="../assets/snowflake-logo.png">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>Snowflake</v-list-tile-title>
+              <v-list-tile-sub-title><a href="https://hu05637.eu-west-1.snowflakecomputing.com/console/login#/" target="_blank">https://hu05637.eu-west-1.snowflakecomputing.com/console/login#/</a></v-list-tile-sub-title>
+              <v-list-tile-sub-title>Prihlaseni: PRIJMENI/Heslo1Heslo2</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-flex>
+      <v-flex xs12 md4 lg4>
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="../assets/gtb-logo.jpg">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>Global Terrorism Database (GTD)</v-list-tile-title>
+              <v-list-tile-sub-title><a href="https://www.start.umd.edu/gtd/" target="_blank">https://www.start.umd.edu/gtd/</a></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-flex>
+      <v-flex xs12 md4 lg4>
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="../assets/gtb-logo.jpg">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>GTD - Codebook</v-list-tile-title>
+              <v-list-tile-sub-title><a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf" target="_blank">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+       </v-flex>
+      
+      <v-flex xs12></v-flex>
 
       <v-flex xs12>
         <v-card>
