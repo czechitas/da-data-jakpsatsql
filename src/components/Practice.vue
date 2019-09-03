@@ -41,6 +41,9 @@
                       <v-layout row wrap>
                         <v-flex xs4>
                           <span class="headline">{{ lecture["header"] }}</span>
+                          <ul>
+                             <li v-for="(note, note_index) in lecture['notes']" :key="note_index">{{ note }}</li>
+                          </ul>
                         </v-flex>
                         <v-flex class="text-xs-right" xs8>
                           <v-btn color="warning" title="Zobrazit řešení" @click="showClicked(lesson_index, lecture_index)" fab small dark outline>
@@ -75,7 +78,9 @@
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
-                          <img v-if="task['screen_visible']" :src="task['screen']" />
+                          <viewer style="cursor: zoom-in;" v-if="task['screen_visible']" :images="[task['screen']]" :options="viewerOptions">
+                            <img :src="task['screen']">
+                          </viewer>
                           <pre v-if="task['code_visible']" v-highlightjs>
                             <code class="sql">{{ task["code"] }}</code>
                           </pre>
@@ -96,17 +101,22 @@
 
 <script>
 import Vue from 'vue'
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
+Vue.use(Viewer)
 
 export default {
   name: "Practice",
   data() {
     return {
+      viewerOptions: { "toolbar": false, "navbar": false, "title": false },
       lessons: [
         {
           name: "Základy",
           lectures: [
             {
               header: "První select",
+              notes: ["klíčová slova", "velikost písmen"],
               visible: false,
               code: ["SELECT 1;   -- vybere 1",
                       " SELECT '1'; -- vybere '1'"]
@@ -132,34 +142,40 @@ export default {
             {
               header: "Limit",
               visible: false,
-              code: ["SELECT * FROM TEROR LIMIT 10; -- vybere 10 nahodnych radku z tabulky TEROR"] 
+              code: ["SELECT * FROM teror LIMIT 10; -- vybere 10 nahodnych radku z tabulky teror"] 
             },
             {
               header: "Distinct",
               visible: false,
-              code: ["SELECT DISTINCT(country_txt) FROM TEROR; -- vybere unikatni hodnoty ve sloupi country_txt z tabulky TEROR"] 
+              code: ["SELECT DISTINCT(country_txt) FROM teror; -- vybere unikatni hodnoty ve sloupi country_txt z tabulky teror"] 
             },
             {
               header: "Count",
               visible: false,
-              code: ["SELECT COUNT(*) FROM TEROR; -- spocita pocet radku v tabulce TEROR",
-                      "SELECT COUNT(*) FROM TEROR LIMIT 10;"] 
+              code: ["SELECT COUNT(*) FROM teror; -- spocita pocet radku v tabulce teror"] 
+            },
+            {
+              header: "Order by",
+              notes: ["DESC", "ASC"],
+              visible: false,
+              code: ["SELECT nkillter FROM teror ORDER BY nkillter; -- vypise radky serazene podle sloupce nkillter"] 
             },
             {
               header: "Přejmenovaní sloupečku",
+              notes: ["uvozovky ' vs \""],
               visible: false,
               code: ["SELECT nkillter AS zabito_teroristu FROM teror; -- prejmenuje sloupecek nkillter na zabito_teroristu",
                       " SELECT nkillter AS \"zabito teroristu\" FROM teror; -- prejmenuje sloupecek nkillter na zabito teroristu"]
             },
             {
-              header: "Spojeni sloupečků",
+              header: "Spojení sloupečků",
               visible: false,
-              code: ["SELECT mesto || stat FROM teror;"]
+              code: ["SELECT city || country_txt FROM teror;", " SELECT CONCAT(city,country_txt) FROM teror;"]
             },
             {
               header: "Násobení sloupečků",
               visible: false,
-              code: ["SELECT nkill * 3 + FROM teror;"]
+              code: ["SELECT nkill * 3 + nwound FROM teror;"]
             },
             {
               header: "Filtrovaní řádek",
@@ -170,24 +186,80 @@ export default {
           tasks: [
             {
               header: "Vyber vše z tabulky terror",
-              code: "SELECT * FROM TEROR;",
+              code: "SELECT * FROM teror;",
               code_visible: false,
-              screen: "/img/snowflake-logo-blue.png",
+              screen: require("@/assets/lessons/1/tasks/A.png"),
               screen_visible: false
             },
             {
-              header: "Zobraz prvních deset řádek z tabulky TEROR",
-              code: "SELECT * FROM TEROR LIMIT 10;",
+              header: "Zobraz prvních deset řádek z tabulky teror",
+              code: "SELECT * FROM teror LIMIT 10;",
               code_visible: false,
-              screen: "/img/snowflake-logo-blue.png",
+              screen: require("@/assets/lessons/1/tasks/A.png"),
               screen_visible: false
 
             },
             {
-              header: "Zobraz všechny sloupečky z tabulky TEROR",
-              code: "SELECT * FROM TEROR;",
+              header: "Vypiš jen sloupce eventid, iyear, counry_txt, region_txt",
+              code: "SELECT eventid,iyear,country_txt,region_txt FROM teror;",
               code_visible: false,
-              screen: "/img/snowflake-logo-blue.png",
+              screen: require("@/assets/lessons/1/tasks/B.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Vypiš všechny roky vyskytující se v tabulce teror tak aby byl každý rok ve výsledné tabulce jen jednou",
+              code: "SELECT DISTICT iyear FROM teror;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/C.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Vyber všechny teroristické útoky v roce 2016",
+              code: "SELECT * FROM teror WHERE iyear=2016;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/D.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, counry_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
+              code: "SELECT eventid as udalost,iyear as rok,country_txt as zeme,region_txt as region from teror where iyear=2015;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/E.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imont a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
+              code: "SELECT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/F.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Seřaď datum z předchozího selektu sestupně (desc) a vypiš jen jedinečné záznamy",
+              code: "SELECT DISTINCT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014 ORDER BY datum DESC;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/G.png"),
+              screen_visible: false
+
+            },
+            {
+              header: "Vypiš počet teroristických utoků které se staly po roce 2015",
+              code: "SELECT count(*) FROM teror WHERE iyear>2015;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/H.png"),
+              screen_visible: false
+
+            },
+            /* {
+              header: "Zobraz všechny sloupečky z tabulky teror",
+              code: "SELECT * FROM teror;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/C.png"),
               screen_visible: false
             },
             {
@@ -212,7 +284,7 @@ export default {
               header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
               visible: false,
               hints: []
-            }
+            } */
           ],
         },
         {
@@ -222,8 +294,8 @@ export default {
               header: "Where (string function)",
               visible: false,
               code: ["SELECT SPLIT('127.0.0.1', '.');",
-                      "SELECT SPLIT(city, ' ') FROM TEROR; -- vybere vsechny mesta a rozdeli je podle posctu slov",
-                      "SELECT city FROM TEROR WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova"] 
+                     " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle posctu slov",
+                     " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova"] 
             },
             {
               header: "Where (math function)",
@@ -255,7 +327,7 @@ export default {
             {
               header: "Vyber vše z tabulky terror",
               code_visible: false,
-              code: "SELECT * FROM TEROR;",
+              code: "SELECT * FROM teror;",
               screen: "lesson_1_task_1.png",
               screen_visible: false,
             },
@@ -373,9 +445,9 @@ export default {
               header: "vyberte vsechny organizace, které nezopakovaly útok mimo Evropu (spáchaly maximálně jeden mimoevropsky útok) u kazde vypiste tri utoky s nejvetsim poctem obeti do vypisu dejte gname, nwound, nkill, city a zemi pripojenou z tabulky country pres sloupecek id",
             },
             {
-              header: "co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM TEROR2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(1) > 5), SERAZENO AS" +
+              header: "co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM teror2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(1) > 5), SERAZENO AS" +
                       "(SELECT GNAME, NKILL, IFNULL(NKILL, 0), NWOUND, EVENTDATE, COUNTRY, CITY, ROW_NUMBER() OVER (PARTITION BY GNAME ORDER BY IFNULL(NKILL, 0) DESC) RN" +
-                      "FROM TEROR2 WHERE GNAME IN (SELECT GNAME FROM SUCORG))" +
+                      "FROM teror2 WHERE GNAME IN (SELECT GNAME FROM SUCORG))" +
                       "SELECT S.GNAME, S.NKILL, S.NWOUND, S.EVENTDATE, S.CITY,  C.NAME COUNTRY" +
                       "FROM SERAZENO S LEFT JOIN COUNTRY C ON S.COUNTRY = C.ID" +
                       "WHERE S.RN <= 3" +
@@ -400,8 +472,7 @@ export default {
       Vue.set(this.lessons[lesson_index]['lectures'][lecture_index], 'visible', !this.lessons[lesson_index]['lectures'][lecture_index]['visible']);
     },
     hintClicked(lesson_index, hint_type, hint_index) {
-      console.log(this.lessons[lesson_index]['tasks'][index])
-      Vue.set(this.lessons[lesson_index]['tasks'][hint_index], type + '_visible', !this.lessons[lesson_index]['tasks'][hint_index][type + '_visible']);
+      Vue.set(this.lessons[lesson_index]['tasks'][hint_index], hint_type + '_visible', !this.lessons[lesson_index]['tasks'][hint_index][hint_type + '_visible']);
     }
   }
 }
