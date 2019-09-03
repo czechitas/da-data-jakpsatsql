@@ -208,7 +208,7 @@ export default {
 
             },
             {
-              header: "Vypiš všechny roky vyskytující se v tabulce teror tak aby byl každý rok ve výsledné tabulce jen jednou",
+              header: "Vypiš všechny roky vyskytující se v tabulce teror, tak aby byl každý rok ve výsledné tabulce jen jednou",
               code: "SELECT DISTICT iyear FROM teror;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/C.png"),
@@ -248,7 +248,7 @@ export default {
 
             },
             {
-              header: "Vypiš počet teroristických utoků které se staly po roce 2015",
+              header: "Vypiš počet teroristických útoků, které se staly po roce 2015",
               code: "SELECT count(*) FROM teror WHERE iyear>2015;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/H.png"),
