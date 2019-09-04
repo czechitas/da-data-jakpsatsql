@@ -1,4 +1,5 @@
-<template>P  <v-container fluid fill-height>
+<template>
+  <v-container fluid fill-height>
     <v-layout>
         <v-flex>
           <v-stepper v-model="current_index" non-linear>
