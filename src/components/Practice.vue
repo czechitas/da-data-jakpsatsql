@@ -270,7 +270,7 @@ export default {
 
             },
             {
-              header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, counry_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
+              header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, country_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
               code: "SELECT eventid as udalost,iyear as rok,country_txt as zeme,region_txt as region from teror where iyear=2015;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/E.png"),
@@ -278,7 +278,7 @@ export default {
 
             },
             {
-              header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imont a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
+              header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imonth a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
               code: "SELECT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/F.png"),
