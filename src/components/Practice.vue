@@ -238,7 +238,7 @@ export default {
               screen_visible: false
             },
             {
-              header: "Zobraz prvních deset řádek z tabulky teror",
+              header: "Zobraz náhodných deset řádek z tabulky teror",
               code: "SELECT * FROM teror LIMIT 10;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/A.png"),
@@ -255,7 +255,7 @@ export default {
             },
             {
               header: "Vypiš všechny roky vyskytující se v tabulce teror, tak aby byl každý rok ve výsledné tabulce jen jednou",
-              code: "SELECT DISTICT iyear FROM teror;",
+              code: "SELECT DISTINCT iyear FROM teror;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/C.png"),
               screen_visible: false
