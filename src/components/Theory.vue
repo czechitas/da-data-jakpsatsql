@@ -1,4 +1,4 @@
-<template>
+,<template>
 <v-container fluid fill-height>
   <v-layout>
     <v-flex>
@@ -31,7 +31,7 @@
                 <v-card class="mb-12" flat>
                   <v-card-text>
                     <p>
-                        Datový analytik bez SQL je nesmysl. Datová analytička jakbysmet. Kdo viděl nějaký inzerát na analytika bez požadavku na SQL je buď z Marsu nebo trpí halucinacemi anebo dyslexií. 
+                        Datový analytik bez SQL je nesmysl. Datová analytička jakbysmet. Kdo viděl nějaký inzerát na analytika bez požadavku na SQL, je buď z Marsu, nebo trpí halucinacemi anebo dyslexií. 
                         SQL je dotazovací jazyk, díky němuž můžeme pracovat s daty v databázích apod.
                     </p>
                     <a href="https://cs5.pikabu.ru/post_img/big/2015/02/16/7/1424082068_179818413.jpg" target="_blank"><img src="../assets/google.jpg" width="800"></a>
@@ -47,7 +47,7 @@
                 <v-card class="mb-12" flat>
                   <v-card-text>
                     <p>
-                        Když se v elektronickém pravěku objevily první databáze, bylo to v USA. Ještě předtím - v elektronických třetihorách měla každá aplikace data uložená jaksi po svém. 
+                        Když se v elektronickém pravěku objevily první databáze, bylo to v USA. Ještě předtím - v elektronických třetihorách - měla každá aplikace data uložená jaksi po svém. 
                         Což byl nesmysl a tak logicky vznikly databáze. A s nimi i dotazovací jazyk SQL. Prvními uživateli byli kromě vědců i úředníci a vojáci, respektive vojenští úředníci. 
                         Takže většinou paní v nejlepších letech před důchodem. I to je možná jeden z důvodů, proč je SQL (standardizovaný strukturovaný dotazovací jazyk) vytvořen tak,
                         aby byl čitelný i lidským okem a člověk pracující 40 let v kartotéce, si za ním uměl něco představit. 
@@ -73,7 +73,7 @@
                     <p>
                         Představ si tabulku, libovolnou. Má řádky a sloupečky? Paráda. Jsou v prvním řádku názvy těch sloupečků? Super. Právě si představuješ asi nejjednodušší formu dat. 
                         Data jsou teď všude - od instagramu, přes chytrá města až po místy o trochu méně chytrou státní správu. A i úplně pitomé fotky v mobilu jsou vlastně uložené v databázi,
-                        nebo hned několika databázích zároveň. Skoro celý internet je taky uložený v databázi, protože jednou z výhod databází je, že se v nich s daty pracuje mnohem snáz,
+                        nebo hned v několika databázích zároveň. Skoro celý internet je taky uložený v databázi, protože jednou z výhod databází je, že se v nich s daty pracuje mnohem snáz,
                         než kdekoliv jinde, jako například na disku, v excelu, google sheetu, xml a tak vůbec..
                     </p>
                   </v-card-text>
