@@ -19,10 +19,10 @@
               <v-stepper-content step="1">
                 <v-card class="mb-12" flat>
                   <v-card-text>
-                    Jak to začalo? Ve zkratce jsme kdysi s druhým týpkem přezdívaným Padák (blog) viděli prezentaci závěrečných projektů digitální akademie a bylo nám líto, 
-                    že SQL spíš připomínalo Marušku z Dvanácti měsíčků než nepostradatelný nástroj, přešlapovalo ušmudlané v koutě, a na práci s daty holky používaly radši python a excel. 
+                    Jak to začalo? Ve zkratce jsme kdysi s druhým týpkem přezdívaným Padák (blog) viděli prezentaci závěrečných projektů Digitální akademie a bylo nám líto, 
+                    že SQL spíš připomínalo Marušku z Dvanácti měsíčků než nepostradatelný IT nástroj, přešlapovalo ušmudlané v koutě a na práci s daty holky používaly radši python a excel. 
                     To jsme tak nechtěli nechat a protože nejsme žádní hateři, chopili jsme se příštího kurzu sami. Chtěli jsme to do holek nalít jednoduše, vtipně, efektivně. 
-                    I proto jsme naskočili na  Snowflake, databázi v cloudu, která se nemusí instalovat a tím se ušetří minimálně jedna lekce. 
+                    I proto jsme naskočili na Snowflake, databázi v cloudu, která se nemusí instalovat, takže se tím ušetří čas, který by zabrala minimálně jedna lekce. 
                     Vyházeli, nebo spíš vynechali jsme všechna témata, která nejsou pro začínajícího analytika důležitá, oholili teorii na dřeň a posunuli ji na konec. 
                     Prostě jsme chtěli, aby holky měly první select za sebou v první čtvrt hodině a další následovaly tak rychle, aby než se rozkoukají, 
                     byl konec kurzu a z party zelenáčů datařky.
