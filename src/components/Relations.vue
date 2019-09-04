@@ -34,8 +34,7 @@ Nevýhody. Například se nám změní adresa prodejny. U takových změn budeme
 Procesu vytváření vazeb mezi tabulky se říká normalizace. Normalizovaná databáze je šikovná pro většinu aplikací,
                       snadno se z ní dostane menší množství dat a stejně snadno se data v ní změní/přidají. Čitelnost lidským okem je sice mizerná, ale pro aplikace je normalizace naopak supervýhodná.
                       Jediné, kde může normalizovaná databáze pokulhávat, je analytika. Tam se hodí její sestra ze zrcadla - denormalizovaná tabulka.
-                      Ta má na na každém řádku ve sloupečku barva uloženou barvu v majitele, jméno, příjmení, číslo technického průkazu, obec, kraj a zemi jeho vydání.
-                      Prostě všechno na jedné hromadě, v lidsky čitelné podobě.
+                      Ta má na na každém řádku sloupečky o autě (např.: značka, barva, typ, typ karoserie, datum výroby, kvartál výroby, rok výroby, platnost STK ...), sloupečky o majiteli (firma, ičo, jméno, příjmení, číslo technického průkazu, obec, kraj, zemi, datum a rok jeho vydání, zákaznický segment majitele, počet vozidel, která už koupil, částku, kterou u nás doposud utratil, částku utracenou minulý rok atd.), pak třeba ještě informace o prodeji (cenu, prodejnu, obchodníka, dodací lhůtu a tak). Prostě všechno na jedné hromadě, už pospojované a často se zdánlivě zbytečnými sloupci, které ale usnadňují analýzu.
                     </p>
                   </v-card-text>
                 </v-card>
