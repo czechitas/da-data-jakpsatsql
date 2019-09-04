@@ -3,8 +3,8 @@
   <v-layout>
     <v-flex>
         <i class="headline">
-            Teorii doporučuju přeskočit a jít rovnou na věc (odkaz na první cvičení)! A pravidlo, které platí všude, když něčemu nerozumíš, 
-            zkus to vygooglit, určitě to už někdo vysvětlil líp než já. Anebo použij komentáře a zeptej se.
+            Teorii doporučuju přeskočit a jít rovnou na věc. <!-- (odkaz na první cvičení)! --> A pravidlo, které platí všude, když něčemu nerozumíš, 
+            zkus to vygooglit, určitě to už někdo vysvětlil líp než já. <!-- Anebo použij komentáře a zeptej se. -->
         </i>
         <br />
         <br />
