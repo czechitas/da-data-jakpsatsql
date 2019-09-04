@@ -1,4 +1,4 @@
-<template>
+<,template>
   <v-container fluid fill-height>
     <v-layout>
         <v-flex>
@@ -17,34 +17,34 @@
                     </v-card-text>
                     <v-card-text>
                     	<pre v-highlightjs><code class="sql">
--- všechno, co je za dvěma pomlčkami až do konce řádku je komentář, tedy to engine ignoruje
+-- všechno, co je za dvěma pomlčkami až do konce řádku, je komentář (tedy to engine ignoruje)
 /*
 víceřádkové komentáře vypadají
 takhle
 */
-SELECT	--příkazem SELECT enginu říkáme, že chceme aby nám ukázal/vypsal data
+SELECT	--příkazem SELECT enginu říkáme, že chceme, aby nám ukázal/vypsal data
 nas_sloupecek1, nas_sloupecek2, nas_sloupecek3 AS datum, 
 	/* vyjmenováním sloupečků říkáme, které chceme vidět, oddělujeme je 		
 	čárkami, můžeme taky použít alias (AS) */
 funkce(nas_sloupecek1) AS s1	--použitím funkcí můžeme zobrazené sloupečky měnit, kombinovat apod.
-FROM	-- když chceme “selectovat” musíme enginu říct odkud
+FROM	-- když chceme “selectovat”, musíme enginu říct odkud
 nase_tabulka
 	/* nejjednodušší je výběr dat z jedné tabulky, za klíčovým slovem 	
 	FROM můžeme ale i joinovat tabulky, nebo používat vnořené selecty */
 WHERE	/* za WHERE patří podmínky (filtry) určující, které řádky engine vybere, 
-	i 	tady můžeme použít funkce a kombinovat sloupečky */
+	i tady můžeme použít funkce a kombinovat sloupečky */
 ((nas_sloupecek1 = 'textova hodnota')
 OR
 (nas_sloupecek2 = 11))
 AND
 funkce(nas_sloupecek3) > '2001-09-11'
 GROUP BY 
-	/* pokud chceme použít agregační funkce musíme enginu říct podle kterých
+	/* pokud chceme použít agregační funkce, musíme enginu říct, podle kterých
 	sloupečků má data agregovat */
-HAVING	/*filtrje skupinky poDLE AGREGACNICH FUNKCI, TREBA NULOVY SOUCET POCTU 
-	MRTVYCH, CENY APOD.*/
+HAVING	/* filtruje skupinky podle agregačních funkcí, třeba nulový součet počtu 
+	mrtvých, ceny apod.*/
 nas_sloupecek1, nas_sloupecek2, nas_sloupecek3
-ORDER BY 	/* pokud chceme data řadit musíme enginu říct podle kterých sloupečků */
+ORDER BY 	/* pokud chceme data řadit, musíme enginu říct podle kterých sloupečků */
 nas_sloupecek1, nas_sloupecek2, nas_sloupecek3
 LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit 
 
@@ -62,7 +62,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                  <v-card flat color="basil">
                   <v-card-text>
 					<p>
-					Různé <b>SQL fiddlery</b> (místo, kde si můžete zkoušet psát dotazy nad nějákými daty a ta věc vám ukáže, co to vrací):
+					Různé <b>SQL fiddlery</b> (místo, kde si můžete zkoušet psát dotazy nad nějakými daty a ta věc vám ukáže, co to vrací):
 					</p>
 					<ul>
 						<li><a href="http://sqlfiddle.com/">http://sqlfiddle.com/</a></li>
@@ -86,7 +86,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 						</li>
 					</ul>
 					<p>
-						A pak nějáká vaše <b>zadarmo cloudova databaze</b>, do které si můžete nalít data a hrát si s nima z SQL klienta, nebo nějáké appky, skriptu, prosťe odkudkoliv
+						A pak nějaká vaše <b>zadarmo cloudova databaze</b>, do které si můžete nalít data a hrát si s nima z SQL klienta, nebo nějáké appky, skriptu, prosťe odkudkoliv
 					</p>
 					<p>ZDARMA</p>
 					<ul>
