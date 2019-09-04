@@ -1,5 +1,4 @@
-<template>
-  <v-container fluid fill-height>
+<template>P  <v-container fluid fill-height>
     <v-layout>
         <v-flex>
           <v-stepper v-model="current_index" non-linear>
@@ -35,8 +34,8 @@ Nevýhody. Například se nám změní adresa prodejny. U takových změn budeme
 Procesu vytváření vazeb mezi tabulky se říká normalizace. Normalizovaná databáze je šikovná pro většinu aplikací,
                       snadno se z ní dostane menší množství dat a stejně snadno se data v ní změní/přidají. Čitelnost lidským okem je sice mizerná, ale pro aplikace je normalizace naopak supervýhodná.
                       Jediné, kde může normalizovaná databáze pokulhávat, je analytika. Tam se hodí její sestra ze zrcadla - denormalizovaná tabulka.
-                      Ta má na na každém řádku ve sloupečku barva uloženou barvu v majitele, jméno, příjmení, číslo technického průkazu, obec kraj a zemi jeho vydání,
-                      prostě všechno na jedné hromadě, v lidsky čitelné podobě.
+                      Ta má na na každém řádku ve sloupečku barva uloženou barvu v majitele, jméno, příjmení, číslo technického průkazu, obec, kraj a zemi jeho vydání.
+                      Prostě všechno na jedné hromadě, v lidsky čitelné podobě.
                     </p>
                   </v-card-text>
                 </v-card>
@@ -51,7 +50,7 @@ Procesu vytváření vazeb mezi tabulky se říká normalizace. Normalizovaná d
                   <v-card-text>
                     <p>
                       Magické slovo, jednoduše data o datech, jednoduchým příkladem je tabulka obsahující názvy a parametry všech tabulek v databázi.
-                      Někde se jim říká information schema, jinde system catalog, názvů je hodně, princip je stejný, data o datech.
+                      Někde se jim říká information schema, jinde system catalog. Názvů je hodně, princip je stejný. Data o datech.
                     </p>
                   </v-card-text>
                 </v-card>
