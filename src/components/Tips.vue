@@ -40,7 +40,7 @@ AND
 funkce(nas_sloupecek3) > '2001-09-11'
 GROUP BY 
 	/* pokud chceme použít agregační funkce, musíme enginu říct, podle kterých
-	sloupečků má data agregovat */
+sloupečků má data agregovat */
 HAVING	/* filtruje skupinky podle agregačních funkcí, třeba nulový součet počtu 
 	mrtvých, ceny apod.*/
 nas_sloupecek1, nas_sloupecek2, nas_sloupecek3
@@ -74,7 +74,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 						</li>
 					</ul>
 					<p>
-						Dost podobný, ale s trochou zábavy navíc jsou všelijaký <b>SQL challenges</b>, kde krom toho prostředí na dotazy dostanete i nějáké úkoly k vyřešení:
+						Dost podobný, ale s trochou zábavy navíc, jsou všelijaký <b>SQL challenges</b>, kde krom toho prostředí na dotazy dostanete i nějaké úkoly k vyřešení:
 					</p>
 					<ul>
 						<li><a href="https://www.hackerrank.com/domains/sql">https://www.hackerrank.com/domains/sql</a></li>
@@ -86,11 +86,11 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 						</li>
 					</ul>
 					<p>
-						A pak nějaká vaše <b>zadarmo cloudova databaze</b>, do které si můžete nalít data a hrát si s nima z SQL klienta, nebo nějáké appky, skriptu, prosťe odkudkoliv
+						A pak nějaká vaše <b>zadarmo cloudová databáze</b>, do které si můžete nalít data a hrát si s nima z SQL klienta, nebo nějáké appky, skriptu, prostě odkudkoliv:
 					</p>
 					<p>ZDARMA</p>
 					<ul>
-						<li><a href="https://www.heroku.com/postgres">https://www.heroku.com/postgres (max 10000 radek)</a></li>
+						<li><a href="https://www.heroku.com/postgres">https://www.heroku.com/postgres (max. 10000 radek)</a></li>
 						<li><a href="https://free.caspio.com/">https://free.caspio.com/ (ruzny omezeni v zadarmo verzi, ale celkem dost toho je zadarmicko)</a></li>
 					</ul>
 					<p>ZDARMA NA ROK</p>
