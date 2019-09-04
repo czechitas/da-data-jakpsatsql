@@ -231,7 +231,7 @@ export default {
           ],
           tasks: [
             {
-              header: "Vyber vše z tabulky terror",
+              header: "Vyber vše z tabulky teror",
               code: "SELECT * FROM teror;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/A.png"),
@@ -246,7 +246,7 @@ export default {
 
             },
             {
-              header: "Vypiš jen sloupce eventid, iyear, counry_txt, region_txt",
+              header: "Vypiš jen sloupce eventid, iyear, country_txt, region_txt",
               code: "SELECT eventid,iyear,country_txt,region_txt FROM teror;",
               code_visible: false,
               screen: require("@/assets/lessons/1/tasks/B.png"),
