@@ -1,25 +1,6 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap>
-      <!-- <v-flex xs3 text-xs-center>
-        <a href="https://www.snowflake.com/" target="_blank"><img src="../assets/snowflake-logo-blue.png" alt="snowflake" title="snowflake"/></a>
-      </v-flex>
-      <v-flex xs6 text-xs-center>
-        <a class="title" href="https://hu05637.eu-west-1.snowflakecomputing.com/console/login#/" target="_blank">https://hu05637.eu-west-1.snowflakecomputing.com/console/login#/</a>
-      </v-flex>
-      <v-flex xs3 text-xs-center>
-        <span class="title">Prihlaseni: PRIJMENI/Heslo1Heslo2</span>
-      </v-flex>
-      <v-flex xs3 text-xs-center>
-        <a class="title" href="https://www.start.umd.edu/gtd/" target="_blank"><img src="../assets/gtd-logo.gif" alt="snowflake" title="snowflake"/></a>
-      </v-flex>
-      <v-flex xs6 text-xs-center>
-        <a class="title" href="https://www.start.umd.edu/gtd/" target="_blank">https://www.start.umd.edu/gtd/</a>
-      </v-flex>
-      <v-flex xs3 text-xs-center>
-        <a class="title" href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf" target="_blank">Codebook</a>
-      </v-flex> -->
-
       <v-flex xs12 md4 lg4>
         <v-list class="pa-0">
           <v-list-tile avatar>
@@ -93,7 +74,7 @@
                         </v-flex>
                         <v-flex class="text-xs-right" xs8>
                           <v-btn color="warning" title="Zobrazit řešení" @click="showClicked(lesson_index, lecture_index)" fab small dark outline>
-                            <v-icon>{{ lecture['visible'] ? "visibility_off" : "visibility" }}</v-icon>
+                            <v-icon>{{ lecture['visible'] ? "visibility_off" : "import_contacts" }}</v-icon>
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
@@ -116,11 +97,11 @@
                           <span class="subheading">{{ task["header"] }}</span>
                         </v-flex>
                         <v-flex class="text-xs-right" xs2>
-                          <v-btn color="error" title="Zobazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outline>
+                          <v-btn color="error" title="Zobrazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outline>
                             <v-icon>{{ task['code_visible'] ? "visibility_off" : "visibility" }}</v-icon>
                           </v-btn>
                           <v-btn color="success" title="Zobrazit výsledek" @click="hintClicked(lesson_index, 'screen', task_index)" fab small dark outline>
-                            <v-icon>{{ task['screen_visible'] ? "visibility_off" : "visibility" }}</v-icon>
+                            <v-icon>{{ task['screen_visible'] ? "visibility_off" : "insert_photo" }}</v-icon>
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
@@ -186,25 +167,33 @@ export default {
               code: ["SELECT nkillter FROM teror; -- vybere pouze sloupec nkillter z tabulky teror"]
             },
             {
-              header: "Limit",
+              header: "LIMIT",
               visible: false,
               code: ["SELECT * FROM teror LIMIT 10; -- vybere 10 nahodnych radku z tabulky teror"] 
             },
             {
-              header: "Distinct",
+              header: "DISTINCT",
               visible: false,
               code: ["SELECT DISTINCT(country_txt) FROM teror; -- vybere unikatni hodnoty ve sloupi country_txt z tabulky teror"] 
             },
             {
-              header: "Count",
+              header: "COUNT, AVG, SUM",
               visible: false,
-              code: ["SELECT COUNT(*) FROM teror; -- spocita pocet radku v tabulce teror"] 
+              code: ["SELECT COUNT(*) FROM teror; -- spocita pocet radku v tabulce teror",
+                     " SELECT SUM(nkill) FROM teror; -- spoci celkovy pocet obeti pro vsechny utoky",
+                     " SELECT COUNT(*), SUM(nkill), AVG(nkill) FROM teror;"] 
             },
             {
-              header: "Order by",
+              header: "ORDER BY",
               notes: ["DESC", "ASC"],
               visible: false,
               code: ["SELECT nkillter FROM teror ORDER BY nkillter; -- vypise radky serazene podle sloupce nkillter"] 
+            },
+            {
+              header: "MIN, MAX",
+              visible: false,
+              code: ["SELECT MIN(nwound) FROM teror;",
+                     " SELECT MAX(nkillter) FROM teror;"] 
             },
             {
               header: "Přejmenovaní sloupečku",
@@ -227,7 +216,7 @@ export default {
               header: "Filtrovaní řádek",
               visible: false,
               code: ["SELECT nkillter FROM teror WHERE nkillter > 100; -- vybere vsechny radky, kde je nkillter vetsi jak 100"]
-            },
+            }
           ],
           tasks: [
             {
@@ -300,137 +289,187 @@ export default {
               screen: require("@/assets/lessons/1/tasks/H.png"),
               screen_visible: false
 
-            },
-            /* {
-              header: "Zobraz všechny sloupečky z tabulky teror",
-              code: "SELECT * FROM teror;",
-              code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/C.png"),
-              screen_visible: false
-            },
-            {
-              header: "Vyber z tabulky útoky v Německu, kde zemřel alespoň jeden terorista",
-              visible: false,
-              hints: [
-                "lesson_1_task_1.png",
-                "SELECT * FROM terror WHERE nkillter > 0 and countrytxt = 'Germany';"
-              ]
-            },
-            {
-              header: "Zobraz jen sloupečky GNAME, COUNTRY_TXT, NKILL a všechny řádky (seřazené podle počtu obětí sestupně), na kterých je víc než 340 obětí (počet obětí je ve sloupci NKILL), sloupečky přejmenuj na ORGANIZACE, ZEME, POCET_OBETI",
-              visible: false,
-              hints: []
-            },
-            {
-              header: "Zobraz sloupečky IYEAR, IMONTH, IDAY, GNAME, CITY, ATTACKTYPE1_TXT, TARGTYPE1_TXT, WEAPTYPE1_TXT, WEAPDETAIL, NKILL, NWOUND a vyber jen útoky, které se staly v Czech Republic v letech 2015, 2016 a 2017. Všechna data seřaď chronologicky sestupně",
-              visible: false,
-              hints: []
-            },
-            {
-              header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
-              visible: false,
-              hints: []
-            } */
-          ],
+            }
+          ]
         },
         {
           name: "WHERE",
           lectures: [
             {
-              header: "Where (string function)",
+              header: "Zakladní operátory",
+              notes: [">", "<", "<=", ">=", "!= <>", "="],
+              visible: false,
+              code: ["SELECT city FROM teror WHERE city = 'Prague';",
+                     " SELECT city FROM teror WHERE nhostkid = 1; --vybere mesta, kde byl pri utoku unesen prave jeden clovek",
+                     " SELECT * FROM teror WHERE nkillter > 1; -- vybere vsechny utoky, kde zemrel vic jak jeden terorista"] 
+            },
+            {
+              header: "WHERE (string function)",
+              notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT"],
               visible: false,
               code: ["SELECT SPLIT('127.0.0.1', '.');",
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle posctu slov",
-                     " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova"] 
+                     " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
+                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
+                     " SELECT city, LEFT(city,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
+                     " SELECT city, RIGHT(city,3) as posledni_tri_pismena FROM teror;"] 
             },
             {
-              header: "Where (math function)",
+              header: "WHERE (math function)",
+              notes: ["HAVERSINE"],
               visible: false,
-              code: [] 
+              code: ["HAVERSINE( lat1, lon1, lat2, lon2 )", 
+                     " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;"] 
             },
             {
-              header: "Where (date function)",
+              header: "WHERE (date function)",
+              notes: ["TO_DATE", "DATE_FROM_PARTS", "ADDDATE"],
               visible: false,
-              code: [] 
+              code: ["SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
+                     " SELECT DATE_FROM_PARTS(iyear, imonth, iday) AS datum FROM teror WHERE DATEDIFF('year',datum, DATE_FROM_PARTS(2015,1,1)) = -2;",
+                     " SELECT DATE_FROM_PARTS(iyear, imonth, iday) datum, iyear, imonth, iday, DATEADD(day, 1, datum) AS zitra FROM teror;"] 
             },
             {
-              header: "Where and or and or ((())",
+              header: "AND, OR a závorky",
               visible: false,
-              code: [] 
+              code: ["SELECT * FROM teror WHERE country_txt='Germany' AND (city='Berlin' OR city='München'); -- vybere vsechny utoky v Nemecku, ktere se staly v Berline nebo Mnichove"] 
             },
             {
-              header: "Like, ilike",
+              header: "LIKE, ILIKE",
+              notes: ["% - 0 az N znaku", "_ - jeden znak", "[] - vyber", "^ - not", "- - rozsah"],
               visible: false,
-              code: [] 
+              code: ["SELECT DISTINCT(attacktype1_txt) FROM teror WHERE attacktype1_txt LIKE '%bomb%'; -- vybere unikatni typy utoku, ktere obsahuji slovo bomb(kdekoliv)",
+                     " SELECT DISTINCT(region_txt) FROM teror WHERE region_txt ILIKE '%cz%'; -- vybere unikatni nazvy regionu, ktere obsahuji cz (kdekoliv a v jakekoliv velikosti)",
+                     " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE 'a%'; -- vybere unikatni nazvy organizaci, ktere zacinaji na a",
+                     " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE '_a%'; -- vybere unikatni nazvy organizaci, ktere maji v nazvu druhe pismeno a"] 
             },
             {
-              header: "Between",
+              header: "IN, NOT IN, IS NOT",
               visible: false,
-              code: [] 
+              code: ["SELECT city FROM teror WHERE region_txt NOT IN ('South America','South Asia');",
+                     " SELECT GNAME FROM teror WHERE region_txt IN ('Eastern Europe','Western Europe');",
+                     " SELECT weaptype1_txt, nkillter FROM teror WHERE nkillter IS NOT NULL ORDER BY nkillter DESC;"] 
+            },
+            {
+              header: "BETWEEN",
+              visible: false,
+              code: ["SELECT DISTINCT(iyear) FROM teror WHERE iyear BETWEEN 2014 AND 2016; -- vybere unikatni roky mezi roky 2014 a 2016",
+                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror WHERE prvni_pismeno BETWEEN 'A' AND 'C'; -- vybere mesta, ktera zacinaji na A B nebo C"] 
+            },
+            {
+              header: "SELECT CASE",
+              notes: ["IFNULL"],
+              visible: false,
+              code: [`SELECT CASE
+    WHEN nkill IS NULL THEN 1
+    WHEN nkill = 0 THEN 1
+    ELSE nkill
+END AS upraveny_nkill
+FROM teror; -- upravi sloupec nkill aby tam nebyl NULL a 0`,
+`SELECT CASE
+    WHEN region_txt ILIKE '%america%' THEN 'Amerika'
+    WHEN region_txt ILIKE '%africa%' THEN 'Afrika'
+    WHEN region_txt ILIKE '%asia%' THEN 'Asie'
+    ELSE 'Nezname'
+END AS continent
+FROM teror; -- vytvorime sloupec kontinent podle regionu`]
+
             }
           ],
           tasks: [
             {
-              header: "Vyber vše z tabulky terror",
+              header: "Vyber z tabulky útoky v Německu, kde zemřel alespoň jeden terorista",
+              code: "SELECT * FROM terror WHERE nkillter > 0 AND country_txt = 'Germany';",
               code_visible: false,
-              code: "SELECT * FROM teror;",
-              screen: "lesson_1_task_1.png",
-              screen_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
+            },
+            {
+              header: "Zobraz jen sloupečky GNAME, COUNTRY_TXT, NKILL a všechny řádky (seřazené podle počtu obětí sestupně), na kterých je víc než 340 obětí (počet obětí je ve sloupci NKILL), sloupečky přejmenuj na ORGANIZACE, ZEME, POCET_OBETI",
+              code: "SELECT GNAME AS ORGANIZACE, COUNTRY_TXT AS zeme, NKILL AS POCET_OBETI FROM teror WHERE nkill > 340 ORDER BY POCET_OBETI DESC;",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
+            },
+            {
+              header: "Zobraz sloupečky IYEAR, IMONTH, IDAY, GNAME, CITY, ATTACKTYPE1_TXT, TARGTYPE1_TXT, WEAPTYPE1_TXT, WEAPDETAIL, NKILL, NWOUND a vyber jen útoky, které se staly v Czech Republic v letech 2015, 2016 a 2017. Všechna data seřaď chronologicky sestupně",
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
+            },
+            {
+              header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Z iYear, iMonth a iDay vytvořte sloupeček datum a vypište tohle datum a pak datum o tři měsíce později a klidně i o tři dny a tři měsíce",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Vypiš všechny druhy útoků ATTACKTYPE1_TXT",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Vypiš všechny útoky v Německu v roce 2015, vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Ve sloupečku COUNTRY_TXT bude všude hodnota ‘Německo’",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Vypiš všechny útoky z roku 2014, ke kterým se přihlásil Islámský stát ('Islamic State of Iraq and the Levant (ISIL)').Vypiš sloupečky IYEAR, IMONTH, IDAY, GNAME, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND a na konec přidej sloupeček EventImpact, který bude obsahovat:\n'Massacre' pro útoky s víc než 1000 obětí</li>\n'Bloodbath' pro útoky s 501 - 1000 obětmi\n'Carnage' pro ůtoky s 251 - 500 obětmi\n'Blodshed' pro útoky se 100 - 250 obětmi\n'Slaugter' pro útoky s 1 - 100 obětmi\na ‘N/A’ pro všechny ostatní útoky.</li>",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Vypiš všechny útoky s alespoň jednou obětí z Německa, Rakouska, Švýcarska, Francie a Itálie. U Německa, Rakouska, Švýcarska nahraď region_txt za ‘DACH’ u zbytku nech původní region. Vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Výstup seřaď podle počtu raněných sestupně",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
             {
               header: "Vypiš COUNTRY_TXT, CITY, NWOUND a přidej sloupeček vzdalenost_od_albertova obsahující vzdálenost místa útoku z pražské části Albertov v km a sloupeček kategorie obsahující ‘Blízko’ pro útoky bližší 2000 km a ‘Daleko’ pro ostatní. Vypiš jen útoky s víc než stovkou raněných a seřad je podle vzdálenosti od Albertova",
-              visibility: false,
-              hints: []
+              code: "",
+              code_visible: false,
+              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen_visible: false
             },
           ]
         },
         {
-          name: "JOINY",
+          name: "GROUP BY + HAVING",
           lectures: [
-
-          ],
-          tasks: [
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a pres sloupecek country pripoj zemi z tabulky country",
+              header: "Fyzicke SQL :)"
             },
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2",
+              header: "GROUP BY jeden sloupec",
+              visible: false,
+              code: ["SELECT region_txt, count(*) as pocet_udalosti FROM teror GROUP BY region_txt; -- vypise celkovy pocet udalosti v jednotlivych regionech"] 
             },
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a  -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2 -- vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')",
+              header: "GROUP BY vice sloupcu"
             },
             {
-              header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
+              header: "COUNT, AVG, SUM"
+            },
+            {
+              header: "Filtrovani skupin - HAVING"
             }
-          ]
-        },
-        {
-          name: "GROUP BY",
+          ],
           tasks: [
             {
               header: "Zjisti počet obětí a raněných po letech",
@@ -456,7 +495,27 @@ export default {
           ]
         },
         {
-          name: "HAVING",
+          name: "JOINY",
+          lectures: [
+
+          ],
+          tasks: [
+            {
+              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a pres sloupecek country pripoj zemi z tabulky country",
+            },
+            {
+              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2",
+            },
+            {
+              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a  -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2 -- vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')",
+            },
+            {
+              header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
+            }
+          ]
+        },
+        {
+          name: "INSERT, DELETE, CREATE, ALTER a IMPORT DAT",
           tasks: [
             {
               header: "",
