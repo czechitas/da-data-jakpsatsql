@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Viewer from 'v-viewer'
 import './plugins/vuetify'
 import theme from './theme'
 import Vuetify from "vuetify"
@@ -23,6 +24,8 @@ Vue.use(VueHighlightJS, {
 Vue.use(Vuetify, {
   theme
 })
+
+Vue.use(Viewer)
 
 new Vue({
   router,

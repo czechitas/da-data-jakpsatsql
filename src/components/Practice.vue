@@ -105,6 +105,11 @@
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
+                          <ul>
+                            <li v-for="(subheader, subheader_index) in task['subheaders']" :key="subheader_index">{{ subheader }}</li>
+                          </ul>
+                        </v-flex>
+                        <v-flex xs12>
                           <viewer style="cursor: zoom-in;" v-if="task['screen_visible']" :images="[task['screen']]" :options="viewerOptions">
                             <img :src="task['screen']">
                           </viewer>
@@ -129,8 +134,6 @@
 <script>
 import Vue from 'vue'
 import 'viewerjs/dist/viewer.css'
-import Viewer from 'v-viewer'
-Vue.use(Viewer)
 
 export default {
   name: "Practice",
@@ -306,7 +309,7 @@ export default {
               notes: [">", "<", "<=", ">=", "!= <>", "="],
               visible: false,
               code: ["SELECT city FROM teror WHERE city = 'Prague';",
-                     " SELECT city FROM teror WHERE nhostkid = 1; --vybere mesta, kde byl pri utoku unesen prave jeden clovek",
+                     " SELECT city FROM teror WHERE nhostkid = 1; -- vybere mesta, kde byl pri utoku unesen prave jeden clovek",
                      " SELECT * FROM teror WHERE nkillter > 1; -- vybere vsechny utoky, kde zemrel vic jak jeden terorista"] 
             },
             {
@@ -314,7 +317,7 @@ export default {
               notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT"],
               visible: false,
               code: ["SELECT SPLIT('127.0.0.1', '.');",
-                     " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle posctu slov",
+                     " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
                      " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
                      " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
                      " SELECT city, LEFT(city,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
@@ -322,7 +325,7 @@ export default {
             },
             {
               header: "WHERE (math function)",
-              notes: ["HAVERSINE", "ROUND", "FLOOR", "CEIL"],
+              notes: ["HAVERSINE", "ROUND", "FLOOR", "CEIL", "EXTRACT"],
               visible: false,
               code: ["HAVERSINE( lat1, lon1, lat2, lon2 )", 
                      " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;",
@@ -330,7 +333,7 @@ export default {
             },
             {
               header: "WHERE (date function)",
-              notes: ["TO_DATE", "DATE_FROM_PARTS", "DATEADD"],
+              notes: ["TO_DATE", "DATE_FROM_PARTS", "DATEADD", "timestamp - jak z toho dostat datum nebo cas"],
               visible: false,
               code: ["SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) AS datum FROM teror WHERE DATEDIFF('year',datum, DATE_FROM_PARTS(2015,1,1)) = -2;",
@@ -360,7 +363,7 @@ export default {
             {
               header: "BETWEEN",
               visible: false,
-              code: ["SELECT DISTINCT(iyear) FROM teror WHERE iyear BETWEEN 2014 AND 2016; -- vybere unikatni roky mezi roky 2014 a 2016",
+              code: ["SELECT DISTINCT(iyear) FROM teror WHERE iyear BETWEEN 2014 AND 2016; -- vybere unikatni roky mezi roky 2014 a 2016 (vcetne krajnich hodnot)",
                      " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror WHERE prvni_pismeno BETWEEN 'A' AND 'C'; -- vybere mesta, ktera zacinaji na A B nebo C"] 
             },
             {
@@ -379,7 +382,7 @@ FROM teror; -- upravi sloupec nkill aby tam nebyl NULL a 0`,
     WHEN region_txt ILIKE '%asia%' THEN 'Asie'
     ELSE 'Nezname'
 END AS continent
-FROM teror; -- vytvorime sloupec kontinent podle regionu`]
+FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillter,0) FROM teror;"]
 
             }
           ],
@@ -400,7 +403,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`]
             },
             {
               header: "Zobraz sloupečky IYEAR, IMONTH, IDAY, GNAME, CITY, ATTACKTYPE1_TXT, TARGTYPE1_TXT, WEAPTYPE1_TXT, WEAPDETAIL, NKILL, NWOUND a vyber jen útoky, které se staly v Czech Republic v letech 2015, 2016 a 2017. Všechna data seřaď chronologicky sestupně",
-              code: "SELECT iyear, imonth, iday, ganem, city, attacktype1_txt, targtype1_txt, weaptype1_txt, weapdetail, nkill, nwound FROM teror WHERE country_txt='Czech Republic' AND IYEAR IN (2015, 2016, 2017) ORDER BY iyear DESC, imonth DESC, iday DESC;",
+              code: "SELECT iyear, imonth, iday, gname, city, attacktype1_txt, targtype1_txt, weaptype1_txt, weapdetail, nkill, nwound FROM teror WHERE country_txt='Czech Republic' AND IYEAR IN (2015, 2016, 2017) ORDER BY iyear DESC, imonth DESC, iday DESC;",
               code_visible: false,
               screen: require("@/assets/lessons/2C.jpg"),
               screen_visible: false
@@ -434,19 +437,20 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`]
               screen_visible: false
             },
             {
-              header: "Vypiš všechny útoky z roku 2014, ke kterým se přihlásil Islámský stát ('Islamic State of Iraq and the Levant (ISIL)').Vypiš sloupečky IYEAR, IMONTH, IDAY, GNAME, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND a na konec přidej sloupeček EventImpact, který bude obsahovat:\n'Massacre' pro útoky s víc než 1000 obětí</li>\n'Bloodbath' pro útoky s 501 - 1000 obětmi\n'Carnage' pro ůtoky s 251 - 500 obětmi\n'Blodshed' pro útoky se 100 - 250 obětmi\n'Slaugter' pro útoky s 1 - 100 obětmi\na ‘N/A’ pro všechny ostatní útoky.</li>",
+              header: "Vypiš všechny útoky z roku 2014, ke kterým se přihlásil Islámský stát ('Islamic State of Iraq and the Levant (ISIL)').Vypiš sloupečky IYEAR, IMONTH, IDAY, GNAME, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND a na konec přidej sloupeček EventImpact, který bude obsahovat:",
+              subheaders: ["'Massacre' pro útoky s víc než 1000 obětí", "'Bloodbath' pro útoky s 501 - 1000 obětmi","'Carnage' pro ůtoky s 251 - 500 obětmi","'Blodshed' pro útoky se 100 - 250 obětmi","'Slaugter' pro útoky s 1 - 100 obětmi","a ‘N/A’ pro všechny ostatní útoky."],
               code: `SELECT iyear, imonth, iday, gname, country_txt, region_txt, provstate, city, nkill, nkillter, nwound,
-CASE 
-  WHEN nkill > 1000 THEN 'Massacre'
-  WHEN nkill > 500  THEN 'Bloodbath'
-  WHEN nkill > 250  THEN 'Carnage'
-  WHEN nkill > 100  THEN 'Blodshed'
-  WHEN nkill > 0    THEN 'Slaugter'
-  ELSE 'N/A'
-END AS EventImpact
-FROM teror
-WHERE gname = 'Islamic State of Iraq and the Levant (ISIL)' AND iyear = 2014
-ORDER BY nkill DESC;`,
+ CASE 
+   WHEN nkill > 1000 THEN 'Massacre'
+   WHEN nkill > 500  THEN 'Bloodbath'
+   WHEN nkill > 250  THEN 'Carnage'
+   WHEN nkill > 100  THEN 'Blodshed'
+   WHEN nkill > 0    THEN 'Slaugter'
+   ELSE 'N/A'
+ END AS EventImpact
+ FROM teror
+ WHERE gname = 'Islamic State of Iraq and the Levant (ISIL)' AND iyear = 2014
+ ORDER BY nkill DESC;`,
               code_visible: false,
               screen: require("@/assets/lessons/2H.jpg"),
               screen_visible: false
@@ -454,15 +458,15 @@ ORDER BY nkill DESC;`,
             {
               header: "Vypiš všechny útoky s alespoň jednou obětí z Německa, Rakouska, Švýcarska, Francie a Itálie. U Německa, Rakouska, Švýcarska nahraď region_txt za ‘DACH’ u zbytku nech původní region. Vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Výstup seřaď podle počtu raněných sestupně",
               code: `SELECT iyear, imonth, iday, country_txt, 
-CASE
-   WHEN country_txt IN ('Germany', 'Austria', 'Switzerland') THEN ' DACH'
-   ELSE region_txt
-END   
-region_txt,
-provstate, city, nkill, nkillter, nwound
-FROM teror 
-WHERE nkill > 0 AND COUNTRY_TXT in ('Germany', 'Austria', 'Switzerland', 'France', 'Italy')
-ORDER BY NWOUND DESC;`,
+ CASE
+    WHEN country_txt IN ('Germany', 'Austria', 'Switzerland') THEN ' DACH'
+    ELSE region_txt
+ END   
+ region_txt,
+ provstate, city, nkill, nkillter, nwound
+ FROM teror 
+ WHERE nkill > 0 AND COUNTRY_TXT in ('Germany', 'Austria', 'Switzerland', 'France', 'Italy')
+ ORDER BY NWOUND DESC;`,
               code_visible: false,
               screen: require("@/assets/lessons/2I.jpg"),
               screen_visible: false
@@ -470,12 +474,12 @@ ORDER BY NWOUND DESC;`,
             {
               header: "Vypiš COUNTRY_TXT, CITY, NWOUND a přidej sloupeček vzdalenost_od_albertova obsahující vzdálenost místa útoku z pražské části Albertov v km a sloupeček kategorie obsahující ‘Blízko’ pro útoky bližší 2000 km a ‘Daleko’ pro ostatní. Vypiš jen útoky s víc než stovkou raněných a seřad je podle vzdálenosti od Albertova",
               code: `SELECT country_txt, city, nwound,  haversine(50.0688111, 14.4243694, latitude, longitude) vzdalenost_od_albertova,
-CASE
+ CASE
     WHEN haversine(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
     ELSE 'Daleko'
-END AS Kategorie
-FROM teror where nwound > 100
-order by vzdalenost_od_albertova;`,
+ END AS Kategorie
+ FROM teror where nwound > 100
+ order by vzdalenost_od_albertova;`,
               code_visible: false,
               screen: require("@/assets/lessons/2J.jpg"),
               screen_visible: false
