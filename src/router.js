@@ -51,7 +51,7 @@ const router = new Router({
     },
     {
       path: "/about",
-      meta: { title: "O stránkách", icon: "360" },
+      meta: { title: "Autoři stránek", icon: "360" },
       name: "About",
       component: About,
     },

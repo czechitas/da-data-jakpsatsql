@@ -203,6 +203,12 @@ export default {
                       " SELECT nkillter AS \"zabito teroristu\" FROM teror; -- prejmenuje sloupecek nkillter na zabito teroristu"]
             },
             {
+              header: "Vybrání vlastní hodnoty do sloupečku",
+              notes: ["nový sloupeček", "sloupeček existující v tabulce"],
+              visible: false,
+              code: ["SELECT 'Indonésie' AS region_txt FROM teror;"]
+            },
+            {
               header: "Spojení sloupečků",
               visible: false,
               code: ["SELECT city || country_txt FROM teror;", " SELECT CONCAT(city,country_txt) FROM teror;"]
@@ -223,14 +229,14 @@ export default {
               header: "Vyber vše z tabulky teror",
               code: "SELECT * FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/1A.png"),
               screen_visible: false
             },
             {
               header: "Zobraz náhodných deset řádek z tabulky teror",
               code: "SELECT * FROM teror LIMIT 10;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/1A.png"),
               screen_visible: false
 
             },
@@ -238,7 +244,7 @@ export default {
               header: "Vypiš jen sloupce eventid, iyear, country_txt, region_txt",
               code: "SELECT eventid,iyear,country_txt,region_txt FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/B.png"),
+              screen: require("@/assets/lessons/1B.png"),
               screen_visible: false
 
             },
@@ -246,7 +252,7 @@ export default {
               header: "Vypiš všechny roky vyskytující se v tabulce teror, tak aby byl každý rok ve výsledné tabulce jen jednou",
               code: "SELECT DISTINCT iyear FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/C.png"),
+              screen: require("@/assets/lessons/1C.png"),
               screen_visible: false
 
             },
@@ -254,7 +260,7 @@ export default {
               header: "Vyber všechny teroristické útoky v roce 2016",
               code: "SELECT * FROM teror WHERE iyear=2016;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/D.png"),
+              screen: require("@/assets/lessons/1D.png"),
               screen_visible: false
 
             },
@@ -262,7 +268,7 @@ export default {
               header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, country_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
               code: "SELECT eventid as udalost,iyear as rok,country_txt as zeme,region_txt as region from teror where iyear=2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/E.png"),
+              screen: require("@/assets/lessons/1E.png"),
               screen_visible: false
 
             },
@@ -270,7 +276,7 @@ export default {
               header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imonth a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
               code: "SELECT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/F.png"),
+              screen: require("@/assets/lessons/1F.png"),
               screen_visible: false
 
             },
@@ -278,7 +284,7 @@ export default {
               header: "Seřaď datum z předchozího selektu sestupně (desc) a vypiš jen jedinečné záznamy",
               code: "SELECT DISTINCT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014 ORDER BY datum DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/G.png"),
+              screen: require("@/assets/lessons/1G.png"),
               screen_visible: false
 
             },
@@ -286,7 +292,7 @@ export default {
               header: "Vypiš počet teroristických útoků, které se staly po roce 2015",
               code: "SELECT count(*) FROM teror WHERE iyear>2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/H.png"),
+              screen: require("@/assets/lessons/1H.png"),
               screen_visible: false
 
             }
@@ -316,14 +322,15 @@ export default {
             },
             {
               header: "WHERE (math function)",
-              notes: ["HAVERSINE"],
+              notes: ["HAVERSINE", "ROUND", "FLOOR", "CEIL"],
               visible: false,
               code: ["HAVERSINE( lat1, lon1, lat2, lon2 )", 
-                     " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;"] 
+                     " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;",
+                     " SELECT CEIL(1.5), ROUND(1.5), FLOOR(1.5), CEIL(1.1), ROUND(1.1);"] 
             },
             {
               header: "WHERE (date function)",
-              notes: ["TO_DATE", "DATE_FROM_PARTS", "ADDDATE"],
+              notes: ["TO_DATE", "DATE_FROM_PARTS", "DATEADD"],
               visible: false,
               code: ["SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) AS datum FROM teror WHERE DATEDIFF('year',datum, DATE_FROM_PARTS(2015,1,1)) = -2;",
@@ -379,72 +386,98 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`]
           tasks: [
             {
               header: "Vyber z tabulky útoky v Německu, kde zemřel alespoň jeden terorista",
-              code: "SELECT * FROM terror WHERE nkillter > 0 AND country_txt = 'Germany';",
+              code: "SELECT * FROM teror WHERE nkillter > 0 AND country_txt = 'Germany';",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2A.jpg"),
               screen_visible: false
             },
             {
               header: "Zobraz jen sloupečky GNAME, COUNTRY_TXT, NKILL a všechny řádky (seřazené podle počtu obětí sestupně), na kterých je víc než 340 obětí (počet obětí je ve sloupci NKILL), sloupečky přejmenuj na ORGANIZACE, ZEME, POCET_OBETI",
-              code: "SELECT GNAME AS ORGANIZACE, COUNTRY_TXT AS zeme, NKILL AS POCET_OBETI FROM teror WHERE nkill > 340 ORDER BY POCET_OBETI DESC;",
+              code: "SELECT gname AS ORGANIZACE, country_txt AS zeme, nkill AS POCET_OBETI FROM teror WHERE nkill > 340 ORDER BY POCET_OBETI DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2B.jpg"),
               screen_visible: false
             },
             {
               header: "Zobraz sloupečky IYEAR, IMONTH, IDAY, GNAME, CITY, ATTACKTYPE1_TXT, TARGTYPE1_TXT, WEAPTYPE1_TXT, WEAPDETAIL, NKILL, NWOUND a vyber jen útoky, které se staly v Czech Republic v letech 2015, 2016 a 2017. Všechna data seřaď chronologicky sestupně",
-              code: "",
+              code: "SELECT iyear, imonth, iday, ganem, city, attacktype1_txt, targtype1_txt, weaptype1_txt, weapdetail, nkill, nwound FROM teror WHERE country_txt='Czech Republic' AND IYEAR IN (2015, 2016, 2017) ORDER BY iyear DESC, imonth DESC, iday DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2C.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
-              code: "",
+              code: "SELECT DISTINCT gname from teror WHERE gname ilike '%anti%' AND gname ilike '%extremists%';",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2D.jpg"),
               screen_visible: false
             },
             {
               header: "Z iYear, iMonth a iDay vytvořte sloupeček datum a vypište tohle datum a pak datum o tři měsíce později a klidně i o tři dny a tři měsíce",
-              code: "",
+              code: "SELECT DATE_FROM_PARTS(iyear, imonth, iday) datum, iyear, imonth, iday, DATEADD(month, 3, DATE_FROM_PARTS(iyear, imonth, iday)) o_tri_mesice_pozdeji, DATEADD(day, 3, DATEADD(month, 3, DATE_FROM_PARTS(iyear, imonth, iday))) o_tri_mesice_a_tri_dny_pozdeji FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2E.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny druhy útoků ATTACKTYPE1_TXT",
-              code: "",
+              code: "SELECT DISTINCT attacktype1_txt FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2F.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny útoky v Německu v roce 2015, vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Ve sloupečku COUNTRY_TXT bude všude hodnota ‘Německo’",
-              code: "",
+              code: "SELECT iyear AS rok, imonth AS mesic, iday AS den, 'Německo' AS COUNTRY_TXT /*naplni sloupecek country_txt nasim textem*/, region_txt, provstate, city, nkill, nkillter, nwound FROM teror WHERE country_txt = 'Germany' AND iyear = 2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2G.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny útoky z roku 2014, ke kterým se přihlásil Islámský stát ('Islamic State of Iraq and the Levant (ISIL)').Vypiš sloupečky IYEAR, IMONTH, IDAY, GNAME, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND a na konec přidej sloupeček EventImpact, který bude obsahovat:\n'Massacre' pro útoky s víc než 1000 obětí</li>\n'Bloodbath' pro útoky s 501 - 1000 obětmi\n'Carnage' pro ůtoky s 251 - 500 obětmi\n'Blodshed' pro útoky se 100 - 250 obětmi\n'Slaugter' pro útoky s 1 - 100 obětmi\na ‘N/A’ pro všechny ostatní útoky.</li>",
-              code: "",
+              code: `SELECT iyear, imonth, iday, gname, country_txt, region_txt, provstate, city, nkill, nkillter, nwound,
+CASE 
+  WHEN nkill > 1000 THEN 'Massacre'
+  WHEN nkill > 500  THEN 'Bloodbath'
+  WHEN nkill > 250  THEN 'Carnage'
+  WHEN nkill > 100  THEN 'Blodshed'
+  WHEN nkill > 0    THEN 'Slaugter'
+  ELSE 'N/A'
+END AS EventImpact
+FROM teror
+WHERE gname = 'Islamic State of Iraq and the Levant (ISIL)' AND iyear = 2014
+ORDER BY nkill DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2H.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny útoky s alespoň jednou obětí z Německa, Rakouska, Švýcarska, Francie a Itálie. U Německa, Rakouska, Švýcarska nahraď region_txt za ‘DACH’ u zbytku nech původní region. Vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Výstup seřaď podle počtu raněných sestupně",
-              code: "",
+              code: `SELECT iyear, imonth, iday, country_txt, 
+CASE
+   WHEN country_txt IN ('Germany', 'Austria', 'Switzerland') THEN ' DACH'
+   ELSE region_txt
+END   
+region_txt,
+provstate, city, nkill, nkillter, nwound
+FROM teror 
+WHERE nkill > 0 AND COUNTRY_TXT in ('Germany', 'Austria', 'Switzerland', 'France', 'Italy')
+ORDER BY NWOUND DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2I.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš COUNTRY_TXT, CITY, NWOUND a přidej sloupeček vzdalenost_od_albertova obsahující vzdálenost místa útoku z pražské části Albertov v km a sloupeček kategorie obsahující ‘Blízko’ pro útoky bližší 2000 km a ‘Daleko’ pro ostatní. Vypiš jen útoky s víc než stovkou raněných a seřad je podle vzdálenosti od Albertova",
-              code: "",
+              code: `SELECT country_txt, city, nwound,  haversine(50.0688111, 14.4243694, latitude, longitude) vzdalenost_od_albertova,
+CASE
+    WHEN haversine(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
+    ELSE 'Daleko'
+END AS Kategorie
+FROM teror where nwound > 100
+order by vzdalenost_od_albertova;`,
               code_visible: false,
-              screen: require("@/assets/lessons/1/tasks/A.png"),
+              screen: require("@/assets/lessons/2J.jpg"),
               screen_visible: false
             },
           ]
@@ -581,4 +614,5 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`]
     }
   }
 }
+
 </script>
