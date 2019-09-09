@@ -41,10 +41,13 @@
                   <v-card-text>
                     <p>
                       O každého by se měl někdo postarat, když má rýmu, nepouštět k němu neohlášené návštěvy, uvařit čaj a tak. O databáze se stará server. 
-                      I když rýmu zrovna nemají. Mezi tebou a databázemi stojí server jako gardedáma a tlumočník v jedné osobě. Když ho požádáš o data z tabulky, zjistí nejdřív,
-                      jak se databáze cítí. Když jsou v databázi požadovaná data a máš k nim ta správná oprávnění, server do ní pošle dotaz a vrátí ti odpověď.
-                      Rozsah detailů, podle kterých se dají v databázích oprávnění nastavovat, je neuvěřitelný. Konkrétní oprávnění lze nastavovat na všechny objekty, čtení/zápis, ale i na sloupečky nebo řádky v tabulkách.
-                      Serverů existuje mnoho, ale o tom později.
+                      I když rýmu zrovna nemají. Mezi tebou a databázemi stojí server jako gardedáma a tlumočník v jedné osobě. Může se starat o jedinou databázi, nebo taky o gazilión databází.
+                      Když ho požádáš o data z tabulky v databázi, zjistí nejdřív,
+                      jak se ta databáze cítí, jestli je ready. Když jsou v databázi požadovaná data a máš k nim ta správná oprávnění, server do ní pošle
+                      tvůj dotaz a vrátí ti výsledek.
+                      Rozsah detailů, podle kterých se dají v databázích oprávnění nastavovat, je neuvěřitelný. 
+                      Konkrétní oprávnění lze nastavovat na všechny objekty, čtení/zápis, ale i na sloupečky nebo řádky v tabulkách.
+                      Serverů existuje mnoho druhů, klanů, mluví různými nářečími (flavors), hotová mafie, ale o tom později.
                     </p>
                   </v-card-text>
                 </v-card>
@@ -59,8 +62,8 @@
                   <v-card-text>
                     <p>
                       Příkaz je SQL kód, kterým server nutíš k nějaké činnosti. Jsou jich dva druhy a ty se ještě dál dělí. 
-                      Mají krásná jména - DML a DDL. Je to snadné, Data Definition Language vytváří, mění a maže tabulky a ostatní objekty v databázi, zatímco Data Manipulation Language vybírá,
-                      upravuje a maže data v tabulkách.
+                      Mají krásná jména - DML a DDL. Je to snadné, Data Definition Language vytváří, mění a maže tabulky a ostatní objekty v databázi,
+                      zatímco Data Manipulation Language vybírá, upravuje a maže data z/v tabulkách.
                     </p>
                     <h3>Příkazy DDL:</h3>
                     <ul>
@@ -91,13 +94,47 @@
               <v-stepper-content step="3">
                 <v-card class="mb-12" flat>
                   <v-card-text>
-                    <b>SELECT</b> je dotaz, dotaz je query. Tohle bude tvůj nejvíc nejlepší kamarád v praktické části, “selektovat” budeš až se ti bude kouřit od klávesnice. 
+                    <b>SELECT</b> je dotaz, dotaz je query. Tohle bude tvůj nejvíc nejlepší kamarád v praktické části, “selektovat” budeš až se ti
+                    bude kouřit od klávesnice. 
                     Důvod? Analytici se daty většinou přehrabují tam a zpátky jako design-influencerky v antiq shopech. 
-                    Vytváření tabulek a jejich plnění daty mají na svědomí většinou aplikace (vývojáři) anebo tajemný data warehouse (BI vývojáři). 
-                    Tvorba tabulek a plnění daty si zažiješ v hodinách jen okrajově, v projektech už o kousek víc.
+                    Vytváření tabulek a jejich plnění daty mají na svědomí většinou aplikace (vývojáři) anebo tajemný data warehouse (BI vývojáři).
+                    Ale neboj, datoví analytici, vědkyně a všechna ta datová kavárna si z nich stejně vytváří svoje tabulky, dočasné tabulky a pomocné tabulky.
+                    Tvorbu tabulek a plnění daty si zažiješ v hodinách jen okrajově, v projektech už o poznání víc.
 
                     <h3>Data lifecycle in BI</h3>
-                    user, appka, dwh, analyza, report, dashboard
+                    <p>
+                    Tak tohle bude trochu delší. Data jako ostatně všechno ve vesmíru nějak vznikají, existují a nakonec i zanikají. V průběhu jejich existnce
+                    nebo vznešeněji života je používají různí lidé a stroje k různým účelům.
+                    </p>
+                    <p>
+                    Začíná to aplikací, jedno, jestli je to pokladna v Bille, Tinder, nebo realtime monitoring Tesla, každá appka pod sebou má databázi,
+                    kde je uloženo minimálně to, co mají uživatelé vidět a co do ní vkládají. Jasně, uživatel může být auto i prodavačka. A protože žijeme
+                    ve zvědavé době, ukládá se do databází i to, jak uživatelé aplikaci používají a jak v aplikaci dochazí k chybám a vlastně úplně všechno.
+                    </p>
+                    <p>
+                    Paráda, všechno v appce máme, každý vidí anebo ukládá, co má. Jenže. Jenže vždycky se najde někdo, kdo by chtěl vědět, kolik máme 
+                    zákazníků, nákupů, vozidel, výpadků atd. Samozřejmě, že v aplikacích jsou různé přehledy (dashboardy), reporty a tak. Dřív nebo později
+                    ale někdo chce data vidět jinak. A tak se data přelijí do místa, kde se dají mučit donekonečna a všemi metodami do data martu, nebo datového
+                    skladu. Důvodů je několik. Když se analytik zeptá přímo do databáze Billy, kterých 10 prodejen mělo v kterých měsících  největší meziměsíční nárůst prodejů
+                    mléčných výrobků se zahrnutím vlivu růstu jejich ceny, zní to jako legitimní dotaz. Ale aplikační datbáze je stavěná na veliké množství 
+                    "malých" dotazů, respektive dotazů, které vrátí, nebo upravují malé množství řádek. Takovýhle analytický dotaz naproti tomu několikrát
+                    prošmejdí celou databázi křížem krážem aby nakomec ukázal deset prodejen. Může to trvat minuty, hodiny, nebo i déle. A celou dobu můžou
+                    ve skladech skladníci koukat na točící se kolečka na čtečkách, pokladní na "waiting..." na kasách a tak. Když ten samý dotaz analytik
+                    pustí ve warehousu, neovlivní nijak provoz. Další výhodou warehousu je, že se v něm nachází i data z ostatních systémů, nebo společností
+                    v Aholdu tak maji na jedné hromadě Alberty, Hyperalberty, Spar, Interspar, Manu a vlastně všechno, co kdy aspoň na chvilku vlastnili. 
+                    </p>
+                    <p>
+                    Když máme data ve skladu, najednou po nás každý chce analýzy. BI kavárna je stejně líná, jako ta programátorká a tak většinou 
+                    při třetí stejné analýze vznikne nějaký report, nebo dashboard a v něm ať se kdo chce drilldownuje do haleluja. Po pár letech je v tom 
+                    takový guláš, protože různé reporty ukazují totéž tolika rozmanitými způsoby, že už i otrlému business pankáčovi přijde moc 
+                    a vznikne nějaký datový katalog, bible, korán, dokumentace. Tam je vysvětleno jednotným jazykem (korporátní newspeak, geekovština, úředničtina...),
+                    co která hodnota (KPI) znamená, jak vzniká a který report slouží pro koho a k čemu.
+                    </p>
+                    <p>
+                    Umřou někdy data? Všichni umřeme. Data o prodejích z devadesátek už asi nikdo k ničemu nepoužije a tak se prostě zahodí.
+                    Data o návštěvnících B2B portálu, na co klikali, kde strávili kolik času atp., ty asi můžeme zahodit ještě dřív.
+                    Zahazování se učeně říká retence. U některých dat je skoro nekonečná, třeba u lékařských záznamů, ale najdou se i jiné příklady.
+                    </p>
                   </v-card-text>
                 </v-card>
                 
@@ -117,7 +154,7 @@
                       Analytici, programátoři, možná všichni lidi jsou líní. A tak, když už horko těžko vypotí nějaký dotaz, nechtějí ho psát podruhé.
                       Uloží si ho do databáze pod nějakým jménem a voila, view (aka uložený pohled) je na světě.
                       A podobně jako views můžou být v databázi uložené indexy, funkce, procedury, sekvence, synonyma, materializované pohledy a spousta dalšího pekla.
-                      Spíš? Jsi tu ještě? Haló! Teď možná nastala ta chvíle, kdy se mnou budeš souhlasit, že přeskočení teorie a hození do divoké řeky SELECTů, nebyl úplně nejhorší nápad.
+                      Spíš? Jsi tu ještě? Haló! Teď asi nastala ta chvíle, kdy se mnou budeš souhlasit, že přeskočení teorie a hození do divoké řeky SELECTů, nebyl úplně nejhorší nápad.
                       Klid, už jsme za půlkou ;)
                     </p>
                     <a href="http://nippon-motors.com/wp-content/uploads/2012/04/Warehouse.jpg" target="_blank"><img src="../assets/engines.png" width="800"></a>
