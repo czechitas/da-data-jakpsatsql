@@ -314,7 +314,7 @@ export default {
             },
             {
               header: "WHERE (string function)",
-              notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT"],
+              notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT", "UPPER"],
               visible: false,
               code: ["SELECT SPLIT('127.0.0.1', '.');",
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
@@ -353,8 +353,8 @@ export default {
               code: [" SELECT DISTINCT(attacktype1_txt) FROM teror WHERE attacktype1_txt LIKE '%bomb%'; -- vybere unikatni typy utoku, ktere obsahuji slovo bomb(kdekoliv)",
                      " SELECT DISTINCT(region_txt) FROM teror WHERE region_txt ILIKE '%cz%'; -- vybere unikatni nazvy regionu, ktere obsahuji cz (kdekoliv a v jakekoliv velikosti)",
                      " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE 'a%'; -- vybere unikatni nazvy organizaci, ktere zacinaji na a",
-                     " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE '_a%'; -- vybere unikatni nazvy organizaci, ktere maji v nazvu druhe pismeno a"] 
-                     " SELECT city FROM teror WHERE city like '% % %'; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
+                     " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE '_a%'; -- vybere unikatni nazvy organizaci, ktere maji v nazvu druhe pismeno a", 
+                     " SELECT city FROM teror WHERE city like '% % %'; -- vybere vsechny mesta, ktera maji vice jak 2 slova"]
                      
             },
             {
