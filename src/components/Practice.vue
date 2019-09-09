@@ -183,7 +183,7 @@ export default {
               header: "COUNT, AVG, SUM",
               visible: false,
               code: ["SELECT COUNT(*) FROM teror; -- spocita pocet radku v tabulce teror",
-                     " SELECT SUM(nkill) FROM teror; -- spoci celkovy pocet obeti pro vsechny utoky",
+                     " SELECT SUM(nkill) FROM teror; -- spocita celkovy pocet obeti pro vsechny utoky",
                      " SELECT COUNT(*), SUM(nkill), AVG(nkill) FROM teror;"] 
             },
             {
@@ -319,9 +319,10 @@ export default {
               code: ["SELECT SPLIT('127.0.0.1', '.');",
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
                      " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
-                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
+                     " SELECT city FROM teror WHERE length(city) - length(replace(city, ' ','')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
+                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",                     
                      " SELECT city, LEFT(city,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
-                     " SELECT city, RIGHT(city,3) as posledni_tri_pismena FROM teror;"] 
+                     " SELECT city, UPPER(RIGHT(city,3)) as posledni_tri_pismena FROM teror; -- vybere mesto a jeho posledni tri pismena v UPPERCASE"] 
             },
             {
               header: "WHERE (math function)",
@@ -329,13 +330,14 @@ export default {
               visible: false,
               code: ["HAVERSINE( lat1, lon1, lat2, lon2 )", 
                      " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;",
-                     " SELECT CEIL(1.5), ROUND(1.5), FLOOR(1.5), CEIL(1.1), ROUND(1.1);"] 
+                     " SELECT CEIL(1.5), ROUND(1.5), TRUNC(1.5), FLOOR(1.5), CEIL(1.1), ROUND(1.1), TRUNC(1.1);",
+                     " SELECT FLOOR(1574.14), FLOOR(1574.14,1), FLOOR(1574.14,2), FLOOR(1574.14,-1), FLOOR(1574.14,-2);"] 
             },
             {
               header: "WHERE (date function)",
               notes: ["TO_DATE", "DATE_FROM_PARTS", "DATEADD", "timestamp - jak z toho dostat datum nebo cas"],
               visible: false,
-              code: ["SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
+              code: [" SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) AS datum FROM teror WHERE DATEDIFF('year',datum, DATE_FROM_PARTS(2015,1,1)) = -2;",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) datum, iyear, imonth, iday, DATEADD(day, 1, datum) AS zitra FROM teror;"] 
             },
@@ -348,10 +350,12 @@ export default {
               header: "LIKE, ILIKE",
               notes: ["% - 0 az N znaku", "_ - jeden znak", "[] - vyber", "^ - not", "- - rozsah"],
               visible: false,
-              code: ["SELECT DISTINCT(attacktype1_txt) FROM teror WHERE attacktype1_txt LIKE '%bomb%'; -- vybere unikatni typy utoku, ktere obsahuji slovo bomb(kdekoliv)",
+              code: [" SELECT DISTINCT(attacktype1_txt) FROM teror WHERE attacktype1_txt LIKE '%bomb%'; -- vybere unikatni typy utoku, ktere obsahuji slovo bomb(kdekoliv)",
                      " SELECT DISTINCT(region_txt) FROM teror WHERE region_txt ILIKE '%cz%'; -- vybere unikatni nazvy regionu, ktere obsahuji cz (kdekoliv a v jakekoliv velikosti)",
                      " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE 'a%'; -- vybere unikatni nazvy organizaci, ktere zacinaji na a",
                      " SELECT DISTINCT(gname) FROM teror WHERE gname ILIKE '_a%'; -- vybere unikatni nazvy organizaci, ktere maji v nazvu druhe pismeno a"] 
+                     " SELECT city FROM teror WHERE city like '% % %'; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
+                     
             },
             {
               header: "IN, NOT IN, IS NOT",
@@ -380,7 +384,7 @@ FROM teror; -- upravi sloupec nkill aby tam nebyl NULL a 0`,
     WHEN region_txt ILIKE '%america%' THEN 'Amerika'
     WHEN region_txt ILIKE '%africa%' THEN 'Afrika'
     WHEN region_txt ILIKE '%asia%' THEN 'Asie'
-    ELSE 'Nezname'
+    ELSE region_txt
 END AS continent
 FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillter,0) FROM teror;"]
 
