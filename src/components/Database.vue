@@ -176,10 +176,15 @@
                     <p>
                       Engine aka databázový server je vlastně jenom šikovná aplikace, která databáze zpřístupňuje. A existuje hodně variant těchto serverů. 
                       Některé jsou zadarmo (PostgreSQL, SQLite, MariaDB...), jiné za peníze (Oracle, MS SQL, MySQL, Enterprise DB...). Aby to nebylo tak snadné,
-                      nabízí Oracle free verzi Oracle DB XE, dále je k dispozici Microsoft SQL Express, MariaDB je zase klon MySQL a EnterpriseDB je placená verze PostgreSQL.
-                      Kromě rozdělení na placené a free jde ještě databázové servery dělit podle mnoha dalších kritérií. Každá varianta se může hodit na něco lépe a na něco už ne tak dobře.
-                      Všechny zmíněné databázové servery je potřeba někam instalovat, respektive mít pro ně server, kde poběží. Snowflake je reprezentantem tzv. cloudových databází,
-                      které se nikam neinstalují, jen někomu dáš číslo své kreditky a platíš za místo, výkon a podobně. Microsoft a Oracle také nabízí svoje enginy v cloudu,
+                      nabízí Oracle free verzi Oracle DB XE, dále je k dispozici Microsoft SQL Express, MariaDB je zase zadarmózní (brr..) klon MySQL
+                      a EnterpriseDB je placená verze PostgreSQL.
+                    </p>
+                    <p>
+                      Kromě rozdělení na placené a free jde ještě databázové servery dělit podle mnoha dalších kritérií. Každá varianta se může 
+                      hodit na něco lépe a na něco, jak říkají američani, už ne tak dobře.
+                      Všechny zmíněné databázové servery je potřeba někam instalovat, respektive mít pro ně server, kde poběží. Snowflake je 
+                      reprezentantem tzv. cloudových databází, které se sice "nikam neinstalují", ale jen někomu dáš číslo své kreditky a platíš za místo,
+                      výkon a podobně, takže to někdo celé zařídí za tebe. Microsoft a Oracle také nabízí svoje enginy v cloudu,
                       Heroku je zase postgres v cloudu, AWS má svůj Redshit, Aurora, DynamoDB atd. 
                     </p>
                     <img src="../assets/database_functions.png" width="800">
@@ -204,7 +209,7 @@
                       Funkce ale nejsou součástí standardu, takže získat z datumu rok, měsíc a den pravděpodobně dopadne trochu jiným dotazem v každém enginu.
                       Doporučuju se s tím smířit. Přechod mezi dvěma enginy je pro člověka jednoduchý - je to jako přechod z americké angličtiny na australskou (SQL nářečím se anglicky říká flavor),
                       těžší to mají aplikace, které využívají nějaký konkrétní engine. U nich to je spíš jako dostat do Oktávky motor z Chevroletu. Ještě jednou pro uklidnění,
-                      když se naučíš SQL ve Snowflake, přejít na MSSQL, Oracle, Postges nebo MySQL bude brnkačka.
+                      když se naučíš SQL ve Snowflake, přejít na MSSQL, Oracle, Postgres nebo MySQL bude brnkačka.
                     </p>
                     <img src="../assets/database_functions.png" width="800">
                   </v-card-text>
@@ -222,11 +227,13 @@
               <v-stepper-content step="7">
                 <v-card class="mb-12" flat>
                   <v-card-text>
-                    <a href="https://my.visme.co/projects/01043rz6-sql-reserved#s1" target="_blank"><img src="../assets/forbidden_words.png" width="800"></a>
+                    <a href="https://my.visme.co/projects/01043rz6-sql-reserved#s1" target="_blank"><img src="../assets/forbidden_words.png" width="1000"></a>
                     <p>
-                      Aby ti engine rozuměl, má některá slova tzv. rezervovaná, tj. nejde je použít pro názvy sloupečků, tabulek apod. Příkladem takových rezervovaných slov je třeba table,
-                      column, view, date, int apod. V nich se různé flavory (implementace) taky liší. Ale klid, nic zásadního. Některé enginy rozlišují v názvech objektů velká a malá písmena,
-                      některé jsou velmi omezené v délce těchto názvů (nejmenší, co pamatuju, je 32 znaků na název, Postgres má tuším 64).
+                      Aby ti engine rozuměl, má některá slova tzv. rezervovaná, tj. nejde je použít pro názvy sloupečků, tabulek apod. 
+                      Příkladem takových rezervovaných slov je třeba table,
+                      column, view, date, int apod. V rezervovaných se různé flavory (implementace) taky liší. Ale klid, nic zásadního. Některé enginy
+                      rozlišují v názvech objektů velká a malá písmena, jiné ne. Některé jsou velmi omezené v délce těchto názvů 
+                      (nejmenší, co pamatuju, je 30 znaků limit na název v DB2 od IBM, Postgres má limit 63).
                     </p>
                   </v-card-text>
                 </v-card>
@@ -244,10 +251,19 @@
                 <v-card class="mb-12" flat>
                   <v-card-text>
                     <p>
-                      Nápad propojování tabulek pochází z relační algebry (viz úplně první obrázek), podle ní jsou i databáze pojmenované, celým jménem se jim říká relační databáze.
-                      Normalizace je proces vnášení vztahů mezi tabulky, tzv relací. Jde o to nemít v databázi žádná data víckrát. 
+                      Nápad na propojování tabulek pochází z relační algebry (viz úplně první obrázek), podle ní jsou i databáze pojmenované,
+                      celým jménem se jim říká relační databáze. Ale na původu nezáleží. Důležíté je, k čemu je spojování tabulek dobré.
+                      Procesu vnášení vztahů mezi tabulky se říká normalizace. Vztahům se chytře říká relace. Jde v něm o to nemít v databázi žádná data víckrát.
                     </p>
-                    <i>Příklad: V tabulce aut je sloupeček barva, v něm ale není barva, ale číslo řádku z tabulky barev.</i>
+                    <p>
+                    <i>
+                    Například. V databázi máme tabulku s produkty, tabulku s ceníkem, tabulku s prodejnami, další pro obchodníky a pak tabulku prodejů, která
+                    je vlastně složená jen z pár datumů, sloupečkem pro množství a odkazy (relacemi) na ostatní tabulky.
+                    </i>
+                    </p>
+                    <p>
+                    <i>Anebo příklad: V tabulce aut je sloupeček barva, v něm ale není barva, ale číslo řádku z tabulky barev.</i>
+                    </p>
                   </v-card-text>
                 </v-card>
 
