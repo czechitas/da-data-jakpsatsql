@@ -261,7 +261,7 @@ export default {
             },
             {
               header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, country_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
-              code: "SELECT eventid as udalost,iyear as rok,country_txt as zeme,region_txt as region from teror where iyear=2015;",
+              code: "SELECT eventid AS udalost,iyear AS rok,country_txt AS zeme,region_txt AS region FROM teror WHERE iyear=2015;",
               code_visible: false,
               screen: require("@/assets/lessons/1E.png"),
               screen_visible: false
@@ -269,7 +269,7 @@ export default {
             },
             {
               header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imonth a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
-              code: "SELECT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014;",
+              code: "SELECT iyear||'-'||imonth||'-'||iday AS datum FROM teror WHERE iyear=2014;",
               code_visible: false,
               screen: require("@/assets/lessons/1F.png"),
               screen_visible: false
@@ -277,7 +277,7 @@ export default {
             },
             {
               header: "Seřaď datum z předchozího selektu sestupně (desc) a vypiš jen jedinečné záznamy",
-              code: "SELECT DISTINCT iyear||'-'||imonth||'-'||iday as datum FROM teror WHERE iyear=2014 ORDER BY datum DESC;",
+              code: "SELECT DISTINCT iyear||'-'||imonth||'-'||iday AS datum FROM teror WHERE iyear=2014 ORDER BY datum DESC;",
               code_visible: false,
               screen: require("@/assets/lessons/1G.png"),
               screen_visible: false
@@ -285,7 +285,7 @@ export default {
             },
             {
               header: "Vypiš počet teroristických útoků, které se staly po roce 2015",
-              code: "SELECT count(*) FROM teror WHERE iyear>2015;",
+              code: "SELECT COUNT(*) FROM teror WHERE iyear>2015;",
               code_visible: false,
               screen: require("@/assets/lessons/1H.png"),
               screen_visible: false
@@ -312,15 +312,15 @@ export default {
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
                      " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
                      " SELECT city FROM teror WHERE length(city) - length(replace(city, ' ','')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
-                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",                     
-                     " SELECT city, LEFT(city,1) as prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
-                     " SELECT city, UPPER(RIGHT(city,3)) as posledni_tri_pismena FROM teror; -- vybere mesto a jeho posledni tri pismena v UPPERCASE"] 
+                     " SELECT city, SUBSTRING(city,0,1) AS prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",                     
+                     " SELECT city, LEFT(city,1) AS prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
+                     " SELECT city, UPPER(RIGHT(city,3)) AS posledni_tri_pismena FROM teror; -- vybere mesto a jeho posledni tri pismena v UPPERCASE"] 
             },
             {
               header: "WHERE (math function)",
               notes: ["HAVERSINE", "ROUND", "FLOOR", "CEIL"],
               visible: false,
-              code: ["SELECT gname, city, iyear, nkill, HAVERSINE(50.052134, 14.442047, latitude, longitude ) as vzdalenost_od_nas FROM teror WHERE vzdalenost_od_nas < 100 ORDER BY nkill DESC;", 
+              code: ["SELECT gname, city, iyear, nkill, HAVERSINE(50.052134, 14.442047, latitude, longitude ) AS vzdalenost_od_nas FROM teror WHERE vzdalenost_od_nas < 100 ORDER BY nkill DESC;", 
                      " SELECT nkill, nkillter, nkill/nkillter AS prumer FROM teror WHERE  nkill > 0 AND nkillter > 0 AND prumer > 1 ORDER BY prumer DESC;",
                      " SELECT CEIL(1.5), ROUND(1.5), TRUNC(1.5), FLOOR(1.5), CEIL(1.1), ROUND(1.1), TRUNC(1.1);",
                      " SELECT FLOOR(1574.14), FLOOR(1574.14,1), FLOOR(1574.14,2), FLOOR(1574.14,-1), FLOOR(1574.14,-2);"] 
@@ -361,7 +361,7 @@ export default {
               header: "BETWEEN",
               visible: false,
               code: ["SELECT DISTINCT(iyear) FROM teror WHERE iyear BETWEEN 2014 AND 2016; -- vybere unikatni roky mezi roky 2014 a 2016 (vcetne krajnich hodnot)",
-                     " SELECT city, SUBSTRING(city,0,1) as prvni_pismeno FROM teror WHERE prvni_pismeno BETWEEN 'A' AND 'C'; -- vybere mesta, ktera zacinaji na A B nebo C"] 
+                     " SELECT city, SUBSTRING(city,0,1) AS prvni_pismeno FROM teror WHERE prvni_pismeno BETWEEN 'A' AND 'C'; -- vybere mesta, ktera zacinaji na A B nebo C"] 
             },
             {
               header: "SELECT CASE",
@@ -407,7 +407,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             },
             {
               header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
-              code: "SELECT DISTINCT gname from teror WHERE gname ilike '%anti%' AND gname ilike '%extremists%';",
+              code: "SELECT DISTINCT gname FROM teror WHERE gname ilike '%anti%' AND gname ilike '%extremists%';",
               code_visible: false,
               screen: require("@/assets/lessons/2D.jpg"),
               screen_visible: false
@@ -472,11 +472,11 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: "Vypiš COUNTRY_TXT, CITY, NWOUND a přidej sloupeček vzdalenost_od_albertova obsahující vzdálenost místa útoku z pražské části Albertov v km a sloupeček kategorie obsahující ‘Blízko’ pro útoky bližší 2000 km a ‘Daleko’ pro ostatní. Vypiš jen útoky s víc než stovkou raněných a seřad je podle vzdálenosti od Albertova",
               code: `SELECT country_txt, city, nwound,  haversine(50.0688111, 14.4243694, latitude, longitude) vzdalenost_od_albertova,
  CASE
-    WHEN haversine(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
+    WHEN HARVESINE(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
     ELSE 'Daleko'
  END AS Kategorie
- FROM teror where nwound > 100
- order by vzdalenost_od_albertova;`,
+ FROM teror WHERE nwound > 100
+ ORDER BY vzdalenost_od_albertova;`,
               code_visible: false,
               screen: require("@/assets/lessons/2J.jpg"),
               screen_visible: false
@@ -498,7 +498,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               visible: false,
               code: ["SELECT COUNT(*) AS pocet_zaznamu FROM teror; --- pocet vsech radku  56 355",
                      " SELECT COUNT(nkill) AS pocet_zaznamu FROM teror; ---- vylouci null hodnoty 53 135",
-                     " SELECT * FROM teror WHERE nkill IS null; --- 3 220 null hodnot"]
+                     " SELECT * FROM teror WHERE nkill IS NULL; --- 3 220 null hodnot"]
             },
             {
               header: "AVG() - průměr",
@@ -511,14 +511,14 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               notes: [],
               visible: false,
               code: ["SELECT MAX(nkill) AS max_pocet_mrtvych FROM teror;",
-                     " SELECT nkill AS max_pocet_mrtvych FROM teror WHERE nkill IS NOT null ORDER BY nkill DESC limit 1; -- stejny vysledek jinou cestou"]
+                     " SELECT nkill AS max_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill DESC LIMIT 1; -- stejny vysledek jinou cestou"]
             },
             {
               header: "MIN() - minimální hodnota",
               notes: [],
               visible: false,
               code: ["SELECT MIN(nkill) AS min_pocet_mrtvych FROM teror;",
-                     " SELECT nkill AS min_pocet_mrtvych FROM teror WHERE nkill IS NOT null ORDER BY nkill limit 1; -- stejny vysledek jinou cestou"]
+                     " SELECT nkill AS min_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill LIMIT 1; -- stejny vysledek jinou cestou"]
             },
             {
               header: "Fyzické SQL :)"
@@ -555,7 +555,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             {
               header: "Zjisti počet útoků po zemích. Seřaď je podle počtu útoků sestupně",
               code: `SELECT country_txt, COUNT(*) FROM teror GROUP BY 1 ORDER BY COUNT(*) DESC;
- SELECT country_txt, COUNT(1) FROM teror GROUP BY country_txt ORDER BY count(1) DESC;
+ SELECT country_txt, COUNT(1) FROM teror GROUP BY country_txt ORDER BY COUNT(1) DESC;
  SELECT country_txt, COUNT('1') FROM teror GROUP BY country_txt ORDER BY 2 DESC;`,            
               screen: require("@/assets/lessons/3C.png"),
               screen_visible: false
@@ -583,7 +583,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               code: `SELECT COUNT(1), SUM(nkill), SUM(nkillter), AVG(nkill), AVG(nkillter),
  CASE 
    WHEN sum(nkillter) <> 0 THEN sum(nkill) / sum(nkillter)
-   ELSE null
+   ELSE NULL
  END AS uspesnost
  ,SUM(nkill) / COUNT(1) AS prumerne_obeti, weaptype1_txt 
  FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(1) DESC;`,
@@ -627,7 +627,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
           name: "Window funkce",
           lectures: [
             {
-              header: "Příklad: select * from (select gname, eventdate from teror where country = 54) as subselect; with cte as (select gname, eventdate from teror where country = 54)select * from cte;",
+              header: "Příklad: select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;",
               visible: false,
             },
           ],
