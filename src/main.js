@@ -29,8 +29,12 @@ Vue.use(Vuetify, {
 Vue.use(Viewer);
 Vue.use(VueAnalytics, {
   id: "UA-147736707-1",
-  router
+  router,
+  debug: {
+    sendHitTask: process.env.NODE_ENV === 'production'
+  }
 });
+
 new Vue({
   router,
   render: h => h(App)
