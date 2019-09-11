@@ -75,7 +75,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 								<p style="padding-left: 30px;"><span style="color: #99ccff;">SELECT</span> * <span
 									style="color: #99ccff;">FROM</span> tabulka <span style="color: #99ccff;">WHERE</span> sloupec = 'obsahuje
 									tento text';</p>
-								<p> <strong>“ “ </strong>  Dvojité závorky - Objekt, struktura v databázi (sloupec, databáze,...)</p>
+								<p> <strong>“ “ </strong>  Dvojité závorky - Objekt, struktura v databázi (sloupec, databáze, tabulka...)</p>
 								<p style="padding-left: 30px;"><span style="color: #99ccff;">SELECT</span> “název_sloupce” <span
 									style="color: #99ccff;">FROM</span> tabulka;</p>
 								<p> <strong>&gt; </strong>    Větší než</p>
@@ -96,7 +96,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 								</p>
 								<p> <strong>+  </strong>   Sčítá, přidává</p>
 								<p style="padding-left: 30px;"><span style="color: #99ccff;">SELECT</span> 2 + 3;</p>
-								<p> <strong>&lt;=&gt;</strong> Rovno včetně hodnot NULL</p>
+								
 
 								<p> <strong>-</strong>      Odečítá, ubírá</p>
 
