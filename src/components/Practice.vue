@@ -63,6 +63,17 @@
                     </v-btn>
                   </div>
 
+                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
+                    <viewer style="cursor: zoom-in;"  images="['../assets/join.jpg']" :options="viewerOptions">
+                      <img src="../assets/join.jpg" alt="join" title="join" />
+                    </viewer>
+                    SELECT<br>
+                      <span style="color: #ff0000;">f.*,<br></span>
+                      <span style="color: #6aa84f;">p.*<br></span>
+                      FROM <span style="color: #ff0000;">FILMS</span> AS f<br>
+                      LEFT JOIN <span style="color: #6aa84f;">POPULATION</span> AS p <span style="color: #0000ff;">ON f.COUNTRY = p.COUNTRY</span>;
+                  </div>
+
                   <ul>
                     <li v-for="(lecture, lecture_index) in lesson['lectures']" :key="lecture_index">
                       <v-layout row wrap>
@@ -306,7 +317,7 @@ export default {
             },
             {
               header: "WHERE (string function)",
-              notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT", "UPPER"],
+              notes: ["SPLIT", "SUBSTRING", "LEFT", "RIGHT", "UPPER", "LENGTH"],
               visible: false,
               code: ["SELECT SPLIT('127.0.0.1', '.');",
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
@@ -434,6 +445,21 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               screen_visible: false
             },
             {
+              header: "Kolik událostí se stalo ve třetím a čtvrtém měsíci a počet mrtvých teroristů není NULL?",
+              code: `SELECT COUNT(*) FROM teror WHERE imonth BETWEEN 3 AND 4 AND nkillter IS NOT NULL;
+ SELECT COUNT(*) FROM teror WHERE imonth IN (3,4) AND nkillter IS NOT NULL;
+ SELECT COUNT(*) FROM teror WHERE (imonth = 3 OR imonth = 4) AND nkillter IS NOT NULL;`,
+              code_visible: false,
+              screen: require("@/assets/lessons/2H.png"),
+              screen_visible: false
+            },
+            {
+              header: "Vypiš první 3 města seřazena abecedně kde bylo zabito 30 až 100 teroristů nebo zabito 500 až 1000 lidí. Vypiš i sloupečky nkillter a nkill.",
+              code: "SELECT city, nkillter, nkill FROM teror WHERE nkillter BETWEEN 30 AND 100 OR nkill BETWEEN 500 AND 1000 ORDER BY city LIMIT 3;",
+              screen: require("@/assets/lessons/2I.png"),
+              screen_visible: false
+            },
+            {
               header: "Vypiš všechny útoky z roku 2014, ke kterým se přihlásil Islámský stát ('Islamic State of Iraq and the Levant (ISIL)').Vypiš sloupečky IYEAR, IMONTH, IDAY, GNAME, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND a na konec přidej sloupeček EventImpact, který bude obsahovat:",
               subheaders: ["'Massacre' pro útoky s víc než 1000 obětí", "'Bloodbath' pro útoky s 501 - 1000 obětmi","'Carnage' pro ůtoky s 251 - 500 obětmi","'Blodshed' pro útoky se 100 - 250 obětmi","'Slaugter' pro útoky s 1 - 100 obětmi","a ‘N/A’ pro všechny ostatní útoky."],
               code: `SELECT iyear, imonth, iday, gname, country_txt, region_txt, provstate, city, nkill, nkillter, nwound,
@@ -449,7 +475,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  WHERE gname = 'Islamic State of Iraq and the Levant (ISIL)' AND iyear = 2014
  ORDER BY nkill DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2H.jpg"),
+              screen: require("@/assets/lessons/2J.jpg"),
               screen_visible: false
             },
             {
@@ -458,14 +484,12 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  CASE
     WHEN country_txt IN ('Germany', 'Austria', 'Switzerland') THEN ' DACH'
     ELSE region_txt
- END   
- region_txt,
- provstate, city, nkill, nkillter, nwound
+ END AS region_txt, provstate, city, nkill, nkillter, nwound
  FROM teror 
  WHERE nkill > 0 AND COUNTRY_TXT in ('Germany', 'Austria', 'Switzerland', 'France', 'Italy')
  ORDER BY NWOUND DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2I.jpg"),
+              screen: require("@/assets/lessons/2K.jpg"),
               screen_visible: false
             },
             {
@@ -478,7 +502,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  FROM teror WHERE nwound > 100
  ORDER BY vzdalenost_od_albertova;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2J.jpg"),
+              screen: require("@/assets/lessons/2L.jpg"),
               screen_visible: false
             },
           ]
