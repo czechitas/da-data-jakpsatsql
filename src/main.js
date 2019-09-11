@@ -5,6 +5,7 @@ import theme from "./theme";
 import Vuetify from "vuetify";
 import App from "./App.vue";
 import router from "./router";
+import VueAnalytics from "vue-analytics";
 //code highlighting (sql)
 import VueHighlightJS from "vue-highlightjs";
 import sql from "highlight.js/lib/languages/sql";
@@ -26,7 +27,10 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(Viewer);
-
+Vue.use(VueAnalytics, {
+  id: "UA-147736707-1",
+  router
+});
 new Vue({
   router,
   render: h => h(App)
