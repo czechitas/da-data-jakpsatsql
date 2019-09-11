@@ -8,6 +8,7 @@ import Relations from "./components/Relations"
 import Practice from "./components/Practice"
 import Tips from "./components/Tips"
 import About from "./components/About"
+import LongStoryShort from "./components/LongStoryShort"
 
 Vue.use(Router)
 
@@ -37,6 +38,12 @@ const router = new Router({
       name: "Relations",
       component: Relations,
     },
+    /* {
+      path: "/longstoryshort",
+      meta: { title: "Long story short", icon: "print" },
+      name: "LongStoryShort",
+      component: LongStoryShort,
+    }, */
     {
       path: "/tips",
       meta: { title: "Užitečné", icon: "help" },
