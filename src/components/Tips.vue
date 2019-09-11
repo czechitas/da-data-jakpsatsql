@@ -47,8 +47,7 @@ nas_sloupecek1, nas_sloupecek2, nas_sloupecek3
 ORDER BY 	/* pokud chceme data řadit, musíme enginu říct podle kterých sloupečků */
 nas_sloupecek1, nas_sloupecek2, nas_sloupecek3
 LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit 
-
-                    	</code></pre>
+                  </code></pre>
                 </v-card-text>
               </v-card>
             </v-tab-item>
@@ -194,8 +193,8 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                   </p>
                   <p style="padding-left: 30px;">datový_typ :: jiný_datový_typ</p>
                   <p style="padding-left: 30px;">
-                    <span style="color: #99ccff;">SELECT CAST</span>('2017-08-25'
-                    <span style="color: #99ccff;">AS</span>datetime);
+                    <span style="color: #99ccff;">SELECT CAST</span>('2017-08-25' 
+                    <span style="color: #99ccff;">AS</span> datetime);
                   </p>&nbsp;
                   <h2>Příkazy</h2>
                   <h2>
@@ -216,7 +215,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                   </p>
                   <p style="padding-left: 30px;">
                     <span style="color: #99ccff;">SELECT</span> sloupec
-                    <span style="color: #99ccff;">AS</span>sloupec_jinak
+                    <span style="color: #99ccff;">AS</span> sloupec_jinak
                     <span style="color: #99ccff;">FROM</span> tabulka;
                   </p>
                   <p style="padding-left: 10px;">
@@ -267,7 +266,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                     'hodnota'
                   </p>
                   <p style="padding-left: 60px;">
-                    <span style="color: #99ccff;">WHEN</span>sloupec
+                    <span style="color: #99ccff;">WHEN</span> sloupec
                     <span style="color: #99ccff;">LIKE</span> 'hledana_hodnota2'
                     <span style="color: #99ccff;">THEN</span>
                     'hodnota2'
@@ -276,8 +275,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                     <span style="color: #99ccff;">ELSE</span> 'hodnota3'
                   </p>
                   <p style="padding-left: 30px;">
-                    <span style="color: #99ccff;">END</span>
-                    <span style="color: #99ccff;">AS</span>nazev
+                    <span style="color: #99ccff;">END AS</span> nazev
                   </p>
                   <p style="padding-left: 30px;">
                     <span style="color: #99ccff;">FROM</span> tabulka;
@@ -286,16 +284,15 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                     <strong>CAST</strong> Změní datový typ. Shodné s ::
                   </p>
                   <p style="padding-left: 30px;">
-                    <span style="color: #99ccff;">SELECT CAST</span>('2019-09-14'
-                    <span style="color: #99ccff;">AS</span>datetime);
+                    <span style="color: #99ccff;">SELECT CAST</span>('2019-09-14' 
+                    <span style="color: #99ccff;">AS</span> datetime);
                   </p>
                   <p style="padding-left: 10px;">
                     <strong>CEIL</strong> Vypíše nejmenší číslo hodnotu, která je větší nebo
                     rovno
                   </p>
                   <p style="padding-left: 30px;">
-                    <span style="color: #99ccff;">SELECT</span>
-                    <span style="color: #99ccff;">CEIL</span>(3.4);
+                    <span style="color: #99ccff;">SELECT CEIL</span> (3.4);
                   </p>
                   <p style="padding-left: 10px;">
                     <strong>CONCAT</strong> Sloučí dva sloupce do jednoho. Shodné s ||
@@ -335,9 +332,9 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                   </p>
                   <p style="padding-left: 30px;">
                     <span style="color: #99ccff;">SELECT TO_DATE</span>('2019-09-14')
-                    <span style="color: #99ccff;">AS</span>sloupec,
+                    <span style="color: #99ccff;">AS</span> sloupec,
                     <span style="color: #99ccff;">DATEADD</span>(YEAR, 2, D)
-                    <span style="color: #99ccff;">AS</span>sloupec2;
+                    <span style="color: #99ccff;">AS</span> sloupec2;
                   </p>
                   <p style="padding-left: 10px;">
                     <strong>DELETE</strong> Vymaže data

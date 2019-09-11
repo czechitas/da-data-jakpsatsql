@@ -329,7 +329,7 @@ export default {
               header: "WHERE (date function)",
               notes: ["TO_DATE", "DATE_FROM_PARTS", "DATEADD", "EXTRACT"],
               visible: false,
-              code: [" SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
+              code: ["SELECT TO_DATE(imonth || '/' || iday || '/' || iyear) AS datum, imonth, iday, iyear FROM teror WHERE DATEADD(year, 2, datum) = DATE_FROM_PARTS(2016, 1, 1);",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) AS datum FROM teror WHERE DATEDIFF('year',datum, DATE_FROM_PARTS(2015,1,1)) = -2;",
                      " SELECT DATE_FROM_PARTS(iyear, imonth, iday) datum, iyear, imonth, iday, DATEADD(day, 1, datum) AS zitra FROM teror;",
                      " SELECT EXTRACT(YEAR FROM eventdate) AS rok FROM teror2;"] 
