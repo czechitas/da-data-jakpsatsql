@@ -611,7 +611,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  END AS uspesnost
  ,SUM(nkill) / COUNT(1) AS prumerne_obeti, weaptype1_txt 
  FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(1) DESC;`,
-              screen: require("@/assets/lessons/not_available.png"),
+              screen: require("@/assets/lessons/3G.png"),
               screen_visible: false
             }
           ]
