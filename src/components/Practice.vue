@@ -322,7 +322,7 @@ export default {
               code: ["SELECT SPLIT('127.0.0.1', '.');",
                      " SELECT SPLIT(city, ' ') FROM teror; -- vybere vsechny mesta a rozdeli je podle poctu slov",
                      " SELECT city FROM teror WHERE ARRAY_SIZE(SPLIT(city, ' ')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
-                     " SELECT city FROM teror WHERE length(city) - length(replace(city, ' ','')) > 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
+                     " SELECT city FROM teror WHERE length(city) - length(replace(city, ' ','')) >= 2; -- vybere vsechny mesta, ktera maji vice jak 2 slova",
                      " SELECT city, SUBSTRING(city,0,1) AS prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",                     
                      " SELECT city, LEFT(city,1) AS prvni_pismeno FROM teror; -- vybere mesto a jeho prvni pismeno",
                      " SELECT city, UPPER(RIGHT(city,3)) AS posledni_tri_pismena FROM teror; -- vybere mesto a jeho posledni tri pismena v UPPERCASE"] 
