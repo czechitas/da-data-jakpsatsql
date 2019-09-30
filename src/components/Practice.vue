@@ -619,20 +619,155 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
         {
           name: "JOINY",
           lectures: [
-
+            {
+              header: "Základní JOIN (podle numeric)",
+              notes: [],
+              visible: false,
+              code: [`SELECT country.name 
+ FROM teror2
+ LEFT JOIN country ON teror2.country = country.id;`,
+ `
+ SELECT c.name, t.nkill, t.nkillter, t.gname, t.latitude, t.longitude
+ FROM teror2 AS t
+ LEFT JOIN country AS c ON t.country = c.id; -- pro line`,
+ `
+ SELECT c.name, t.nkill, t.nkillter, t.gname, t.latitude, t.longitude
+ FROM teror2 t
+ LEFT JOIN country c ON t.country = c.id; -- pro linejsi`,
+ `
+ SELECT b.name, a.nkill, a.nkillter, a.gname, a.latitude, a.longitude
+ FROM teror2 a
+ LEFT JOIN country b ON a.country = b.id; -- pro bordelare`]
+            },
+            {
+              header: "Základní JOIN (pozor na sloupce)",
+              notes: [],
+              visible: false,
+              code: [`SELECT country.name
+ FROM teror2
+ LEFT JOIN country ON teror2.attacktype1 = country.id;`]
+            },
+            {
+              header: "Základní JOIN (jde to i pres stringy)",
+              notes: [],
+              visible: false,
+              code: [`SELECT country.name
+ FROM teror
+ LEFT JOIN country ON teror.country_txt = country.name;`]
+            },
+            {
+              header: "Základní JOIN (vice tabulek)",
+              notes: [],
+              visible: false,
+              code: [`SELECT country.name, attacktype1.name
+ FROM teror2
+ LEFT JOIN country ON teror2.country = country.id
+ LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id;`]
+            },
+            {
+              header: "JOIN (LEFT a RIGHT)",
+              notes: [],
+              visible: false,
+              code: [`SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
+ FROM  country
+ RIGHT JOIN teror2 ON teror2.country = country.id
+ LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
+ LEFT JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
+ LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`]
+            },
+            {
+              header: "JOIN (INNER vs LEFT)",
+              notes: [],
+              visible: false,
+              code: [
+                `SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
+ FROM teror2
+ JOIN country ON teror2.country = country.id
+ JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
+ JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
+ JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+                `
+ SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
+ FROM teror2
+ INNER JOIN country ON teror2.country = country.id
+ INNER JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
+ INNER JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
+ INNER JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+                ` 
+ SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
+ FROM teror2
+ LEFT JOIN country ON teror2.country = country.id
+ LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
+ LEFT JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
+ LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+              ]
+            },
+            {
+              header: "OUTER JOIN",
+              notes: [],
+              visible: false,
+              code: ["-- nepouzivat "]
+            },
+            {
+              header: "JOIN a WHERE",
+              notes: [],
+              visible: false,
+              code: [`SELECT gname, city, nwound FROM teror2 AS t2 
+ JOIN country AS c ON t2.country = c.id 
+ WHERE c.name = 'Slovak Republic' AND YEAR(t2.eventdate) = 2016;`]
+            },
           ],
           tasks: [
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a pres sloupecek country pripoj zemi z tabulky country",
+              header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a přes sloupeček country připoj zemi z tabulky country",
+              screen: require("@/assets/lessons/4A.png"),
+              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name
+ FROM teror2 AS t
+ LEFT JOIN country AS c ON t.country = c.id;`
             },
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2",
+              header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a",
+              subheaders: ["přes sloupecek country pripoj zemi z tabulky country","přes sloupecek weaptype1 připoj weaptype1 z tabulky weaptype1", "přes sloupecek weaptype2 připoj weaptype2 z tabulky weaptype2"],
+              screen: require("@/assets/lessons/4B.png"),
+              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name, wt1.name, wt2.name
+ FROM teror2 AS t
+ LEFT JOIN country c ON t.country = c.id
+ LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
+ LEFT JOIN weaptype2 wt2 ON t.weaptype2 = wt2.id;`
             },
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a  -pres sloupecek country pripoj zemi z tabulky country -pres sloupecek weaptype1 pripoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 pripoj weaptype2 z tabulky weaptype2 -- vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')",
+              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a  -pres sloupecek country připoj zemi z tabulky country -pres sloupecek weaptype1 připoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 připoj weaptype2 z tabulky weaptype2 -- vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')",
+              screen: require("@/assets/lessons/4C.png"),
+              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name, wt1.name, wt2.name
+ FROM teror2 AS t
+ LEFT JOIN country c ON t.country = c.id
+ LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
+ LEFT JOIN weaptype2 wt2 ON t.weaptype2 = wt2.id
+ WHERE wt2.name = 'Incendiary';`,
             },
             {
               header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
+              screen: require("@/assets/lessons/4D.png"),
+              code: `SELECT count(1), sum(t.nkill), sum(t.nwound), wt1.name
+ FROM teror2 t
+ LEFT JOIN country c ON t.country = c.id
+ LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
+ WHERE date_part(year, eventdate) = 2016
+ GROUP BY wt1.name
+ ORDER BY COUNT(1) DESC;`
+            },
+            {
+              header: "Vypiste pocet unesenych lidi (kdy byl typ utoku unos rukojmich) a pocet udalosti podle regionu a roku. Vysledek seradte podle poctu unesenych lidi sestupne. Sloupecky pojmenujte  region, rok, pocet_unesenych, pocet_udalosti",
+              code: `SELECT reg.name AS region, year(t2.eventdate) AS rok, SUM(t2.nhostkid) AS pocet_unesenych, COUNT(*) AS pocet_udalosti 
+ FROM teror2 AS t2
+ JOIN attacktype1 AS at1 ON t2.attacktype1 = at1.id
+ JOIN region AS reg ON t2.region = reg.id
+ WHERE at1.name LIKE 'Hostage Taking %' AND t2.nhostkid > 0
+ GROUP BY reg.name, year(t2.eventdate)
+ ORDER BY SUM(nhostkid) DESC;`,
+              code_visible: false,
+              screen: require("@/assets/lessons/not_available.png"),
+              screen_visible: false
             }
           ]
         },
