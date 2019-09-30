@@ -64,14 +64,14 @@
                   </div>
 
                   <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
-                    <viewer style="cursor: zoom-in;"  images="['../assets/join.jpg']" :options="viewerOptions">
-                      <img src="../assets/join.jpg" alt="join" title="join" />
+                    <viewer style="cursor: zoom-in;"  images="['../assets/join.png']" :options="viewerOptions">
+                      <img src="../assets/join.png" alt="join" title="join" />
                     </viewer>
                     SELECT<br>
-                      <span style="color: #ff0000;">f.*,<br></span>
-                      <span style="color: #6aa84f;">p.*<br></span>
-                      FROM <span style="color: #ff0000;">FILMS</span> AS f<br>
-                      LEFT JOIN <span style="color: #6aa84f;">POPULATION</span> AS p <span style="color: #0000ff;">ON f.COUNTRY = p.COUNTRY</span>;
+                      <span style="color: #ff0000;">eventid,eventdate,country,gname,<br></span>
+                      <span style="color: #6aa84f;">c.*<br></span>
+                      FROM <span style="color: #ff0000;">teror2</span> AS t2<br>
+                      LEFT JOIN <span style="color: #6aa84f;">country</span> AS c <span style="color: #0000ff;">ON t2.country = c.id</span>;
                   </div>
 
                   <ul>
@@ -97,6 +97,12 @@
                     </li>
                   </ul>
 
+                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
+                    <viewer style="cursor: zoom-in;"  images="['../assets/join2.png']" :options="viewerOptions">
+                      <img src="../assets/join2.png" alt="join" title="join" />
+                    </viewer>
+                  </div>
+                  
                   <v-alert value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
                     ÚKOLY
                   </v-alert>
