@@ -57,21 +57,30 @@
                 <v-card-text class="text-left">
                   
                   <div v-if="lesson_index == 0" style="padding-bottom: 2em;">
-                    <v-btn href="https://docs.google.com/presentation/d/17MPoQTt44GuqhpU4P5e0Fx8HBKzF1_tSKd9WW7UQLdw/edit?usp=sharing" target="_blank" color="primary">
-                      Prezentace
-                      <v-icon right dark>play_arrow</v-icon>
-                    </v-btn>
+                    <center>
+                      <v-btn href="https://docs.google.com/presentation/d/17MPoQTt44GuqhpU4P5e0Fx8HBKzF1_tSKd9WW7UQLdw/edit?usp=sharing" target="_blank" color="primary">
+                        Prezentace
+                        <v-icon right dark>play_arrow</v-icon>
+                      </v-btn>
+                    </center>
                   </div>
 
                   <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
-                    <viewer style="cursor: zoom-in;"  images="['../assets/join.png']" :options="viewerOptions">
-                      <img src="../assets/join.png" alt="join" title="join" />
-                    </viewer>
-                    SELECT<br>
-                      <span style="color: #ff0000;">eventid,eventdate,country,gname,<br></span>
-                      <span style="color: #6aa84f;">c.*<br></span>
-                      FROM <span style="color: #ff0000;">teror2</span> AS t2<br>
-                      LEFT JOIN <span style="color: #6aa84f;">country</span> AS c <span style="color: #0000ff;">ON t2.country = c.id</span>;
+                    <center>
+                      <viewer style="cursor: zoom-in;"  images="['../assets/join.svg']" :options="viewerOptions">
+                        <img src="../assets/join.svg" alt="join" title="join" />
+                      </viewer>
+                      <v-alert icon="none" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
+                      <div class="headline">
+                      SELECT
+                        <span style="color: #ff0000;">eventid,eventdate,country,gname,</span>
+                        <span style="color: #6aa84f;">c.*</span>
+                        FROM <span style="color: #ff0000;">teror2</span> AS <span style="color: #ff0000;">t2</span>
+                        LEFT JOIN <span style="color: #6aa84f;">country</span> AS <span style="color: #6aa84f;">c</span>
+                        &nbsp;<span style="color: #0000ff;">ON t2.country = c.id</span>
+                      </div>
+                      </v-alert>
+                    </center>
                   </div>
 
                   <ul>
@@ -97,10 +106,12 @@
                     </li>
                   </ul>
 
-                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
-                    <viewer style="cursor: zoom-in;"  images="['../assets/join2.png']" :options="viewerOptions">
-                      <img src="../assets/join2.png" alt="join" title="join" />
-                    </viewer>
+                  <div v-if="lesson_index == 3" style="padding: 2em 0;">
+                    <center>
+                      <viewer style="cursor: zoom-in;"  images="['../assets/join2.png']" :options="viewerOptions">
+                        <img src="../assets/join2.png" alt="join" title="join" />
+                      </viewer>
+                    </center>
                   </div>
                   
                   <v-alert value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
@@ -647,7 +658,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             },
             {
               header: "Základní JOIN (pozor na sloupce)",
-              notes: [],
+              notes: ["Takto se to nedělá!!!"],
               visible: false,
               code: [`SELECT country.name
  FROM teror2
@@ -671,10 +682,18 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id;`]
             },
             {
+              header: "JOIN (vice sloupců)",
+              notes: ["Můžeme dostat i více řádků než je v původní tabulce"],
+              visible: false,
+              code: [`SELECT t.gname, t.nkill, dd.nkill
+ FROM teror AS t 
+ JOIN country_dirtydata AS dd ON t.country_txt = dd.country_txt AND t.iyear = dd.iyear`]
+            },
+            {
               header: "JOIN (LEFT a RIGHT)",
               notes: [],
               visible: false,
-              code: [`SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
+              code: [`SELECT teror2.gname, country.name, attacktype1.name, attacktype2.name, attacktype3.name
  FROM  country
  RIGHT JOIN teror2 ON teror2.country = country.id
  LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
@@ -691,21 +710,21 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  JOIN country ON teror2.country = country.id
  JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
  JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+ JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- stejne jako inner join, vrati pouze zaznamy, kde najde zaznam v attacktype`,
                 `
  SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
  FROM teror2
  INNER JOIN country ON teror2.country = country.id
  INNER JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
  INNER JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- INNER JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+ INNER JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- stejne jako JOIN (inner join je defaultni join), vrati pouze zaznamy, kde najde zaznam v attacktyp`,
                 ` 
  SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
  FROM teror2
  LEFT JOIN country ON teror2.country = country.id
  LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
  LEFT JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`,
+ LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi se k nim doparovat attack type`,
               ]
             },
             {
