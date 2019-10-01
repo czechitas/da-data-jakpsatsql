@@ -73,8 +73,8 @@
                       <v-alert icon="none" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
                       <div class="headline">
                       SELECT
-                        <span style="color: #ff0000;">eventid,eventdate,country,gname,</span>
-                        <span style="color: #6aa84f;">c.*</span>
+                        <span style="color: #ff0000;">eventid, eventdate, country, gname,</span>
+                        <span style="color: #6aa84f;"> c.*</span>
                         FROM <span style="color: #ff0000;">teror2</span> AS <span style="color: #ff0000;">t2</span>
                         LEFT JOIN <span style="color: #6aa84f;">country</span> AS <span style="color: #6aa84f;">c</span>
                         &nbsp;<span style="color: #0000ff;">ON t2.country = c.id</span>
