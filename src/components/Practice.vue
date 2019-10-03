@@ -791,7 +791,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  GROUP BY reg.name, year(t2.eventdate)
  ORDER BY SUM(nhostkid) DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/not_available.png"),
+              screen: require("@/assets/lessons/4E.png"),
               screen_visible: false
             }
           ]
