@@ -83,6 +83,15 @@
                     </center>
                   </div>
 
+                   <div v-if="lesson_index == 4" style="padding-bottom: 2em;">
+                    <center>
+                      <v-btn href="https://docs.google.com/presentation/d/17MPoQTt44GuqhpU4P5e0Fx8HBKzF1_tSKd9WW7UQLdw/edit?usp=sharing" target="_blank" color="primary">
+                        Odkaz na testovaci CSV
+                        <v-icon right dark>play_arrow</v-icon>
+                      </v-btn>
+                    </center>
+                  </div>
+
                   <ul>
                     <li v-for="(lecture, lecture_index) in lesson['lectures']" :key="lecture_index">
                       <v-layout row wrap>
@@ -113,8 +122,8 @@
                       </viewer>
                     </center>
                   </div>
-                  
-                  <v-alert value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
+
+                  <v-alert v-if="lesson['tasks'].length > 0" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
                     ÚKOLY
                   </v-alert>
 
@@ -818,14 +827,101 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
         },
         {
           name: "INSERT, DELETE, CREATE, ALTER a IMPORT DAT",
-          tasks: [
+          lectures: [
             {
-              header: "",
-            }
-          ]
+              header: "USE database; USE schema",
+              notes: ["UI", "Příkaz"],
+              visible: false,
+              code: ["USE DATABASE CZECHITA;", " USE DATABASE __prijmeni__;"," USE SCHEMA PUBLIC;", " USE SCHEMA __prijmeni__;"]
+            },
+           {
+              header: "CREATE table",
+              notes: ["replace"],
+              visible: false,
+              code: [`CREATE TABLE NEW_TEROR (
+  ID int,
+  gname VARCHAR(16777216),
+  nkill int,
+  nwound int
+); `, `
+ ADD PRIMARY KEY (id);`,
+`
+ CREATE OR REPLACE TABLE NEW_TEROR (
+  ID int NOT NULL UNIQUE AUTO_INCREMENT,
+  gname VARCHAR(16777216),
+  nkill int,
+  nwound int
+  CONSTRAINT id_pk PRIMARY KEY (id)
+); `]
+            },
+            {
+              header: "CREATE table as select",
+              notes: ["prvotní nalití dat"],
+              visible: false,
+              code: [`CREATE TABLE udalosti_jen_v_cesku
+ AS (SELECT gname, city, nkill, nwound
+ FROM teror
+ WHERE country_txt = 'Czech Republic');`,` 
+ CREATE TABLE udalosti_jen_v_cesku
+ AS (SELECT gname, city, nkill, nwound, country.name
+ FROM teror2 JOIN country ON country.id = teror2.country
+ GROUP BY country.name);`]
+            },
+            {
+              header: "ALTER",
+              notes: ["Snowflake to zatím moc neumí", "MODIFY", "Co dělat, když nejdou zkonvertovat data ve sloupci?"],
+              visible: false,
+              code: ["ALTER TABLE NEW_TEROR ALTER COLUMN Name VARCHAR(50) NOT NULL;", " ALTER TABLE NEW_TEROR ADD Continent varchar(300);", " ALTER TABLE NEW_TEROR DROP COLUMN Continent;"]
+            },
+            {
+              header: "INSERT into from select",
+              notes: ["inkrementální updaty"],
+              visible: false,
+              code: [`INSERT INTO NEW_TEROR (gname, nkill, nwound)
+ SELECT gname, nkill, nwound FROM teror
+ WHERE iyear=2019;`]
+            },
+            {
+              header: "INSERT values",
+              notes: ["bulk aka batch"],
+              visible: false,
+              code: [`INSERT INTO NEW_TEROR (gname, nkill, nwound)
+ VALUES
+  ('Žoldáci', 10, 1),
+  ('Nosiči smrti', 15, 2),
+  ('Nějácí další teroristi', 155, 5);`]
+            },
+            {
+              header: "UPDATE",
+              notes: [],
+              visible: false,
+              code: ["UPDATE NEW_TEROR SET nkill=0 WHERE nkill=NULL;", " UPDATE NEW_TEROR SET nkill=0; -- POZOR, bez podminky nastavi vsude 0", " UPDATE NEW_TEROR SET nkill = 100, nwound= 100 WHERE gname = 'Žoldáci'; -- lze updatovat i vice sloupcu najednou"]
+            },
+            {
+              header: "Import",
+              notes: ["Ukázka ve snowflake"],
+              visible: false,
+              code: []
+            },
+            {
+              header: "DELETE",
+              notes: [],
+              visible: false,
+              code: ["DELETE FROM NEW_TEROR; -- vymaže pouze data", " DELETE FROM NEW_TEROR WHERE nkill = NULL;"]
+            },
+            {
+              header: "DROP",
+              notes: ["TABLE", "DATABASE"],
+              visible: false,
+              code: ["DROP TABLE NEW_TEROR;", " DROP DATABASE __jmeno__;"]
+            },
+          ],
+          tasks: []
         },
         {
-          name: "JOINY II", 
+          name: "JOINY II",
+          lectures: [],
+          tasks: []
         },
         {
           name: "Window funkce",
@@ -866,10 +962,14 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
           ]
         },
         {
-          name: "Vnořené selecty", 
+          name: "Vnořené selecty",
+          lectures: [],
+          tasks: [],
         },
         {
-          name: "Opáčko", 
+          name: "Opáčko",
+          lectures: [],
+          tasks: [] 
         }
       ]
     }
