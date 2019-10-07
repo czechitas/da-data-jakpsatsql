@@ -870,6 +870,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  FROM teror
  WHERE country_txt = 'Czech Republic');`,` 
 CREATE TEMPORARY TABLE hriste.organizace_po_zemich 
+--docasna tabulka zanikne, kdyz se odhlasime
  AS (
   SELECT 
     gname
@@ -877,8 +878,8 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
    ,sum (nkill) killed
    ,sum (nwound) wounded
    ,C.name countryname 
- FROM public.teror2 T2 
- LEFT JOIN country C ON C.id = T2.country
+ FROM      public.teror2 T2 
+ LEFT JOIN country C         ON C.id = T2.country
  GROUP BY C.name, T2.gname, T2.city);`]
             },
             {
