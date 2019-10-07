@@ -83,6 +83,15 @@
                     </center>
                   </div>
 
+                   <div v-if="lesson_index == 4" style="padding-bottom: 2em;">
+                    <center>
+                      <v-btn href="https://docs.google.com/presentation/d/17MPoQTt44GuqhpU4P5e0Fx8HBKzF1_tSKd9WW7UQLdw/edit?usp=sharing" target="_blank" color="primary">
+                        Odkaz na testovaci CSV
+                        <v-icon right dark>play_arrow</v-icon>
+                      </v-btn>
+                    </center>
+                  </div>
+
                   <ul>
                     <li v-for="(lecture, lecture_index) in lesson['lectures']" :key="lecture_index">
                       <v-layout row wrap>
@@ -798,10 +807,67 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
         },
         {
           name: "INSERT, DELETE, CREATE, ALTER a IMPORT DAT",
-          tasks: [
+          lectures: [
             {
-              header: "",
-            }
+              header: "USE database; USE schema",
+              notes: ["UI", "Příkaz"],
+              visible: false,
+              code: [``]
+            },
+           {
+              header: "CREATE table",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "CREATE table as select",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "ALTER",
+              notes: ["ukazat co delat, kdyz nejdou zkonvertovat data ve sloupci", "Snowflake to zatim moc neumi"],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "INSERT into from select",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "INSERT values",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "UPDATE values",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "Import",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "DELETE",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
+            {
+              header: "DROP",
+              notes: [],
+              visible: false,
+              code: [``]
+            },
           ]
         },
         {
