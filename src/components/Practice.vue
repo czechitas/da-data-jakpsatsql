@@ -861,13 +861,25 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               notes: ["prvotní nalití dat"],
               visible: false,
               code: [`CREATE TABLE udalosti_jen_v_cesku
- AS (SELECT gname, city, nkill, nwound
+ AS (
+  SELECT
+    gname
+   ,city
+   ,nkill
+   ,nwound
  FROM teror
  WHERE country_txt = 'Czech Republic');`,` 
- CREATE TABLE udalosti_jen_v_cesku
- AS (SELECT gname, city, nkill, nwound, country.name
- FROM teror2 JOIN country ON country.id = teror2.country
- GROUP BY country.name);`]
+  CREATE TEMPORARY TABLE hriste.organizace_po_zemich 
+ AS (
+  SELECT 
+    gname
+   ,city
+   ,sum (nkill) killed
+   ,sum (nwound) wounded
+   ,C.name countryname 
+ FROM public.teror2 T2 
+ LEFT JOIN country C ON C.id = T2.country
+ GROUP BY C.name, T2.gname, T2.city);`]
             },
             {
               header: "ALTER",
