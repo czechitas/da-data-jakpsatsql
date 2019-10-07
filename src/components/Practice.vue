@@ -893,8 +893,13 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               notes: ["inkrementální updaty"],
               visible: false,
               code: [`INSERT INTO NEW_TEROR (gname, nkill, nwound)
+ --v insertu DYCKY vyjmenovat sloupce, nepouzivat hvezdicku
  SELECT gname, nkill, nwound FROM teror
- WHERE iyear=2019;`]
+ WHERE iyear=2019
+ ubion all
+ SELECT gname, nkill, nwound 
+ FROM teror2 --slucovani vice tabulek se muze hodit...
+ WHERE iyear=2018 ;`]
             },
             {
               header: "INSERT values",
@@ -911,6 +916,43 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               notes: [],
               visible: false,
               code: ["UPDATE NEW_TEROR SET nkill=0 WHERE nkill=NULL;", " UPDATE NEW_TEROR SET nkill=0; -- POZOR, bez podminky nastavi vsude 0", " UPDATE NEW_TEROR SET nkill = 100, nwound= 100 WHERE gname = 'Žoldáci'; -- lze updatovat i vice sloupcu najednou"]
+            },
+            {
+              header: "NESTASTNY UPDATE A KOUZELNY SELECT AT",
+              notes: [],
+              visible: false,
+              code: [`
+--s trochou odvahy se da tabulka i prepsat...
+ create OR REPLACE table hriste.xx_prycsemnou as 
+   (
+ --v insertu DYCKY vyjmenovat sloupce, nepouzivat hvezdicku
+ SELECT
+    gname
+   ,city
+   ,sum (nkill) killed
+   ,sum (nwound) wounded
+ FRom TEROR
+ WHERE iyear=2016
+ GROUP BY gname, city
+ uNion all
+ SELECT
+    gname
+   ,city
+   ,sum (nkill) killed
+   ,sum (nwound) wounded
+ FRom TEROR2 --slucovani vice tabulek se muze hodit...
+ WHERE year(eventdate)=2015 
+ GROUP BY gname, city);
+   
+update hriste.xx_prycsemnou set killed = 0; -- TADY NAM TROCHU CHYBI PODMINKA
+
+select * from hriste.xx_prycsemnou at(offset => -35) as x;
+-- a je to rozbity
+
+
+select * from hriste.xx_prycsemnou at(offset => -15) as x;
+--ale pujde to zachranit
+`]
             },
             {
               header: "Import",
