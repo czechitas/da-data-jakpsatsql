@@ -807,7 +807,8 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: `Zjistí počty útoků po letech a kontinentech. Tj. Vytvoř sloupeček kontinent a podle něj a roku tabulku "zgrupuj".`,
               code: `SELECT 
   iyear 
- , CASE
+ , CASE --vyber ze seznamu hodnot bude pri miliardach radek rychlejsi... Proc asi?
+        -- pres region misto region_txt by to mozna bylo jeste rychlejsi...
     WHEN region_txt in ('Western Europe', 'Eastern Europe') THEN 'Europe'
     WHEN region_txt in ('Middle East & North Africa', 'Sub-Saharan Africa') THEN 'Africa'
     WHEN region_txt in ('East Asia', ' Southeast Asia', 'South Asia', 'Central Asia') THEN 'Asia'
@@ -817,6 +818,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  , count(*) utoku_celkem 
  FROM teror
  GROUP BY 
+ --potrevujeme tabulku zgrupovat po kontinentech a letech
   kontinent
  ,iyear; `,
               code_visible: false,
