@@ -869,7 +869,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
    ,nwound
  FROM teror
  WHERE country_txt = 'Czech Republic');`,` 
-  CREATE TEMPORARY TABLE hriste.organizace_po_zemich 
+CREATE TEMPORARY TABLE hriste.organizace_po_zemich 
  AS (
   SELECT 
     gname
