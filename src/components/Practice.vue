@@ -793,6 +793,26 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               code_visible: false,
               screen: require("@/assets/lessons/4E.png"),
               screen_visible: false
+            },
+            {
+              header: `Zjistí počty útoků po letech a kontinentech. Tj. Vytvoř sloupeček kontinent a podle něj a roku tabulku "zgrupuj".`,
+              code: `SELECT 
+  iyear 
+ , CASE
+    WHEN region_txt in ('Western Europe', 'Eastern Europe') THEN 'Europe'
+    WHEN region_txt in ('Middle East & North Africa', 'Sub-Saharan Africa') THEN 'Africa'
+    WHEN region_txt in ('East Asia', ' Southeast Asia', 'South Asia', 'Central Asia') THEN 'Asia'
+    WHEN region_txt in ('North America', 'Central America & Caribbean', 'South America') THEN 'America'
+    WHEN region_txt  = 'Australasia & Oceania' THEN 'Australia'
+   END AS kontinent
+ , count(*) utoku_celkem 
+ FROM teror
+ GROUP BY 
+  kontinent
+ ,iyear; `,
+              code_visible: false,
+              screen: require("@/assets/lessons/not_available.png"),
+              screen_visible: false
             }
           ]
         },
