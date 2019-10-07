@@ -964,7 +964,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
               header: "DELETE",
               notes: [],
               visible: false,
-              code: ["DELETE FROM NEW_TEROR; -- vymaže pouze data", " DELETE FROM NEW_TEROR WHERE nkill = NULL;"]
+              code: ["DELETE FROM NEW_TEROR; -- vymaže pouze data", " DELETE FROM NEW_TEROR WHERE nkill is NULL;"]
             },
             {
               header: "DROP",
