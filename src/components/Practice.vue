@@ -973,7 +973,20 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
               code: ["DROP TABLE NEW_TEROR;", " DROP DATABASE __jmeno__;"]
             },
           ],
-          tasks: []
+          tasks: [
+            {
+            header: "Importujte ukol.csv do Snowflake. Vytvořte si tabulku, která  bude obsahovat sloupce jako v csv souboru. Prohlédněte si nejdříve data třeba v Excelu (Podívejte se na datové typy. NÁPOVĚDA: Datum není datum importujte jako string).",
+            },
+            {
+              header: "Importujte data do tabulky. Pozor budete si muset vytvořit vlastní file format!!!",
+            },
+            {
+              header: "Úprava dat:",
+              subheaders:["Najděte řádky, není vyplněné jméno nebo datum narození a ty vymažte (REPLACE).", "V poli Birth Date odstraňte přebytečné mezery a převeďte pole na Datum.", "Vytvořte dva nové sloupce Name and Surname a vložte do nich data z pole Full name.","Upravte v polích Name a Surname první písmeno vždy velké (nápověda funkce UPPER,SUBSTRING)."]
+            },
+            {
+              header: "Vypište počet klientů dle věkových kategorii (1-10,10-20,20-30,více než 30)  žijících v Číně.",
+            }]
         },
         {
           name: "JOINY II",
