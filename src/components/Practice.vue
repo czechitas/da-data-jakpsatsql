@@ -67,7 +67,7 @@
 
                   <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
                     <center>
-                      <viewer style="cursor: zoom-in;"  images="['../assets/join.svg']" :options="viewerOptions">
+                      <viewer style="cursor: zoom-in;"  :images="['../assets/join.svg']" :options="viewerOptions">
                         <img src="../assets/join.svg" alt="join" title="join" />
                       </viewer>
                       <v-alert icon="none" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
@@ -117,13 +117,18 @@
                             <code class="sql">{{ lecture["code"].join('\n') }}</code>
                           </pre>
                         </v-flex>
+                        <v-flex v-if="lecture['visible'] && lecture['images']" xs12>
+                          <viewer style="cursor: zoom-in;" :images="lecture['images']" :options='{ "inline": true, "button": true, "navbar": true, "title": false, "toolbar": true, "tooltip": false, "movable": false, "zoomable": false, "rotatable": false, "scalable": false, "transition": false, "fullscreen": false, "keyboard": true, "url": "data-source" }'>
+                            <img v-for="src in lecture['images']" :src="src" :key="src">
+                          </viewer>
+                        </v-flex>
                       </v-layout>
                     </li>
                   </ul>
 
                   <div v-if="lesson_index == 3" style="padding: 2em 0;">
                     <center>
-                      <viewer style="cursor: zoom-in;"  images="['../assets/join2.png']" :options="viewerOptions">
+                      <viewer style="cursor: zoom-in;"  :images="['../assets/join2.png']" :options="viewerOptions">
                         <img src="../assets/join2.png" alt="join" title="join" />
                       </viewer>
                     </center>
@@ -964,6 +969,13 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             {
               header: "Import",
               notes: ["Ukázka ve snowflake", "Použijte data.csv"],
+              images: [
+                require("@/assets/screenshots/import_file_format_01.png"),
+                require("@/assets/screenshots/import_file_format_02.png"),
+                require("@/assets/screenshots/import_file_format_03.png"),
+                require("@/assets/screenshots/import_file_format_04.png"),
+                require("@/assets/screenshots/import_file_format_05.png")
+              ],
               visible: false,
               code: [`CREATE OR REPLACE TABLE HRISTE.gibberish
 (  "ID" number
