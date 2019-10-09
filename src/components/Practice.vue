@@ -85,9 +85,15 @@
 
                    <div v-if="lesson_index == 4" style="padding-bottom: 2em;">
                     <center>
-                      <v-btn href="https://docs.google.com/presentation/d/17MPoQTt44GuqhpU4P5e0Fx8HBKzF1_tSKd9WW7UQLdw/edit?usp=sharing" target="_blank" color="primary">
-                        Odkaz na testovaci CSV
-                        <v-icon right dark>play_arrow</v-icon>
+
+                      <v-btn :href='require("@/assets/data/data.csv")' target="_blank" color="primary" download>
+                        Stáhnout data.csv
+                        <v-icon right dark>get_app</v-icon>
+                      </v-btn>
+
+                      <v-btn :href='require("@/assets/data/ukol.csv")' target="_blank" color="primary" download>
+                        Stáhnout ukol.csv
+                        <v-icon right dark>get_app</v-icon>
                       </v-btn>
                     </center>
                   </div>
@@ -134,10 +140,10 @@
                           <span class="subheading">{{ task["header"] }}</span>
                         </v-flex>
                         <v-flex class="text-xs-right" xs2>
-                          <v-btn color="error" title="Zobrazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outline>
+                          <v-btn v-if="task['code']" color="error" title="Zobrazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outline>
                             <v-icon>{{ task['code_visible'] ? "visibility_off" : "visibility" }}</v-icon>
                           </v-btn>
-                          <v-btn color="success" title="Zobrazit výsledek" @click="hintClicked(lesson_index, 'screen', task_index)" fab small dark outline>
+                          <v-btn v-if="task['screen']" color="success" title="Zobrazit výsledek" @click="hintClicked(lesson_index, 'screen', task_index)" fab small dark outline>
                             <v-icon>{{ task['screen_visible'] ? "visibility_off" : "insert_photo" }}</v-icon>
                           </v-btn>
                         </v-flex>
@@ -177,6 +183,7 @@ export default {
   data() {
     return {
       viewerOptions: { "toolbar": false, "navbar": false, "title": false },
+      taskLink: require("@/assets/data/ukol.csv"),
       lessons: [
         {
           name: "Základy",
@@ -918,7 +925,7 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               code: ["UPDATE NEW_TEROR SET nkill=0 WHERE nkill=NULL;", " UPDATE NEW_TEROR SET nkill=0; -- POZOR, bez podminky nastavi vsude 0", " UPDATE NEW_TEROR SET nkill = 100, nwound= 100 WHERE gname = 'Žoldáci'; -- lze updatovat i vice sloupcu najednou"]
             },
             {
-              header: "NESTASTNY UPDATE A KOUZELNY SELECT AT",
+              header: "Nešťastný UPDATE a kouzelný SELECT AT",
               notes: [],
               visible: false,
               code: [`
@@ -956,9 +963,23 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             },
             {
               header: "Import",
-              notes: ["Ukázka ve snowflake"],
+              notes: ["Ukázka ve snowflake", "Použijte data.csv"],
               visible: false,
-              code: []
+              code: [`CREATE OR REPLACE TABLE HRISTE.gibberish
+(  "ID" number
+ , "FIRST" text(500)
+ , "LAST" char(500)
+ , Email text
+ , CategoryId int
+ , ShopId int
+ , PeasantId integer
+ , TransactionDate date
+ , VirginityLevel int
+ , PricePerGig text
+ , SegmentText varchar(200)
+ , URL varchar(200)
+ , BlockChainHash varchar(64)
+);`]
             },
             {
               header: "DELETE",
@@ -975,7 +996,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
           ],
           tasks: [
             {
-            header: "Importujte ukol.csv do Snowflake. Vytvořte si tabulku, která  bude obsahovat sloupce jako v csv souboru. Prohlédněte si nejdříve data třeba v Excelu (Podívejte se na datové typy. NÁPOVĚDA: Datum není datum importujte jako string).",
+              header: "Importujte ukol.csv do Snowflake. Vytvořte si tabulku, která  bude obsahovat sloupce jako v csv souboru. Prohlédněte si nejdříve data třeba v Excelu (Podívejte se na datové typy. NÁPOVĚDA: Datum není datum importujte jako string).",
             },
             {
               header: "Importujte data do tabulky. Pozor budete si muset vytvořit vlastní file format!!!",
@@ -998,6 +1019,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
           lectures: [
             {
               header: "Příklad: select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;",
+              code: ["SELECT"],
               visible: false,
             },
           ],
