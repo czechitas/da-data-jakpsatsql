@@ -1015,10 +1015,10 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             },
             {
               header: "Úprava dat:",
-              subheaders:["Najděte řádky, není vyplněné jméno nebo datum narození a ty vymažte (REPLACE).", "V poli Birth Date odstraňte přebytečné mezery a převeďte pole na Datum.", "Vytvořte dva nové sloupce Name and Surname a vložte do nich data z pole Full name.","Upravte v polích Name a Surname první písmeno vždy velké (nápověda funkce UPPER,SUBSTRING)."]
+              subheaders:["Najděte řádky, kde není vyplněné jméno, nebo datum narození a ty vymažte.", "V poli Birth Date odstraňte přebytečné mezery a vytvořte sloupec s datovým typem Date.( NÁPOVĚDA: REPLACE)", "Vytvořte dva nové sloupce Name and Surname a vložte do nich rozdělená data z pole Full name.","Pole Name a Surname upravte tak, aby první písmeno bylo vždy velké (nápověda funkce UPPER,SUBSTRING)."]
             },
             {
-              header: "Vypište počet klientů dle věkových kategorii (1-10,10-20,20-30,více než 30)  žijících v Číně.",
+              header: "Vypište počet klientů dle věkových kategorií (1-10,10-20,20-30,více než 30)  žijících v Číně.",
             }]
         },
         {
