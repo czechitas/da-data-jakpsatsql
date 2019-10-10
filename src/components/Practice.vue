@@ -908,7 +908,7 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
  --v insertu DYCKY vyjmenovat sloupce, nepouzivat hvezdicku
  SELECT gname, nkill, nwound FROM teror
  WHERE iyear=2019
- ubion all
+ UNION ALL
  SELECT gname, nkill, nwound 
  FROM teror2 --slucovani vice tabulek se muze hodit...
  WHERE iyear=2018 ;`]
