@@ -1023,8 +1023,50 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
         },
         {
           name: "JOINY II",
-          lectures: [],
+          lectures: [
+            {
+              header: "Co je to vnořený select?",
+              notes: [],
+              visible: false,
+              code: ["SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;", 
+`
+ SELECT vnoreny.* 
+ FROM 
+ (SELECT DISTINCT t.gname AS skupina, c.name AS zeme FROM teror2 AS t INNER JOIN country AS c ON t.country=country.id) AS vnoreny;`,
+ `
+ SELECT 
+ top_t.country_txt
+ ,SUM(top_t.nkill)
+ ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
+ FROM teror top_t`]
+            },
+            {
+              header: "Co je to CTE? (Common Table Expressions)",
+              notes: [],
+              visible: false,
+              code: [`WITH ctepoddotaz as
+ (SELECT 1 jednicka, 'milion' dvojka)
+ SELECT c.jednicka, c.dvojka FROM ctepoddotaz c`,
+`
+ WITH terorcountry
+ (SELECT DISTINCT t.gname skupina, c.name zeme FROM teror2 t INNER JOIN country c ON t.country=country.id)
+ SELECT * FROM terorcountry;`,
+ `
+ WITH fake_po_letech AS
+ (SELECT iyear, sum(nkill) mrtvi WHERE weaptype1_txt='Fake Weapons' GROUP BY iyear), zraneni_po_letech_bez_fake AS
+ (SELECT iyear, sum(nwound) raneni WHERE weaptype1_txt<>'Fake Weapons' GROUP BY iyear)
+ --spojeni pres roky
+ SELECT  f.year, f.mrtvi, z.raneni
+ FROM fake_po_letech f LEFT JOIN zraneni_po_letech_bez_fake z
+ ON f.iyear=z.iyear`]
+            }
+          ],
           tasks: []
+        },
+        {
+          name: "Vnořené selecty",
+          lectures: [],
+          tasks: [],
         },
         {
           name: "Window funkce",
@@ -1064,16 +1106,6 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
               header: "tři největší útoky pro organizace s víc než 500 obětmi",
             }
           ]
-        },
-        {
-          name: "Vnořené selecty",
-          lectures: [],
-          tasks: [],
-        },
-        {
-          name: "Opáčko",
-          lectures: [],
-          tasks: [] 
         }
       ]
     }
