@@ -1022,23 +1022,56 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             }]
         },
         {
-          name: "JOINY II",
+          name: "Dočasné tabulky, UNION a JOINy II",
           lectures: [
             {
-              header: "Co je to vnořený select?",
+              header: "Dočasná tabulka",
               notes: [],
               visible: false,
-              code: ["SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;", 
-`
- SELECT vnoreny.* 
- FROM 
- (SELECT DISTINCT t.gname AS skupina, c.name AS zeme FROM teror2 AS t INNER JOIN country AS c ON t.country=country.id) AS vnoreny;`,
+              code: [`use schema hriste;
+  
+ CREATE VOLATILE TABLE pokus AS --- vytvoreni docasne tabulky 
+ (
+  SELECT gname,eventdate,nkill FROM public.teror2
+ );`]
+            },
+            {
+              header: "UNION vs UNION ALL",
+              notes: [],
+              visible: false,
+              code: [`SELECT w.name,sum(nkill) AS mrtvi,sum( CASE WHEN nhostkid=-99 THEN NULL ELSE nhostkid END) rukojmi, sum(nwound) raneni 
+ FROM public.teror2 t
+ JOIN public.weaptype1 w
+ ON t.weaptype1=w.id
+ GROUP BY 1
+ UNION ALL
+ SELECT w.name,sum(nkill) AS mrtvi,sum( CASE WHEN nhostkid=-99 THEN NULL ELSE nhostkid END) rukojmi,sum(nwound) raneni 
+ FROM public.teror2 t
+ JOIN public.weaptype2 w
+ ON t.weaptype2=w.id
+ GROUP BY 1;`,
  `
- SELECT 
- top_t.country_txt
- ,SUM(top_t.nkill)
- ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
- FROM teror top_t`]
+ SELECT w.name 
+ FROM public.teror2 t
+ JOIN public.weaptype1 w
+ ON t.weaptype1=w.id
+ UNION ALL 
+ SELECT w.name
+ FROM public.teror2 t
+ JOIN public.weaptype2 w
+ ON t.weaptype2=w.id;
+ `,
+ `
+ SELECT w.name 
+ FROM public.teror2 t
+ JOIN public.weaptype1 w
+ ON t.weaptype1=w.id
+ UNION ---- pozor odstrani neduplicity 
+ SELECT w.name
+ FROM public.teror2 t
+ JOIN public.weaptype2 w
+ ON t.weaptype2=w.id;
+ `]
             },
             {
               header: "Co je to CTE? (Common Table Expressions)",
@@ -1065,7 +1098,22 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
         },
         {
           name: "Vnořené selecty",
-          lectures: [],
+          lectures: [{
+              header: "Co je to vnořený select?",
+              notes: [],
+              visible: false,
+              code: ["SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;", 
+`
+ SELECT vnoreny.* 
+ FROM 
+ (SELECT DISTINCT t.gname AS skupina, c.name AS zeme FROM teror2 AS t INNER JOIN country AS c ON t.country=country.id) AS vnoreny;`,
+ `
+ SELECT 
+ top_t.country_txt
+ ,SUM(top_t.nkill)
+ ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
+ FROM teror top_t`]
+            },],
           tasks: [],
         },
         {
