@@ -1086,15 +1086,40 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  SELECT * FROM terorcountry;`,
  `
  WITH fake_po_letech AS
- (SELECT iyear, sum(nkill) mrtvi WHERE weaptype1_txt='Fake Weapons' GROUP BY iyear), zraneni_po_letech_bez_fake AS
- (SELECT iyear, sum(nwound) raneni WHERE weaptype1_txt<>'Fake Weapons' GROUP BY iyear)
+ (SELECT iyear, sum(nkill) mrtvi FROM teror WHERE weaptype1_txt='Fake Weapons' GROUP BY iyear), zraneni_po_letech_bez_fake AS
+ (SELECT iyear, sum(nwound) raneni  FROM teror WHERE weaptype1_txt<>'Fake Weapons' GROUP BY iyear)
  --spojeni pres roky
- SELECT  f.year, f.mrtvi, z.raneni
+ SELECT  f.iyear, f.mrtvi, z.raneni
  FROM fake_po_letech f LEFT JOIN zraneni_po_letech_bez_fake z
  ON f.iyear=z.iyear`]
             }
           ],
-          tasks: []
+          tasks: [
+            {
+              header: "Co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM teror2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(1) > 5), SERAZENO AS" +
+                      "(SELECT GNAME, NKILL, IFNULL(NKILL, 0), NWOUND, EVENTDATE, COUNTRY, CITY, ROW_NUMBER() OVER (PARTITION BY GNAME ORDER BY IFNULL(NKILL, 0) DESC) RN" +
+                      "FROM teror2 WHERE GNAME IN (SELECT GNAME FROM SUCORG))" +
+                      "SELECT S.GNAME, S.NKILL, S.NWOUND, S.EVENTDATE, S.CITY,  C.NAME COUNTRY" +
+                      "FROM SERAZENO S LEFT JOIN COUNTRY C ON S.COUNTRY = C.ID" +
+                      "WHERE S.RN <= 3" +
+                      "ORDER BY S.GNAME, NKILL DESC;"
+            },
+            {
+              header: "Vyber z tabulky teror2 'Assassination'  útoky (attacktype1 , attacktype2, attacktype3) jejichž země je bud Kolumbie, Somálsko, nebo Indie nebo je země (tabulka country - sloupecek countrytype) typu ‘Target country’. Prvni dva sloupečky budou name a countrytype z tabulky country a všechny sloupečky z tabulky terror2",
+              screen: require("@/assets/lessons/not_available.png"),
+              code: `SELECT c.name country, c.countrytype, t.*, at1.name, at2.name, at3.name, t.gname, t.eventdate
+ FROM teror2 t
+ LEFT JOIN attacktype1 at1 on at1.id = t.attacktype1
+ LEFT JOIN attacktype2 at2 on at2.id = t.attacktype2
+ LEFT JOIN attacktype3 at3 on at3.id = t.attacktype3
+ LEFT JOIN country c on t.country = c.id
+ WHERE
+ (at1.name = 'Assassination' or at2.name = 'Assassination' or at3.name = 'Assassination')
+ AND
+ (c.name in ('Somalia', 'India', 'Colombia') or c.countrytype = 'Target country');
+`
+            },
+          ]
         },
         {
           name: "Vnořené selecty",
@@ -1127,9 +1152,6 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
           ],
           tasks: [
             {
-              header: "Vyber z tabulky teror2 'Assassination'  útoky (attacktype1 , attacktype2, attacktype3) jejichž země je bud Kolumbie, Somálsko, nebo Indie nebo je země (tabulka country - sloupecek countrytype) typu ‘Target country’. Prvni dva sloupečky budou name a countrytype z tabulky country a všechny sloupečky z tabulky terror2",
-            },
-            {
               header: "spoj tabulku teror2 se subselectem nad tabulkou country (tak abychom dostali všechny řádky z tabulky teror2), který z ní vyřadí všechny země které v CountryType mají ‘Not interested’, vypiš eventdate, gname, nkill, nwound, city, country z teror2 a name (prejmenovany na country_txt) ze subselectu",
             },
             {
@@ -1140,15 +1162,6 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             },
             {
               header: "vyberte vsechny organizace, které nezopakovaly útok mimo Evropu (spáchaly maximálně jeden mimoevropsky útok) u kazde vypiste tri utoky s nejvetsim poctem obeti do vypisu dejte gname, nwound, nkill, city a zemi pripojenou z tabulky country pres sloupecek id",
-            },
-            {
-              header: "co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM teror2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(1) > 5), SERAZENO AS" +
-                      "(SELECT GNAME, NKILL, IFNULL(NKILL, 0), NWOUND, EVENTDATE, COUNTRY, CITY, ROW_NUMBER() OVER (PARTITION BY GNAME ORDER BY IFNULL(NKILL, 0) DESC) RN" +
-                      "FROM teror2 WHERE GNAME IN (SELECT GNAME FROM SUCORG))" +
-                      "SELECT S.GNAME, S.NKILL, S.NWOUND, S.EVENTDATE, S.CITY,  C.NAME COUNTRY" +
-                      "FROM SERAZENO S LEFT JOIN COUNTRY C ON S.COUNTRY = C.ID" +
-                      "WHERE S.RN <= 3" +
-                      "ORDER BY S.GNAME, NKILL DESC;",
             },
             {
               header: "tři největší útoky pro organizace s víc než 500 obětmi",
