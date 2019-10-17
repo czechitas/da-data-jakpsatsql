@@ -1106,7 +1106,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
             },
             {
               header: "Vyber z tabulky teror2 'Assassination'  útoky (attacktype1 , attacktype2, attacktype3) jejichž země je bud Kolumbie, Somálsko, nebo Indie nebo je země (tabulka country - sloupecek countrytype) typu ‘Target country’. Prvni dva sloupečky budou name a countrytype z tabulky country a všechny sloupečky z tabulky terror2",
-              screen: require("@/assets/lessons/not_available.png"),
+              screen: require("@/assets/lessons/6B.png"),
               code: `SELECT c.name country, c.countrytype, t.*, at1.name, at2.name, at3.name, t.gname, t.eventdate
  FROM teror2 t
  LEFT JOIN attacktype1 at1 on at1.id = t.attacktype1
