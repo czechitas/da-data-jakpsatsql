@@ -1122,7 +1122,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
           ]
         },
         {
-          name: "Vnořené selecty",
+          name: "Vnořené selecty a window funkce",
           lectures: [{
               header: "Co je to vnořený select?",
               notes: [],
@@ -1138,17 +1138,46 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  ,SUM(top_t.nkill)
  ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
  FROM teror top_t`]
-            },],
-          tasks: [],
-        },
-        {
-          name: "Window funkce",
-          lectures: [
+            },
             {
               header: "Příklad: select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;",
               code: ["SELECT"],
               visible: false,
             },
+            {
+              header: "Počet mrtvých v letech 2017 a 2016 které má na svědomí Islámský Stát tak, aby ve výsledku byl název organizace a ve sloupcích počet mrtvých dle let",
+              code: [`SELECT a.*,b.pocetmrtv2016 FROM
+(
+SELECT gname,COUNT(nkill) as pocetmrtv2017
+FROM teror
+WHERE iyear=2017 AND gname ilike '%islamic state%' 
+GROUP BY 1
+ORDER BY pocetmrtv2017 DESC
+  ) AS a
+LEFT JOIN
+(
+SELECT gname,COUNT(nkill) AS pocetmrtv2016
+FROM teror
+WHERE iyear=2016
+GROUP BY 1
+ORDER BY pocetmrtv2016 DESC
+  ) AS b
+  ON a.gname=b.gname;`]
+            },
+            {
+              header: "Výběr teoristických úroků v roce 2016, které má na svědomí Islámský Stát a doplnění informace max a min počtu oětí v roce 2016 ke každému útokt",
+              code: [`SELECT eventid,t.gname, iyear,nkill,t2.maxmrtv2016,t2.minmrt2016
+FROM teror AS t
+LEFT JOIN
+(
+SELECT gname,max(nkill) AS maxmrtv2016,min(nkill) AS minmrt2016
+FROM teror
+WHERE iyear=2016 AND gname ilike '%islamic state%' 
+GROUP BY 1
+  ) t2
+  ON t.gname=t2.gname
+  WHERE t.gname ILIKE '%islamic state%' and iyear=2016;`]
+            }
           ],
           tasks: [
             {
