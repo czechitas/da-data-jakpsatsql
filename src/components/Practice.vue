@@ -1124,7 +1124,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
         {
           name: "Vnořené selecty a window funkce",
           lectures: [{
-              header: "Co je to vnořený select?",
+              header: "Vnořený select",
               notes: [],
               visible: false,
               code: ["SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;", 
@@ -1137,16 +1137,12 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  top_t.country_txt
  ,SUM(top_t.nkill)
  ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
- FROM teror top_t`]
-            },
-            {
-              header: "Příklad: select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;",
-              code: ["SELECT"],
-              visible: false,
-            },
-            {
-              header: "Počet mrtvých v letech 2017 a 2016 které má na svědomí Islámský Stát tak, aby ve výsledku byl název organizace a ve sloupcích počet mrtvých dle let",
-              code: [`SELECT a.*,b.pocetmrtv2016 FROM
+ FROM teror top_t`, `
+ select gname,iyear,nkill from teror
+where gname=
+(select gname from teror order by nkill desc limit 1); -- Zobrazení všech teroristických událostí, které spáchala teroristická organizace s nejvetším počtem obětí
+ `,
+ `SELECT a.*,b.pocetmrtv2016 FROM
 (
 SELECT gname,COUNT(nkill) as pocetmrtv2017
 FROM teror
@@ -1162,11 +1158,8 @@ WHERE iyear=2016
 GROUP BY 1
 ORDER BY pocetmrtv2016 DESC
   ) AS b
-  ON a.gname=b.gname;`]
-            },
-            {
-              header: "Výběr teoristických úroků v roce 2016, které má na svědomí Islámský Stát a doplnění informace max a min počtu oětí v roce 2016 ke každému útokt",
-              code: [`SELECT eventid,t.gname, iyear,nkill,t2.maxmrtv2016,t2.minmrt2016
+  ON a.gname=b.gname; -- Počet mrtvých v letech 2017 a 2016 které má na svědomí Islámský Stát tak, aby ve výsledku byl název organizace a ve sloupcích počet mrtvých dle let`,
+  `SELECT eventid,t.gname, iyear,nkill,t2.maxmrtv2016,t2.minmrt2016
 FROM teror AS t
 LEFT JOIN
 (
@@ -1176,7 +1169,24 @@ WHERE iyear=2016 AND gname ilike '%islamic state%'
 GROUP BY 1
   ) t2
   ON t.gname=t2.gname
-  WHERE t.gname ILIKE '%islamic state%' and iyear=2016;`]
+  WHERE t.gname ILIKE '%islamic state%' and iyear=2016; -- Výběr teoristických úroků v roce 2016, které má na svědomí Islámský Stát a doplnění informace max a min počtu oětí v roce 2016 ke každému útoku`,
+  `select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;`]
+            },
+            {
+              header: "Window funkce",
+              subheaders: ["RANK() - vrátí pořadí každého záznamu po jednotlivých částech (partitions)", 
+              "ROW_NUMBER() - vrátí pořadové číslo řádku s možností rozdělení na části (partitions) a seřazení. Začíná od 1 pro každou skupinu", 
+              "DENSE_RANK() - vrátí pořadí každého záznamu po jednotlivých částech (partitions) bez mezer mezi pořadími", 
+              "NTILE(argument) – Rozdělí řádky do n skupin v závislosti na argumentu"],
+              code: [`SELECT gname, iyear, sum(nkill) as suma_nkill
+   ,ROW_NUMBER() OVER (ORDER BY suma_nkill DESC) AS ROW_NUMBER
+   ,RANK() OVER (ORDER BY suma_nkill DESC) AS RANK
+   ,DENSE_RANK() OVER (ORDER BY suma_nkill DESC) AS DENSE_RANK
+   ,NTILE(3) OVER(ORDER BY suma_nkill DESC) AS NTILE
+FROM teror
+WHERE nkill IS NOT NULL
+GROUP BY gname, iyear;
+`]
             }
           ],
           tasks: [
