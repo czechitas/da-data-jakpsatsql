@@ -1050,7 +1050,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  JOIN public.weaptype2 w
  ON t.weaptype2=w.id
  GROUP BY 1;`,
- `
+`
  SELECT w.name 
  FROM public.teror2 t
  JOIN public.weaptype1 w
@@ -1059,9 +1059,8 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  SELECT w.name
  FROM public.teror2 t
  JOIN public.weaptype2 w
- ON t.weaptype2=w.id;
- `,
- `
+ ON t.weaptype2=w.id;`,
+`
  SELECT w.name 
  FROM public.teror2 t
  JOIN public.weaptype1 w
@@ -1084,14 +1083,18 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
  WITH terorcountry
  (SELECT DISTINCT t.gname skupina, c.name zeme FROM teror2 t INNER JOIN country c ON t.country=country.id)
  SELECT * FROM terorcountry;`,
- `
+`
  WITH fake_po_letech AS
  (SELECT iyear, sum(nkill) mrtvi FROM teror WHERE weaptype1_txt='Fake Weapons' GROUP BY iyear), zraneni_po_letech_bez_fake AS
  (SELECT iyear, sum(nwound) raneni  FROM teror WHERE weaptype1_txt<>'Fake Weapons' GROUP BY iyear)
  --spojeni pres roky
  SELECT  f.iyear, f.mrtvi, z.raneni
  FROM fake_po_letech f LEFT JOIN zraneni_po_letech_bez_fake z
- ON f.iyear=z.iyear`]
+ ON f.iyear=z.iyear`,
+`
+ WITH cte AS (SELECT gname, eventdate FROM teror2 WHERE country = 54)
+ SELECT * FROM cte;
+`]
             }
           ],
           tasks: [
@@ -1127,50 +1130,51 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
               header: "Vnořený select",
               notes: [],
               visible: false,
-              code: ["SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;", 
+              code: [`
+ -- Vybere 1 jako subselect
+ SELECT vnoreny.a FROM (SELECT 1 AS a) AS vnoreny;`,
 `
- SELECT vnoreny.* 
- FROM 
- (SELECT DISTINCT t.gname AS skupina, c.name AS zeme FROM teror2 AS t INNER JOIN country AS c ON t.country=country.id) AS vnoreny;`,
- `
- SELECT 
- top_t.country_txt
- ,SUM(top_t.nkill)
- ,(SELECT DISTINCT(gname) FROM teror sub_t WHERE sub_t.eventid=top_t.eventid AND gname LIKE '%islam%') pocet_islamistickych_skupin
- FROM teror top_t`, `
- select gname,iyear,nkill from teror
-where gname=
-(select gname from teror order by nkill desc limit 1); -- Zobrazení všech teroristických událostí, které spáchala teroristická organizace s nejvetším počtem obětí
- `,
- `SELECT a.*,b.pocetmrtv2016 FROM
-(
-SELECT gname,COUNT(nkill) as pocetmrtv2017
-FROM teror
-WHERE iyear=2017 AND gname ilike '%islamic state%' 
-GROUP BY 1
-ORDER BY pocetmrtv2017 DESC
+ -- Vybere jen některé sloupce jako subselect
+ SELECT * FROM (SELECT gname, eventdate FROM teror2 WHERE country = 54) AS subselect;`,
+`
+ -- Vybere unikátní dvojice skupiny a země jako subselect 
+ SELECT vnoreny.* FROM (SELECT DISTINCT t.gname AS skupina, c.name AS zeme FROM teror2 AS t INNER JOIN country AS c ON t.country=c.id) AS vnoreny;`,
+`
+ -- Zobrazení všech teroristických událostí, které spáchala teroristická organizace s nejvetším počtem obětí
+ SELECT gname, iyear, nkill from teror
+ WHERE gname = (SELECT gname FROM teror ORDER BY nkill DESC LIMIT 1);`,
+`
+ -- Počet mrtvých v letech 2017 a 2016 které má na svědomí Islámský Stát tak, aby ve výsledku byl název organizace a ve sloupcích počet mrtvých dle let
+ SELECT a.*,b.pocetmrtv2016 FROM
+ (
+ SELECT gname,COUNT(nkill) as pocetmrtv2017
+ FROM teror
+ WHERE iyear=2017 AND gname ilike '%islamic state%' 
+ GROUP BY 1
+ ORDER BY pocetmrtv2017 DESC
   ) AS a
-LEFT JOIN
-(
-SELECT gname,COUNT(nkill) AS pocetmrtv2016
-FROM teror
-WHERE iyear=2016
-GROUP BY 1
-ORDER BY pocetmrtv2016 DESC
+ LEFT JOIN
+ (
+ SELECT gname,COUNT(nkill) AS pocetmrtv2016
+ FROM teror
+ WHERE iyear=2016
+ GROUP BY 1
+ ORDER BY pocetmrtv2016 DESC
   ) AS b
-  ON a.gname=b.gname; -- Počet mrtvých v letech 2017 a 2016 které má na svědomí Islámský Stát tak, aby ve výsledku byl název organizace a ve sloupcích počet mrtvých dle let`,
-  `SELECT eventid,t.gname, iyear,nkill,t2.maxmrtv2016,t2.minmrt2016
-FROM teror AS t
-LEFT JOIN
-(
-SELECT gname,max(nkill) AS maxmrtv2016,min(nkill) AS minmrt2016
-FROM teror
-WHERE iyear=2016 AND gname ilike '%islamic state%' 
-GROUP BY 1
+  ON a.gname=b.gname;`,
+`
+ -- Výběr teoristických úroků v roce 2016, které má na svědomí Islámský Stát a doplnění informace max a min počtu oětí v roce 2016 ke každému útoku
+ SELECT eventid,t.gname, iyear,nkill,t2.maxmrtv2016,t2.minmrt2016
+ FROM teror AS t
+ LEFT JOIN
+ (
+ SELECT gname,max(nkill) AS maxmrtv2016,min(nkill) AS minmrt2016
+ FROM teror
+ WHERE iyear=2016 AND gname ilike '%islamic state%' 
+ GROUP BY 1
   ) t2
-  ON t.gname=t2.gname
-  WHERE t.gname ILIKE '%islamic state%' and iyear=2016; -- Výběr teoristických úroků v roce 2016, které má na svědomí Islámský Stát a doplnění informace max a min počtu oětí v roce 2016 ke každému útoku`,
-  `select * FROM (SELECT gname, eventdate FROM teror WHERE country = 54) AS subselect; with cte AS (SELECT gname, eventdate FROM teror WHERE country = 54)SELECT * FROM cte;`]
+ ON t.gname=t2.gname
+ WHERE t.gname ILIKE '%islamic state%' and iyear=2016;`]
             },
             {
               header: "Window funkce",
@@ -1178,32 +1182,109 @@ GROUP BY 1
               "ROW_NUMBER() - vrátí pořadové číslo řádku s možností rozdělení na části (partitions) a seřazení. Začíná od 1 pro každou skupinu", 
               "DENSE_RANK() - vrátí pořadí každého záznamu po jednotlivých částech (partitions) bez mezer mezi pořadími", 
               "NTILE(argument) – Rozdělí řádky do n skupin v závislosti na argumentu"],
-              code: [`SELECT gname, iyear, sum(nkill) as suma_nkill
-   ,ROW_NUMBER() OVER (ORDER BY suma_nkill DESC) AS ROW_NUMBER
-   ,RANK() OVER (ORDER BY suma_nkill DESC) AS RANK
-   ,DENSE_RANK() OVER (ORDER BY suma_nkill DESC) AS DENSE_RANK
-   ,NTILE(3) OVER(ORDER BY suma_nkill DESC) AS NTILE
-FROM teror
-WHERE nkill IS NOT NULL
-GROUP BY gname, iyear;
+              code: [`
+ -- Vybere seřazené organizace podle počtu obětí sestupně a přiřadí jim pořadí (rank)
+ SELECT gname, sum(nkill), RANK() OVER (ORDER BY sum(nkill) DESC) AS rank
+ FROM teror
+ WHERE nkill IS NOT NULL
+ GROUP BY gname
+ ORDER BY sum(nkill) DESC;`,
+ `
+ -- Vybere seřazené organizace podle počtu obětí sestupně a přiřadí jim pořadí (rank) v rámci roku.
+ SELECT gname, iyear, sum(nkill)
+ ,ROW_NUMBER() OVER (ORDER BY sum(nkill) DESC) AS rn
+ ,RANK() OVER (PARTITION BY iyear ORDER BY sum(nkill) DESC) AS rank
+ FROM teror
+ WHERE nkill IS NOT NULL
+ GROUP BY gname, iyear
+ ORDER BY sum(nkill) DESC;`,
+`
+ -- Vybere seřazené organizace podle počtu obětí sestupně a přiřadí jim pořadí (rank) v rámci roku. Nakonec vybereme jen první tři z každého roku.
+ SELECT * FROM
+ (SELECT gname, iyear, sum(nkill) as pocet_mrtvych
+ ,ROW_NUMBER() OVER (ORDER BY sum(nkill) DESC) AS rn
+ ,RANK() OVER (PARTITION BY iyear ORDER BY sum(nkill) DESC) AS rank
+ FROM teror
+ WHERE nkill IS NOT NULL
+ GROUP BY gname, iyear
+ ORDER BY rank, iyear DESC) WHERE rank <= 3;
 `]
             }
           ],
           tasks: [
             {
-              header: "spoj tabulku teror2 se subselectem nad tabulkou country (tak abychom dostali všechny řádky z tabulky teror2), který z ní vyřadí všechny země které v CountryType mají ‘Not interested’, vypiš eventdate, gname, nkill, nwound, city, country z teror2 a name (prejmenovany na country_txt) ze subselectu",
+              header: "Spoj tabulku teror2 pomocí subselectu nad tabulkou country (tak abychom dostali všechny řádky z tabulky teror2), který z ní vyřadí všechny země které v countrytype mají ‘Not interested’, vypiš eventdate, gname, nkill, nwound, city, country z teror2 a name (prejmenovany na country_txt) ze subselectu. Výsledek seřaď podle data události vzestupně",
+              screen: require("@/assets/lessons/7A.png"),
+              code: 
+`
+SELECT t.eventdate, t.gname, t.nkill, t.nwound, t.city, t.country, s.name AS country_txt
+FROM teror2 AS t
+LEFT JOIN (SELECT id, name FROM country WHERE countrytype != 'Not interested') AS s ON s.id = t.country
+ORDER BY t.eventdate
+`
+            },
+            { 
+              header: "Vypiš všechny teroristické události v zemi, kde bylo spácháno nejvíce terosticých útoků. Vyber sloupečky city, country_txt a nkill. Výsledek seraď podle názvu města",
+              screen: require("@/assets/lessons/7B.png"),
+              code:
+`
+SELECT city, t.country_txt, t2.country_txt, nkill 
+FROM teror AS t
+JOIN
+(
+ SELECT country_txt, COUNT(country_txt) AS pocet FROM teror GROUP BY country_txt ORDER BY pocet DESC LIMIT 1
+) AS t2
+ON t.country_txt=t2.country_txt
+ORDER BY city;
+-- varianta s výběrem země přímo
+SELECT city, country_txt, nkill 
+FROM teror AS t
+WHERE country_txt = (SELECT country_txt FROM teror GROUP BY country_txt ORDER BY COUNT(*) DESC LIMIT 1)
+ORDER BY city;
+`
             },
             {
-              header: "to same co 5a/ jen s pomoci CTE (with)",
+              header: "Vyber všechny organizace, které nespáchaly útok v evropě. Výsledek seřaď podle názvu organizace vzestupně",
+              screen: require("@/assets/lessons/7C.png"),
+              code:
+`
+-- CTE
+WITH evropske as
+(SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE 'europe')
+SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE t2.gname NOT IN (SELECT e.gname FROM evropske e) ORDER BY gname;
+
+-- subselect
+SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE t2.gname NOT IN (SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE 'europe') ORDER BY gname;
+
+-- Proč nejde použít tohle i když to dá stejný výsledek?
+SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE region_txt NOT ILIKE 'europe' ORDER by gname;
+`
             },
             {
-              header: "vyberte vsechny organizace, ktere nespachaly zadny utok v evrope",
+              header: "Vypiš tři největší útoky pro organizace s víc než 500 obětmi. Vypiš sloupečky city, gname a nkill a rank. Výsledek seřaď podle gname a rank",
+              screen: require("@/assets/lessons/7D.png"),
+              code:
+`
+SELECT city, gname, nkill, rank FROM (
+  SELECT *, RANK() OVER (PARTITION BY gname ORDER BY nkill DESC) AS rank FROM teror
+  WHERE nkill IS NOT NULL AND gname IN (SELECT gname as sk FROM teror GROUP BY gname HAVING sum(nkill) > 500 ORDER BY sum(nkill))
+ ) WHERE rank <= 3
+ORDER BY gname, rank;
+`
             },
             {
-              header: "vyberte vsechny organizace, které nezopakovaly útok mimo Evropu (spáchaly maximálně jeden mimoevropsky útok) u kazde vypiste tri utoky s nejvetsim poctem obeti do vypisu dejte gname, nwound, nkill, city a zemi pripojenou z tabulky country pres sloupecek id",
-            },
-            {
-              header: "tři největší útoky pro organizace s víc než 500 obětmi",
+              header: "Vypiš 5 nejaktivnějších organizací podle regionu. Výsledek seraď podle regionu a ranku.",
+              screen: require("@/assets/lessons/7E.png"),
+              code:
+`
+ SELECT * FROM
+ (SELECT gname, region_txt, COUNT(*) as pocet_akci
+ ,RANK() OVER (PARTITION BY region_txt ORDER BY pocet_akci DESC) AS rank
+ FROM teror
+ WHERE nkill IS NOT NULL
+ GROUP BY gname, region_txt
+ ) WHERE rank <= 5 ORDER BY region_txt, rank;
+`
             }
           ]
         }
