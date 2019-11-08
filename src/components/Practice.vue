@@ -1250,14 +1250,14 @@ ORDER BY city;
 `
 -- CTE
 WITH evropske as
-(SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE 'europe')
+(SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE '%europe%')
 SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE t2.gname NOT IN (SELECT e.gname FROM evropske e) ORDER BY gname;
 
 -- subselect
-SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE t2.gname NOT IN (SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE 'europe') ORDER BY gname;
+SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE t2.gname NOT IN (SELECT DISTINCT(t1.gname) FROM teror AS t1 WHERE region_txt ILIKE '%europe%') ORDER BY gname;
 
 -- Proč nejde použít tohle i když to dá stejný výsledek?
-SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE region_txt NOT ILIKE 'europe' ORDER by gname;
+SELECT DISTINCT(t2.gname) FROM teror AS t2 WHERE region_txt NOT ILIKE '%europe%' ORDER by gname;
 `
             },
             {
