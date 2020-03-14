@@ -10,7 +10,7 @@ import VueAnalytics from "vue-analytics";
 import VueHighlightJS from "vue-highlightjs";
 import sql from "highlight.js/lib/languages/sql";
 //require("../node_modules/highlight.js/styles/atelier-savanna-light.css");
-require("../node_modules/highlight.js/styles/ir-black.css");
+//require("../node_modules/highlight.js/styles/ir-black.css");
 
 Vue.config.productionTip = false;
 
