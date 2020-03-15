@@ -5,14 +5,11 @@
           <v-chip label color="pink" text-color="white">
             <v-icon left>label</v-icon>Pavel Chocholouš
           </v-chip>
-           <v-chip label color="green" text-color="white">
-            <v-icon left>label</v-icon>Kouč
-          </v-chip>
           <v-chip label color="pink" text-color="white">
             <v-icon left>label</v-icon>Ondřej Hošák
           </v-chip>
           <v-chip label color="green" text-color="white">
-            <v-icon left>label</v-icon>Lektor
+            <v-icon left>label</v-icon>Kouč a lektor
           </v-chip>
           <v-img :src="ondra_a_pavel" @click="show" title="Ondřej Hošák a Pavel Chocholouš" alt="Ondřej Hošák a Pavel Chocholouš"></v-img>
           <v-chip label color="blue" text-color="white">
