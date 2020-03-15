@@ -62,12 +62,27 @@
           <v-chip label color="green" text-color="white">
             <v-icon left>label</v-icon>Koučka
           </v-chip>
-          <v-img :src="pavla" @click="show" title="Pavla Jirková" alt="Pavla Jirková"></v-img>
+          <v-img :src="pavla" @click="show" title="Pavla Jirková" alt="Pavla Jirková" aspect-ratio="0.75"></v-img>
           <v-chip label color="blue" text-color="white">
             <v-icon left>label</v-icon>Dělá jazykovou korekturu a pomáhá s úkoly
           </v-chip>
           <!-- <viewer style="cursor: zoom-in;" :images="['../assets/pavla.jpg']" :options="viewerOptions">
             <v-img :src="pavla" title="Pavla Jirková" alt="Pavla Jirková"></v-img>
+          </viewer> -->
+        </v-flex>
+        <v-flex xs12 md4 lg4>
+          <v-chip label color="pink" text-color="white">
+            <v-icon left>label</v-icon>Veronika Pešková
+          </v-chip>
+          <v-chip label color="green" text-color="white">
+            <v-icon left>label</v-icon>Lektorka
+          </v-chip>
+          <v-img :src="veronika" @click="show" title="Veronika Pešková" alt="Veronika Pešková" aspect-ratio="0.75"></v-img>
+          <v-chip label color="blue" text-color="white">
+            <v-icon left>label</v-icon>Podílí se na tvorbě lekcí
+          </v-chip>
+          <!-- <viewer style="cursor: zoom-in;" :images="['../assets/veronika.png']" :options="viewerOptions">
+            <v-img :src="veronika" title="Veronika Pešková" alt="Veronika Pešková"></v-img>
           </viewer> -->
         </v-flex>
         <v-flex xs12 md12 lg12>
@@ -92,7 +107,8 @@ export default {
       market: require("@/assets/market.jpg"),
       monca: require("@/assets/monca.jpg"),
       pavla: require("@/assets/pavla.jpg"),
-      images: [require("@/assets/ondraapavel.jpg"), require("@/assets/market.jpg"), require("@/assets/monca.jpg"), require("@/assets/pavla.jpg")]
+      veronika: require("@/assets/veronika.png"),
+      // images: [require("@/assets/ondraapavel.jpg"), require("@/assets/market.jpg"), require("@/assets/monca.jpg"), require("@/assets/pavla.jpg"), require("@/assets/veronika.png")]
     }
   },
   methods: {
