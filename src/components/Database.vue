@@ -116,7 +116,7 @@
                     zákazníků, nákupů, vozidel, výpadků atd. Samozřejmě, že v aplikacích jsou různé přehledy (dashboardy), reporty a tak. Dřív nebo později
                     ale někdo chce data vidět jinak. A tak se data přelijí do místa, kde se dají mučit donekonečna a všemi metodami do data martu, nebo datového
                     skladu. Důvodů je několik. Když se analytik zeptá přímo do databáze Billy, kterých 10 prodejen mělo v kterých měsících  největší meziměsíční nárůst prodejů
-                    mléčných výrobků se zahrnutím vlivu růstu jejich ceny, zní to jako legitimní dotaz. Ale aplikační datbáze je stavěná na veliké množství 
+                    mléčných výrobků se zahrnutím vlivu růstu jejich ceny, zní to jako legitimní dotaz. Ale aplikační databáze je stavěná na velikém množství 
                     "malých" dotazů, respektive dotazů, které vrátí, nebo upravují malé množství řádek. Takovýhle analytický dotaz naproti tomu několikrát
                     prošmejdí celou databázi křížem krážem aby nakomec ukázal deset prodejen. Může to trvat minuty, hodiny, nebo i déle. A celou dobu můžou
                     ve skladech skladníci koukat na točící se kolečka na čtečkách, pokladní na "waiting..." na kasách a tak. Když ten samý dotaz analytik
