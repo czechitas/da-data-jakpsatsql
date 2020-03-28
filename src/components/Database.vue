@@ -124,7 +124,7 @@
                     v Aholdu tak maji na jedné hromadě Alberty, Hyperalberty, Spar, Interspar, Manu a vlastně všechno, co kdy aspoň na chvilku vlastnili. 
                     </p>
                     <p>
-                    Když máme data ve skladu, najednou po nás každý chce analýzy. BI kavárna je stejně líná, jako ta programátorká a tak většinou 
+                    Když máme data ve skladu, najednou po nás každý chce analýzy. BI kavárna je stejně líná, jako ta programátorská a tak většinou 
                     při třetí stejné analýze vznikne nějaký report, nebo dashboard a v něm ať se kdo chce drilldownuje do haleluja. Po pár letech je v tom 
                     takový guláš, protože různé reporty ukazují totéž tolika rozmanitými způsoby, že už i otrlému business pankáčovi přijde moc 
                     a vznikne nějaký datový katalog, bible, korán, dokumentace. Tam je vysvětleno jednotným jazykem (korporátní newspeak, geekovština, úředničtina...),
