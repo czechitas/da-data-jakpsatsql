@@ -627,13 +627,13 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             },
             {
               header: "(Chytak) Kolik která organizace spáchala útoků zápalnými zbraněmi (weaptype1_txt = 'Incendiary'), kolik při nich celkem zabila obětí, kolik zemřelo teroristů a kolik lidí bylo zraněno (nkill, nkillter, nwound)",
-              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname;",
+              code: "SELECT gname, COUNT(eventid), SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname;",
               screen: require("@/assets/lessons/3E.png"),
               screen_visible: false
             },
             {
               header: "Stejné jako 3e, jen ve výsledném výpisu chceme jen organizace, které zápalnými útoky zranily 50 a více lidí a nechceme tam vidět “organizaci” Unknown",
-              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname HAVING gname <> 'Unknown' AND sum(nwound) >= 50;",
+              code: "SELECT gname, COUNT(eventid), SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname HAVING gname <> 'Unknown' AND sum(nwound) >= 50;",
               screen: require("@/assets/lessons/3F.png"),
               screen_visible: false
             },
