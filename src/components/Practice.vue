@@ -534,7 +534,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: "Vypiš COUNTRY_TXT, CITY, NWOUND a přidej sloupeček vzdalenost_od_albertova obsahující vzdálenost místa útoku z pražské části Albertov v km a sloupeček kategorie obsahující ‘Blízko’ pro útoky bližší 2000 km a ‘Daleko’ pro ostatní. Vypiš jen útoky s víc než stovkou raněných a seřad je podle vzdálenosti od Albertova",
               code: `SELECT country_txt, city, nwound,  haversine(50.0688111, 14.4243694, latitude, longitude) vzdalenost_od_albertova,
  CASE
-    WHEN HARVESINE(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
+    WHEN HAVERSINE(50.0688111, 14.4243694, latitude, longitude) < 2000 THEN 'Blízko'
     ELSE 'Daleko'
  END AS Kategorie
  FROM teror WHERE nwound > 100
@@ -543,6 +543,112 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               screen: require("@/assets/lessons/2L.jpg"),
               screen_visible: false
             },
+          ]
+        },
+        {
+          name: "GROUP BY + HAVING",
+          lectures: [
+            {
+              header: "SUM() - součet",
+              notes: [],
+              visible: false,
+              code: ["SELECT SUM(nkill) AS pocet_mrtvych FROM teror;"]
+            },
+            {
+              header: "COUNT() - počet",
+              notes: [],
+              visible: false,
+              code: ["SELECT COUNT(*) AS pocet_zaznamu FROM teror; --- pocet vsech radku  56 354",
+                     " SELECT COUNT(nkill) AS pocet_zaznamu FROM teror; ---- vylouci null hodnoty 53 134",
+                     " SELECT * FROM teror WHERE nkill IS NULL; --- 3 220 null hodnot"]
+            },
+            {
+              header: "AVG() - průměr",
+              notes: [],
+              visible: false,
+              code: ["SELECT AVG(nkill) AS prumerny_pocet_mrtvych FROM teror; -- do prumeru se nepocitaji null hodnoty"]
+            },
+            {
+              header: "MAX() - maximální hodnota",
+              notes: [],
+              visible: false,
+              code: ["SELECT MAX(nkill) AS max_pocet_mrtvych FROM teror;",
+                     " SELECT nkill AS max_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill DESC LIMIT 1; -- stejny vysledek jinou cestou"]
+            },
+            {
+              header: "MIN() - minimální hodnota",
+              notes: [],
+              visible: false,
+              code: ["SELECT MIN(nkill) AS min_pocet_mrtvych FROM teror;",
+                     " SELECT nkill AS min_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill LIMIT 1; -- stejny vysledek jinou cestou"]
+            },
+            {
+              header: "GROUP BY - vytváření skupin",
+              notes: [],
+              visible: false,
+              code: ["SELECT gname, SUM(nkill) AS pocet_mrtvych FROM teror GROUP BY gname ORDER BY pocet_mrtvych DESC; --- pocet mrtvych podle teroristicke organizace",]
+            },
+            {
+              header: "HAVING - možnost zapsat podmínky ke skupinám (nalezení duplicitních záznamů)",
+              notes: [],
+              visible: false,
+              code: ["SELECT gname, SUM(nkill) AS pocet_mrtvych FROM teror GROUP BY gname HAVING SUM(nkill) > 0 ORDER BY pocet_mrtvych DESC; --- pocet mrtvych podle teroristicke organizace kde je pocet obeti vetsi nez nula",
+                     " SELECT gname, SUM(nkill), SUM(nkillter) FROM teror GROUP BY gname HAVING SUM(nkill) > 0 AND SUM(nkillter) >= 1 ORDER BY SUM(nkill) DESC; --- pocet mrtvych podle teroristicke organizace kde je pocet obeti a pocet mrtvych teroristu vetsi nez nula"]
+            }
+          ],
+          tasks: [
+            {
+              header: "Zjisti počet obětí a raněných po letech a měsících",
+              code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror GROUP BY iyear, imonth ORDER BY  iyear, imonth;",
+              code_visible: false,
+              screen: require("@/assets/lessons/3A.png"),
+              screen_visible: false
+            },
+            {
+              header: "Zjisti počet obětí a raněných v západní Evropě po letech a měsících",
+              code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror WHERE region_txt = 'Western Europe' GROUP By iyear, imonth ORDER BY  iyear, imonth;",
+              code_visible: false,
+              screen: require("@/assets/lessons/3B.png"),
+              screen_visible: false
+            },
+            {
+              header: "Zjisti počet útoků po zemích. Seřaď je podle počtu útoků sestupně",
+              code: `SELECT country_txt, COUNT(*) FROM teror GROUP BY 1 ORDER BY COUNT(*) DESC;
+ SELECT country_txt, COUNT(1) FROM teror GROUP BY country_txt ORDER BY COUNT(1) DESC;
+ SELECT country_txt, COUNT('1') FROM teror GROUP BY country_txt ORDER BY 2 DESC;`,            
+              screen: require("@/assets/lessons/3C.png"),
+              screen_visible: false
+            },
+            {
+              header: "Zjisti počet útoků po zemích a letech, seřaď je podle počtu útoků sestupně",
+              code: "SELECT country_txt, iyear, COUNT(*) FROM teror GROUP BY country_txt, iyear ORDER BY COUNT(*) DESC;",
+              screen: require("@/assets/lessons/3D.png"),
+              screen_visible: false
+            },
+            {
+              header: "(Chytak) Kolik která organizace spáchala útoků zápalnými zbraněmi (weaptype1_txt = 'Incendiary'), kolik při nich celkem zabila obětí, kolik zemřelo teroristů a kolik lidí bylo zraněno (nkill, nkillter, nwound)",
+              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname;",
+              screen: require("@/assets/lessons/3E.png"),
+              screen_visible: false
+            },
+            {
+              header: "Stejné jako 3e, jen ve výsledném výpisu chceme jen organizace, které zápalnými útoky zranily 50 a více lidí a nechceme tam vidět “organizaci” Unknown",
+              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname HAVING gname <> 'Unknown' AND sum(nwound) >= 50;",
+              screen: require("@/assets/lessons/3F.png"),
+              screen_visible: false
+            },
+            {
+              header: "Vypište celkový počet útoků podle druhu zbraně weaptype1_txt , počet mrtvých, mrtvých teroristů, průměrný počet mrtvých, průměrný počet mrtvých teroristů, kolik mrtvých obětí připadá na jednoho mrtvého teroristu a kolik zraněných...",
+              code: `SELECT COUNT(*), SUM(nkill), SUM(nkillter), AVG(nkill), AVG(nkillter),
+ CASE 
+   WHEN sum(nkillter) <> 0 THEN sum(nkill) / sum(nkillter)
+   ELSE NULL
+ END AS uspesnost
+ ,SUM(nkill) / COUNT(*) AS prumerne_obeti, weaptype1_txt 
+ FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(*) DESC;`,
+              screen: require("@/assets/lessons/3G.png"),
+              screen_visible: false
+            }
           ]
         },
         {
@@ -685,13 +791,13 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             {
               header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
               screen: require("@/assets/lessons/4D.png"),
-              code: `SELECT count(1), sum(t.nkill), sum(t.nwound), wt1.name
+              code: `SELECT count(*), sum(t.nkill), sum(t.nwound), wt1.name
  FROM teror2 t
  LEFT JOIN country c ON t.country = c.id
  LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
  WHERE date_part(year, eventdate) = 2016
  GROUP BY wt1.name
- ORDER BY COUNT(1) DESC;`
+ ORDER BY COUNT(*) DESC;`
             },
             {
               header: "Vypiste pocet unesenych lidi (kdy byl typ utoku unos rukojmich) a pocet udalosti podle regionu a roku. Vysledek seradte podle poctu unesenych lidi sestupne. Sloupecky pojmenujte  region, rok, pocet_unesenych, pocet_udalosti",
@@ -726,112 +832,6 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  ,iyear; `,
               code_visible: false,
               screen: require("@/assets/lessons/not_available.png"),
-              screen_visible: false
-            }
-          ]
-        },
-        {
-          name: "GROUP BY + HAVING",
-          lectures: [
-            {
-              header: "SUM() - součet",
-              notes: [],
-              visible: false,
-              code: ["SELECT SUM(nkill) AS pocet_mrtvych FROM teror;"]
-            },
-            {
-              header: "COUNT() - počet",
-              notes: [],
-              visible: false,
-              code: ["SELECT COUNT(*) AS pocet_zaznamu FROM teror; --- pocet vsech radku  56 355",
-                     " SELECT COUNT(nkill) AS pocet_zaznamu FROM teror; ---- vylouci null hodnoty 53 135",
-                     " SELECT * FROM teror WHERE nkill IS NULL; --- 3 220 null hodnot"]
-            },
-            {
-              header: "AVG() - průměr",
-              notes: [],
-              visible: false,
-              code: ["SELECT AVG(nkill) AS prumerny_pocet_mrtvych FROM teror; -- do prumeru se nepocitaji null hodnoty"]
-            },
-            {
-              header: "MAX() - maximální hodnota",
-              notes: [],
-              visible: false,
-              code: ["SELECT MAX(nkill) AS max_pocet_mrtvych FROM teror;",
-                     " SELECT nkill AS max_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill DESC LIMIT 1; -- stejny vysledek jinou cestou"]
-            },
-            {
-              header: "MIN() - minimální hodnota",
-              notes: [],
-              visible: false,
-              code: ["SELECT MIN(nkill) AS min_pocet_mrtvych FROM teror;",
-                     " SELECT nkill AS min_pocet_mrtvych FROM teror WHERE nkill IS NOT NULL ORDER BY nkill LIMIT 1; -- stejny vysledek jinou cestou"]
-            },
-            {
-              header: "GROUP BY - vytváření skupin",
-              notes: [],
-              visible: false,
-              code: ["SELECT gname, SUM(nkill) AS pocet_mrtvych FROM teror GROUP BY gname ORDER BY pocet_mrtvych DESC; --- pocet mrtvych podle teroristicke organizace",]
-            },
-            {
-              header: "HAVING - možnost zapsat podmínky ke skupinám (nalezení duplicitních záznamů)",
-              notes: [],
-              visible: false,
-              code: ["SELECT gname, SUM(nkill) AS pocet_mrtvych FROM teror GROUP BY gname HAVING SUM(nkill) > 0 ORDER BY pocet_mrtvych DESC; --- pocet mrtvych podle teroristicke organizace kde je pocet obeti vetsi nez nula",
-                     " SELECT gname, SUM(nkill), SUM(nkillter) FROM teror GROUP BY gname HAVING SUM(nkill) > 0 AND SUM(nkillter) >= 1 ORDER BY SUM(nkill) DESC; --- pocet mrtvych podle teroristicke organizace kde je pocet obeti a pocet mrtvych teroristu vetsi nez nula"]
-            }
-          ],
-          tasks: [
-            {
-              header: "Zjisti počet obětí a raněných po letech",
-              code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror GROUP BZ iyear, imonth ORDER BY  iyear, imonth;",
-              code_visible: false,
-              screen: require("@/assets/lessons/3A.png"),
-              screen_visible: false
-            },
-            {
-              header: "Zjisti počet obětí a raněných v západní Evropě po letech a měsících",
-              code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror WHERE region_txt = 'Western Europe' GROUP By iyear, imonth ORDER BY  iyear, imonth;",
-              code_visible: false,
-              screen: require("@/assets/lessons/3B.png"),
-              screen_visible: false
-            },
-            {
-              header: "Zjisti počet útoků po zemích. Seřaď je podle počtu útoků sestupně",
-              code: `SELECT country_txt, COUNT(*) FROM teror GROUP BY 1 ORDER BY COUNT(*) DESC;
- SELECT country_txt, COUNT(1) FROM teror GROUP BY country_txt ORDER BY COUNT(1) DESC;
- SELECT country_txt, COUNT('1') FROM teror GROUP BY country_txt ORDER BY 2 DESC;`,            
-              screen: require("@/assets/lessons/3C.png"),
-              screen_visible: false
-            },
-            {
-              header: "Zjisti počet útoků po zemích a letech, seřaď je podle počtu útoků sestupně",
-              code: "SELECT country_txt, iyear, COUNT(1) FROM teror GROUP BY country_txt, iyear ORDER BY COUNT(1) DESC;",
-              screen: require("@/assets/lessons/3D.png"),
-              screen_visible: false
-            },
-            {
-              header: "(Chytak) Kolik která organizace spáchala útoků zápalnými zbraněmi (weaptype1_txt = 'Incendiary'), kolik při nich celkem zabila obětí, kolik zemřelo teroristů a kolik lidí bylo zraněno (nkill, nkillter, nwound)",
-              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname;",
-              screen: require("@/assets/lessons/3E.png"),
-              screen_visible: false
-            },
-            {
-              header: "Stejné jako 3e, jen ve výsledném výpisu chceme jen organizace, které zápalnými útoky zranily 50 a více lidí a nechceme tam vidět “organizaci” Unknown",
-              code: "SELECT gname, SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname HAVING gname <> 'Unknown' AND sum(nwound) >= 50;",
-              screen: require("@/assets/lessons/3F.png"),
-              screen_visible: false
-            },
-            {
-              header: "Vypište celkový počet útoků podle druhu zbraně weaptype1_txt , počet mrtvých, mrtvých teroristů, průměrný počet mrtvých, průměrný počet mrtvých teroristů, kolik mrtvých obětí připadá na jednoho mrtvého teroristu a kolik zraněných...",
-              code: `SELECT COUNT(1), SUM(nkill), SUM(nkillter), AVG(nkill), AVG(nkillter),
- CASE 
-   WHEN sum(nkillter) <> 0 THEN sum(nkill) / sum(nkillter)
-   ELSE NULL
- END AS uspesnost
- ,SUM(nkill) / COUNT(1) AS prumerne_obeti, weaptype1_txt 
- FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(1) DESC;`,
-              screen: require("@/assets/lessons/3G.png"),
               screen_visible: false
             }
           ]
@@ -1096,7 +1096,7 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
           ],
           tasks: [
             {
-              header: "Co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM teror2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(1) > 5), SERAZENO AS" +
+              header: "Co dělá následující select? WITH SUCORG AS (SELECT GNAME FROM teror2 WHERE NKILL > 0 GROUP BY GNAME HAVING COUNT(*) > 5), SERAZENO AS" +
                       "(SELECT GNAME, NKILL, IFNULL(NKILL, 0), NWOUND, EVENTDATE, COUNTRY, CITY, ROW_NUMBER() OVER (PARTITION BY GNAME ORDER BY IFNULL(NKILL, 0) DESC) RN" +
                       "FROM teror2 WHERE GNAME IN (SELECT GNAME FROM SUCORG))" +
                       "SELECT S.GNAME, S.NKILL, S.NWOUND, S.EVENTDATE, S.CITY,  C.NAME COUNTRY" +
