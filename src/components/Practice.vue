@@ -639,12 +639,20 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
             },
             {
               header: "Vypište celkový počet útoků podle druhu zbraně weaptype1_txt , počet mrtvých, mrtvých teroristů, průměrný počet mrtvých, průměrný počet mrtvých teroristů, kolik mrtvých obětí připadá na jednoho mrtvého teroristu a kolik zraněných...",
-              code: `SELECT COUNT(*), SUM(nkill), SUM(nkillter), AVG(nkill), AVG(nkillter),
- CASE 
-   WHEN sum(nkillter) <> 0 THEN sum(nkill) / sum(nkillter)
-   ELSE NULL
- END AS uspesnost
- ,SUM(nkill) / COUNT(*) AS prumerne_obeti, weaptype1_txt 
+              code: `SELECT weaptype1_txt, 
+       COUNT(*) AS pocet_utoku, 
+       SUM(nkill) AS pocet_obeti, 
+       SUM(nkillter) AS pocet_zabitych_teroristu, 
+       AVG(nkill) AS prumerne_obeti, 
+       AVG(nkillter) AS prumerne_zabitych_teroristu,
+       CASE  
+         WHEN sum(nkillter) <> 0 THEN sum(nkill) / sum(nkillter)
+         ELSE NULL
+       END AS pocet_obeti_na_mrtveho_teroristu,
+       CASE  
+         WHEN sum(nkillter) <> 0 THEN sum(nwound) / sum(nkillter)
+         ELSE NULL
+       END AS pocet_zranenych_na_mrtveho_teroristu
  FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(*) DESC;`,
               screen: require("@/assets/lessons/3G.png"),
               screen_visible: false
