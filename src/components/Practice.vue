@@ -67,6 +67,15 @@
 
                   <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
                     <center>
+                      <v-btn href="https://drive.google.com/file/d/1Etyhq-gBka5-K1do905Q5SXLF-CdEPoh/view?usp=sharing" target="_blank" color="primary">
+                        Join Bingo
+                        <v-icon right dark>play_arrow</v-icon>
+                      </v-btn>
+                    </center>
+                  </div>
+
+                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
+                    <center>
                       <viewer style="cursor: zoom-in;"  :images="['../assets/join.svg']" :options="viewerOptions">
                         <img src="../assets/join.svg" alt="join" title="join" />
                       </viewer>
@@ -670,13 +679,15 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  FROM teror2
  LEFT JOIN country ON teror2.country = country.id;`,
  `
- SELECT c.name, t.nkill, t.nkillter, t.gname, t.latitude, t.longitude
- FROM teror2 AS t
- LEFT JOIN country AS c ON t.country = c.id; -- pro line`,
+ SELECT c.name, t2.nkill, t2.nkillter, t2.gname, t2.latitude, t2.longitude
+ FROM teror2 AS t2
+ LEFT JOIN country AS c 
+ ON t2.country = c.id; -- pro line`,
  `
- SELECT c.name, t.nkill, t.nkillter, t.gname, t.latitude, t.longitude
- FROM teror2 t
- LEFT JOIN country c ON t.country = c.id; -- pro linejsi`,
+ SELECT c.name, t2.nkill, t2.nkillter, t2.gname, t2.latitude, t2.longitude
+ FROM teror2 t2
+ LEFT JOIN country c 
+ ON t2.country = c.id; -- pro linejsi`,
  `
  SELECT b.name, a.nkill, a.nkillter, a.gname, a.latitude, a.longitude
  FROM teror2 a
@@ -686,78 +697,113 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: "Základní JOIN (pozor na sloupce)",
               notes: ["Takto se to nedělá!!!"],
               visible: false,
-              code: [`SELECT country.name
- FROM teror2
- LEFT JOIN country ON teror2.attacktype1 = country.id;`]
+              code: [`SELECT c.name
+ FROM teror2 as t2
+ LEFT JOIN country as c 
+ ON t2.attacktype1 = c.id;`]
             },
             {
               header: "Základní JOIN (jde to i pres stringy)",
               notes: [],
               visible: false,
-              code: [`SELECT country.name
- FROM teror
- LEFT JOIN country ON teror.country_txt = country.name;`]
+              code: [`SELECT c.name
+ FROM teror as t
+ LEFT JOIN country as c
+ ON t.country_txt = c.name;`]
             },
             {
               header: "Základní JOIN (vice tabulek)",
               notes: [],
               visible: false,
-              code: [`SELECT country.name, attacktype1.name
- FROM teror2
- LEFT JOIN country ON teror2.country = country.id
- LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id;`]
+              code: [`SELECT c.name, atyp.name
+ FROM teror2 as t2
+ LEFT JOIN country AS c
+ ON t2.country = c.id
+ LEFT JOIN attacktype AS atyp
+ ON t2.attacktype1 = atyp.id;`]
             },
             {
               header: "JOIN (vice sloupců)",
               notes: ["Můžeme dostat i více řádků než je v původní tabulce"],
               visible: false,
-              code: [`SELECT t.gname, t.nkill, dd.nkill
- FROM teror AS t 
- JOIN country_dirtydata AS dd ON t.country_txt = dd.country_txt AND t.iyear = dd.iyear`]
+              code: [`SELECT dd.name, t2.nkill
+ FROM teror2 AS t2
+ JOIN country_dirtydata AS dd
+ ON t2.country = dd.id;`]
             },
             {
               header: "JOIN (LEFT a RIGHT)",
               notes: [],
               visible: false,
-              code: [`SELECT teror2.gname, country.name, attacktype1.name, attacktype2.name, attacktype3.name
- FROM  country
- RIGHT JOIN teror2 ON teror2.country = country.id
- LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
- LEFT JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id;`]
+              code: [`SELECT t2.gname, 
+       c.name as country, 
+       atyp1.name as attack_type1, 
+       atyp2.name as attack_type2, 
+       atyp3.name as attack_type3
+ FROM teror2 as t2
+ LEFT JOIN country as c 
+ ON t2.country = c.id
+ LEFT JOIN attacktype as atyp1 
+ ON t2.attacktype1 = atyp1.id
+ LEFT JOIN attacktype as atyp2
+ ON t2.attacktype2 = atyp2.id
+ LEFT JOIN attacktype as atyp3 
+ ON t2.attacktype3 = atyp3.id;`]
             },
             {
               header: "JOIN (INNER vs LEFT)",
               notes: [],
               visible: false,
               code: [
-                `SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
- FROM teror2
- JOIN country ON teror2.country = country.id
- JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
- JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- stejne jako inner join, vrati pouze zaznamy, kde najde zaznam v attacktype`,
-                `
- SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
- FROM teror2
- INNER JOIN country ON teror2.country = country.id
- INNER JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
- INNER JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- INNER JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- stejne jako JOIN (inner join je defaultni join), vrati pouze zaznamy, kde najde zaznam v attacktyp`,
-                ` 
- SELECT country.name, attacktype1.name, attacktype2.name, attacktype3.name
- FROM teror2
- LEFT JOIN country ON teror2.country = country.id
- LEFT JOIN attacktype1 ON teror2.attacktype1 = attacktype1.id
- LEFT JOIN attacktype2 ON teror2.attacktype2 = attacktype2.id
- LEFT JOIN attacktype3 ON teror2.attacktype3 = attacktype3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi se k nim doparovat attack type`,
+                `SELECT c.name as country, 
+       atyp1.name as attack_type1, 
+       atyp2.name as attack_type2, 
+       atyp3.name as attack_type3
+FROM teror2 as t2
+LEFT JOIN country as c 
+ON t2.country = c.id
+JOIN attacktype as atyp1 
+ON t2.attacktype1 = atyp1.id
+JOIN attacktype as atyp2
+ON t2.attacktype2 = atyp2.id
+JOIN attacktype as atyp3 
+ON t2.attacktype3 = atyp3.id; -- default pro JOIN je INNER JOIN (neni treba specifikovat), vrati pouze zaznamy, pro ktere najde v obou tabulkach shodu
+                          
+SELECT c.name as country, 
+       atyp1.name as attack_type1, 
+       atyp2.name as attack_type2, 
+       atyp3.name as attack_type3
+FROM teror2 as t2
+LEFT JOIN country as c 
+ON t2.country = c.id
+JOIN attacktype as atyp1 
+ON t2.attacktype1 = atyp1.id
+JOIN attacktype as atyp2
+ON t2.attacktype2 = atyp2.id
+JOIN attacktype as atyp3 
+ON t2.attacktype3 = atyp3.id; -- to stejne jako predchozi
+
+SELECT c.name as country, 
+       atyp1.name as attack_type1, 
+       atyp2.name as attack_type2, 
+       atyp3.name as attack_type3
+FROM teror2 as t2
+LEFT JOIN country as c 
+ON t2.country = c.id
+LEFT JOIN attacktype as atyp1 
+ON t2.attacktype1 = atyp1.id
+LEFT JOIN attacktype as atyp2
+ON t2.attacktype2 = atyp2.id
+LEFT JOIN attacktype as atyp3 
+ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi se k nim doparovat attack type
+`,
               ]
             },
             {
-              header: "OUTER JOIN",
+              header: "FULL OUTER JOIN",
               notes: [],
               visible: false,
-              code: ["-- nepouzivat "]
+              code: ["-- vrati zaznamy, pro ktere najde shodu plus zbyle zaznamy z obou tabulek, pouziva se zridka"]
             },
             {
               header: "JOIN a WHERE",
