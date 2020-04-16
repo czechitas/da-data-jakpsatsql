@@ -71,11 +71,6 @@
                         Join Bingo
                         <v-icon right dark>play_arrow</v-icon>
                       </v-btn>
-                    </center>
-                  </div>
-
-                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
-                    <center>
                       <viewer style="cursor: zoom-in;"  :images="['../assets/join.svg']" :options="viewerOptions">
                         <img src="../assets/join.svg" alt="join" title="join" />
                       </viewer>
