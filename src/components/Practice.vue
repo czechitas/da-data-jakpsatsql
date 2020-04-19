@@ -813,46 +813,48 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
             {
               header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a přes sloupeček country připoj zemi z tabulky country",
               screen: require("@/assets/lessons/4A.png"),
-              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name
- FROM teror2 AS t
- LEFT JOIN country AS c ON t.country = c.id;`
+              code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name
+ FROM teror2 AS t2
+ LEFT JOIN country AS c 
+ ON t2.country = c.id;`
             },
             {
               header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a",
-              subheaders: ["přes sloupecek country pripoj zemi z tabulky country","přes sloupecek weaptype1 připoj weaptype1 z tabulky weaptype1", "přes sloupecek weaptype2 připoj weaptype2 z tabulky weaptype2"],
+              subheaders: ["přes sloupecek country pripoj zemi z tabulky country","přes sloupecek weaptype1 připoj nazev zbrane z tabulky weaptype", "přes sloupecek weaptype2 připoj nazev zbrane z tabulky weaptype"],
               screen: require("@/assets/lessons/4B.png"),
-              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name, wt1.name, wt2.name
- FROM teror2 AS t
- LEFT JOIN country c ON t.country = c.id
- LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
- LEFT JOIN weaptype2 wt2 ON t.weaptype2 = wt2.id;`
+              code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name, wt1.name as weapon_type1, wt2.name as weapon_type2
+ FROM teror2 AS t2
+ LEFT JOIN country as c ON t2.country = c.id
+ LEFT JOIN weaptype as wt1 ON t2.weaptype1 = wt1.id
+ LEFT JOIN weaptype as wt2 ON t2.weaptype2 = wt2.id;`
             },
             {
-              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a  -pres sloupecek country připoj zemi z tabulky country -pres sloupecek weaptype1 připoj weaptype1 z tabulky weaptype1 -pres sloupecek weaptype2 připoj weaptype2 z tabulky weaptype2 -- vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')",
+              header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a",
+              subheaders: ["pres sloupecek country připoj zemi z tabulky country","pres sloupecek weaptype1 připoj nazev zbrane z tabulky weaptype","pres sloupecek weaptype2 připoj nazev zbrane z tabulky weaptype","vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')"],
               screen: require("@/assets/lessons/4C.png"),
-              code: `SELECT t.eventdate, t.gname, t.nkill, t.nwound, c.name, wt1.name, wt2.name
- FROM teror2 AS t
- LEFT JOIN country c ON t.country = c.id
- LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
- LEFT JOIN weaptype2 wt2 ON t.weaptype2 = wt2.id
+              code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name, wt1.name as weapon_type1, wt2.name as weapon_type2
+ FROM teror2 AS t2
+ LEFT JOIN country as c ON t2.country = c.id
+ LEFT JOIN weaptype as wt1 ON t2.weaptype1 = wt1.id
+ LEFT JOIN weaptype as wt2 ON t2.weaptype2 = wt2.id
  WHERE wt2.name = 'Incendiary';`,
             },
             {
               header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
               screen: require("@/assets/lessons/4D.png"),
-              code: `SELECT count(*), sum(t.nkill), sum(t.nwound), wt1.name
- FROM teror2 t
- LEFT JOIN country c ON t.country = c.id
- LEFT JOIN weaptype1 wt1 ON t.weaptype1 = wt1.id
+              code: `SELECT wt1.name as weapon_type1, count(*) as attacks, sum(t2.nkill) as nkill_sum, sum(t2.nwound) as nwound_sum 
+FROM teror2 as t2
+ LEFT JOIN country as c ON t2.country = c.id
+ LEFT JOIN weaptype as wt1 ON t2.weaptype1 = wt1.id
  WHERE date_part(year, eventdate) = 2016
  GROUP BY wt1.name
  ORDER BY COUNT(*) DESC;`
             },
             {
-              header: "Vypiste pocet unesenych lidi (kdy byl typ utoku unos rukojmich) a pocet udalosti podle regionu a roku. Vysledek seradte podle poctu unesenych lidi sestupne. Sloupecky pojmenujte  region, rok, pocet_unesenych, pocet_udalosti",
-              code: `SELECT reg.name AS region, year(t2.eventdate) AS rok, SUM(t2.nhostkid) AS pocet_unesenych, COUNT(*) AS pocet_udalosti 
+              header: "Vypiste pocet unesenych lidi (kdy byl typ utoku unos rukojmich) a pocet udalosti podle regionu a roku. Vysledek seradte podle poctu unesenych lidi sestupne. Sloupecky pojmenujte region, rok, pocet_unesenych, pocet_udalosti",
+              code: `SELECT reg.name AS region, year(t2.eventdate) AS rok, SUM(t2.nhostkid) AS pocet_unesenych, COUNT(*) AS pocet_udalosti
  FROM teror2 AS t2
- JOIN attacktype1 AS at1 ON t2.attacktype1 = at1.id
+ JOIN attacktype AS at1 ON t2.attacktype1 = at1.id
  JOIN region AS reg ON t2.region = reg.id
  WHERE at1.name LIKE 'Hostage Taking %' AND t2.nhostkid > 0
  GROUP BY reg.name, year(t2.eventdate)
@@ -862,25 +864,26 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
               screen_visible: false
             },
             {
-              header: `Zjistí počty útoků po letech a kontinentech. Tj. Vytvoř sloupeček kontinent a podle něj a roku tabulku "zgrupuj".`,
-              code: `SELECT 
-  iyear 
- , CASE --vyber ze seznamu hodnot bude pri miliardach radek rychlejsi... Proc asi?
+              header: `Zjistí počty útoků z tabulky teror2 po letech a kontinentech. Tj. napoj sloupecek region z tabulky teror2 na tabulku region a vytvoř sloupeček kontinent z nazvu regionu a podle něj a podle roku tabulku "zgrupuj" (zagreguj).`,
+              code: `SELECT CASE --vyber ze seznamu hodnot bude pri miliardach radek rychlejsi... Proc asi?
         -- pres region misto region_txt by to mozna bylo jeste rychlejsi...
-    WHEN region_txt in ('Western Europe', 'Eastern Europe') THEN 'Europe'
-    WHEN region_txt in ('Middle East & North Africa', 'Sub-Saharan Africa') THEN 'Africa'
-    WHEN region_txt in ('East Asia', ' Southeast Asia', 'South Asia', 'Central Asia') THEN 'Asia'
-    WHEN region_txt in ('North America', 'Central America & Caribbean', 'South America') THEN 'America'
-    WHEN region_txt  = 'Australasia & Oceania' THEN 'Australia'
-   END AS kontinent
- , count(*) utoku_celkem 
- FROM teror
+         WHEN reg.name in ('Western Europe', 'Eastern Europe') THEN 'Europe'
+         WHEN reg.name in ('Middle East & North Africa', 'Sub-Saharan Africa') THEN 'Africa'
+         WHEN reg.name in ('East Asia', 'Southeast Asia', 'South Asia', 'Central Asia') THEN 'Asia'
+         WHEN reg.name in ('North America', 'Central America & Caribbean', 'South America') THEN 'America'
+         WHEN reg.name  = 'Australasia & Oceania' THEN 'Australia'
+         ELSE reg.name
+       END AS kontinent, 
+       year(eventdate) as rok,
+       count(*) utoku_celkem 
+ FROM teror2 as t2
+ LEFT JOIN region as reg
+ ON t2.region=reg.id
  GROUP BY 
- --potrevujeme tabulku zgrupovat po kontinentech a letech
-  kontinent
- ,iyear; `,
+ --potrebujeme tabulku zgrupovat po kontinentech a letech
+  kontinent,rok;`,
               code_visible: false,
-              screen: require("@/assets/lessons/not_available.png"),
+              screen: require("@/assets/lessons/4F.png"),
               screen_visible: false
             }
           ]
