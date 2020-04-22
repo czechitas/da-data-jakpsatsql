@@ -895,7 +895,7 @@ FROM teror2 as t2
               header: "USE database; USE schema",
               notes: ["UI", "Příkaz"],
               visible: false,
-              code: ["USE DATABASE CZECHITA;", " USE DATABASE __prijmeni__;"," USE SCHEMA PUBLIC;", " USE SCHEMA __prijmeni__;"]
+              code: ["USE DATABASE COURSES;"," USE SCHEMA SCH_CZECHITA;", " USE SCHEMA <SCH_CZECHITA_PRIJIMENIK>;"]
             },
            {
               header: "CREATE table",
@@ -903,17 +903,16 @@ FROM teror2 as t2
               visible: false,
               code: [`CREATE TABLE NEW_TEROR (
   ID int,
-  gname VARCHAR(16777216),
+  gname VARCHAR(250),
   nkill int,
   nwound int
-); `, `
- ADD PRIMARY KEY (id);`,
+); `,
 `
  CREATE OR REPLACE TABLE NEW_TEROR (
-  ID int NOT NULL UNIQUE AUTO_INCREMENT,
-  gname VARCHAR(16777216),
+  id int AUTOINCREMENT NOT NULL UNIQUE,
+  gname VARCHAR(250),
   nkill int,
-  nwound int
+  nwound int,
   CONSTRAINT id_pk PRIMARY KEY (id)
 ); `]
             },
@@ -921,33 +920,32 @@ FROM teror2 as t2
               header: "CREATE table as select",
               notes: ["prvotní nalití dat"],
               visible: false,
-              code: [`CREATE TABLE udalosti_jen_v_cesku
- AS (
-  SELECT
+              code: [`CREATE TABLE udalosti_jen_v_cesku AS 
+SELECT
     gname
    ,city
    ,nkill
    ,nwound
- FROM teror
- WHERE country_txt = 'Czech Republic');`,` 
-CREATE TEMPORARY TABLE hriste.organizace_po_zemich 
+ FROM sch_czechita.teror
+ WHERE country_txt = 'Czech Republic';`,` 
+CREATE TEMPORARY TABLE organizace_po_zemich AS 
 --docasna tabulka zanikne, kdyz se odhlasime
- AS (
   SELECT 
     gname
    ,city
    ,sum (nkill) killed
    ,sum (nwound) wounded
    ,C.name countryname 
- FROM      public.teror2 T2 
- LEFT JOIN country C         ON C.id = T2.country
- GROUP BY C.name, T2.gname, T2.city);`]
+ FROM      sch_czechita.teror2 T2 
+ LEFT JOIN sch_czechita.country C         
+ ON C.id = T2.country
+ GROUP BY C.name, T2.gname, T2.city;`]
             },
             {
               header: "ALTER",
               notes: ["Snowflake to zatím moc neumí", "MODIFY", "Co dělat, když nejdou zkonvertovat data ve sloupci?"],
               visible: false,
-              code: ["ALTER TABLE NEW_TEROR ALTER COLUMN Name VARCHAR(50) NOT NULL;", " ALTER TABLE NEW_TEROR ADD Continent varchar(300);", " ALTER TABLE NEW_TEROR DROP COLUMN Continent;"]
+              code: ["ALTER TABLE NEW_TEROR ALTER COLUMN gname VARCHAR(350);", "ALTER TABLE NEW_TEROR ALTER COLUMN gname not null;", " ALTER TABLE NEW_TEROR ADD Continent varchar(300);", " ALTER TABLE NEW_TEROR DROP COLUMN Continent;"]
             },
             {
               header: "INSERT into from select",
@@ -956,11 +954,7 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               code: [`INSERT INTO NEW_TEROR (gname, nkill, nwound)
  --v insertu DYCKY vyjmenovat sloupce, nepouzivat hvezdicku
  SELECT gname, nkill, nwound FROM teror
- WHERE iyear=2019
- UNION ALL
- SELECT gname, nkill, nwound 
- FROM teror2 --slucovani vice tabulek se muze hodit...
- WHERE iyear=2018 ;`]
+ WHERE iyear=2015;`]
             },
             {
               header: "INSERT values",
@@ -976,7 +970,7 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               header: "UPDATE",
               notes: [],
               visible: false,
-              code: ["UPDATE NEW_TEROR SET nkill=0 WHERE nkill=NULL;", " UPDATE NEW_TEROR SET nkill=0; -- POZOR, bez podminky nastavi vsude 0", " UPDATE NEW_TEROR SET nkill = 100, nwound= 100 WHERE gname = 'Žoldáci'; -- lze updatovat i vice sloupcu najednou"]
+              code: ["UPDATE NEW_TEROR SET nkill=0 WHERE nkill is NULL;", "UPDATE NEW_TEROR SET nkill=0; -- POZOR, bez podminky nastavi vsude 0", " UPDATE NEW_TEROR SET nkill = 100, nwound= 100 WHERE gname = 'Žoldáci'; -- lze updatovat i vice sloupcu najednou"]
             },
             {
               header: "Nešťastný UPDATE a kouzelný SELECT AT",
@@ -984,34 +978,24 @@ CREATE TEMPORARY TABLE hriste.organizace_po_zemich
               visible: false,
               code: [`
 --s trochou odvahy se da tabulka i prepsat...
- create OR REPLACE table hriste.xx_prycsemnou as 
-   (
+ create table xx_prycsemnou as 
  --v insertu DYCKY vyjmenovat sloupce, nepouzivat hvezdicku
  SELECT
     gname
    ,city
    ,sum (nkill) killed
    ,sum (nwound) wounded
- FRom TEROR
+ FROM TEROR
  WHERE iyear=2016
- GROUP BY gname, city
- uNion all
- SELECT
-    gname
-   ,city
-   ,sum (nkill) killed
-   ,sum (nwound) wounded
- FRom TEROR2 --slucovani vice tabulek se muze hodit...
- WHERE year(eventdate)=2015 
- GROUP BY gname, city);
+ GROUP BY gname, city;
    
-update hriste.xx_prycsemnou set killed = 0; -- TADY NAM TROCHU CHYBI PODMINKA
+update xx_prycsemnou set killed = 0; -- TADY NAM TROCHU CHYBI PODMINKA
 
-select * from hriste.xx_prycsemnou at(offset => -35) as x;
+select * from xx_prycsemnou at(offset => -35);
 -- a je to rozbity
 
 
-select * from hriste.xx_prycsemnou at(offset => -15) as x;
+select * from xx_prycsemnou at(offset => -15);
 --ale pujde to zachranit
 `]
             },
@@ -1026,33 +1010,33 @@ select * from hriste.xx_prycsemnou at(offset => -15) as x;
                 require("@/assets/screenshots/import_file_format_05.png")
               ],
               visible: false,
-              code: [`CREATE OR REPLACE TABLE HRISTE.gibberish
-(  "ID" number
- , "FIRST" text(500)
- , "LAST" char(500)
- , Email text
- , CategoryId int
- , ShopId int
- , PeasantId integer
- , TransactionDate date
- , VirginityLevel int
- , PricePerGig text
- , SegmentText varchar(200)
- , URL varchar(200)
- , BlockChainHash varchar(64)
+              code: [`CREATE TABLE gibberish
+(  ID number, 
+   "FIRST" text(500), 
+   "LAST" char(500), 
+   Email text, 
+   CategoryId int, 
+   ShopId int, 
+   PeasantId integer, 
+   TransactionDate date, 
+   VirginityLevel int, 
+   PricePerGig text, 
+   SegmentText varchar(200), 
+   URL varchar(200), 
+   BlockChainHash varchar(64)
 );`]
             },
             {
               header: "DELETE",
               notes: [],
               visible: false,
-              code: ["DELETE FROM NEW_TEROR; -- vymaže pouze data", " DELETE FROM NEW_TEROR WHERE nkill is NULL;"]
+              code: [ "DELETE FROM NEW_TEROR WHERE nkill is NULL;", "DELETE FROM NEW_TEROR; -- vymaže pouze data"]
             },
             {
               header: "DROP",
               notes: ["TABLE", "DATABASE"],
               visible: false,
-              code: ["DROP TABLE NEW_TEROR;", " DROP DATABASE __jmeno__;"]
+              code: ["DROP TABLE NEW_TEROR;", "DROP DATABASE <jmeno>;"]
             },
           ],
           tasks: [
