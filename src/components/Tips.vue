@@ -716,7 +716,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                       >https://www.hackerrank.com/domains/sql</a>
                     </li>
                     <li>
-                      <a href="https://sqlzoo.net/%7C">https://sqlzoo.net/%7C</a>
+                      <a href="https://sqlzoo.net/">https://sqlzoo.net/</a>
                     </li>
                     <li>
                       <a
