@@ -1084,7 +1084,7 @@ select * from xx_prycsemnou at(offset => -15);
         t2.pocetmrtv2016 
  FROM
  (
- SELECT gname, COUNT(nkill) as pocetmrtv2017
+ SELECT gname, SUM(nkill) as pocetmrtv2017
  FROM teror
  WHERE iyear=2017 AND gname ilike '%islamic state%' 
  GROUP BY 1
