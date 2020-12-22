@@ -1,3 +1,9 @@
+module.exports = {
+  "transpileDependencies": [
+    "vuetify"
+  ]
+}
+
 var webpack = require("webpack")
 
 module.exports = {

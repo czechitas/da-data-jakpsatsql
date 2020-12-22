@@ -1,41 +1,40 @@
 <template>
+  <div>
     <v-list>
-        <v-list-tile avatar>
-          <v-list-tile-avatar color="white">
+        <v-list-item>
+          <v-list-item-avatar color="white">
             <img src="../assets/sql-logo.png" />
-          </v-list-tile-avatar>
-          <v-list-tile-title class="title">
+          </v-list-item-avatar>
+          <v-list-item-title class="title">
             Jak psát SQL
-          </v-list-tile-title>
-        </v-list-tile>
+          </v-list-item-title>
+        </v-list-item>
         
         <v-divider style="padding-bottom: 15px;" />
 
         <div v-for="(menuItem, i) in $router.options.routes" :key="i">
           <div v-if="!menuItem.meta.hideInMenu">
-              <v-list-tile :to="{ name: menuItem.name }" avatar class="v-list-item">
-                <v-list-tile-action>
-                  <v-icon>{{ menuItem.meta.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title v-text="menuItem.meta.title" />
-              </v-list-tile>
+              <v-list-item :to="{ name: menuItem.name }" class="v-list-item">
+                <v-list-item-action>
+                  <v-icon>mdi-{{ menuItem.meta.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-title v-text="menuItem.meta.title" />
+              </v-list-item>
           </div>
         </div>
-      </v-list>
+    </v-list>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Navigation",
-  data () {
-    return {
-      logo: '../assets/logo.svg',
-    }
-  }
+  name: "Navigation"
 }
 </script>
 
-<style lang="scss">
+
+
+<style scoped>
   #app-drawer .v-list__tile--active {
       border-radius: 4px;
       background-color: #4caf50;

@@ -3,45 +3,45 @@
     <v-layout row wrap>
       <v-flex xs12 md4 lg4>
         <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="../assets/snowflake-logo.png">
-            </v-list-tile-avatar>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img src="../assets/practice/snowflake-logo.png">
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>Snowflake</v-list-tile-title>
-              <v-list-tile-sub-title><a href="https://revolt_bi_partner.eu-central-1.snowflakecomputing.com/console/login#/" target="_blank">https://revolt_bi_partner.eu-central-1.snowflakecomputing.com/console/login#/</a></v-list-tile-sub-title>
-              <v-list-tile-sub-title>Prihlaseni: czechita_prijmenik   (k je 1. písmeno křestního jména)</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>Snowflake</v-list-item-title>
+              <v-list-item-subtitle><a href="https://revolt_bi_partner.eu-central-1.snowflakecomputing.com/console/login#/" target="_blank">https://revolt_bi_partner.eu-central-1.snowflakecomputing.com/console/login#/</a></v-list-item-subtitle>
+              <v-list-item-subtitle>Prihlaseni: czechita_prijmenik   (k je 1. písmeno křestního jména)</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-flex>
       <v-flex xs12 md4 lg4>
         <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="../assets/gtb-logo.jpg">
-            </v-list-tile-avatar>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img src="../assets/practice/gtb-logo.jpg">
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>Global Terrorism Database (GTD)</v-list-tile-title>
-              <v-list-tile-sub-title><a href="https://www.start.umd.edu/gtd/" target="_blank">https://www.start.umd.edu/gtd/</a></v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>Global Terrorism Database (GTD)</v-list-item-title>
+              <v-list-item-subtitle><a href="https://www.start.umd.edu/gtd/" target="_blank">https://www.start.umd.edu/gtd/</a></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-flex>
       <v-flex xs12 md4 lg4>
         <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="../assets/gtb-logo.jpg">
-            </v-list-tile-avatar>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img src="../assets/practice/gtb-logo.jpg">
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>GTD - Codebook</v-list-tile-title>
-              <v-list-tile-sub-title><a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf" target="_blank">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a></v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>GTD - Codebook</v-list-item-title>
+              <v-list-item-subtitle><a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf" target="_blank">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
        </v-flex>
       
@@ -60,7 +60,7 @@
                     <center>
                       <v-btn href="https://docs.google.com/presentation/d/1i6WRNuwMw4MuwBl2guX7sIBP3aspdHDzcAq4LbmTAnk/edit?usp=sharing" target="_blank" color="primary">
                         Prezentace
-                        <v-icon right dark>play_arrow</v-icon>
+                        <v-icon right dark>mdi-play</v-icon>
                       </v-btn>
                     </center>
                   </div>
@@ -69,12 +69,12 @@
                     <center>
                       <v-btn href="https://drive.google.com/file/d/1Etyhq-gBka5-K1do905Q5SXLF-CdEPoh/view?usp=sharing" target="_blank" color="primary">
                         Join Bingo
-                        <v-icon right dark>play_arrow</v-icon>
+                        <v-icon right dark>mdi-play</v-icon>
                       </v-btn>
-                      <viewer style="cursor: zoom-in;"  :images="['../assets/join.svg']" :options="viewerOptions">
-                        <img src="../assets/join.svg" alt="join" title="join" />
+                      <viewer style="cursor: zoom-in;"  :images="['../assets/practice/join.svg']" :options="viewerOptions">
+                        <img src="../assets/practice/join.svg" alt="join" title="join" />
                       </viewer>
-                      <v-alert icon="none" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
+                      <v-alert color="info" outlined style="margin-bottom: 2em;">
                       <div class="headline">
                       SELECT
                         <span style="color: #ff0000;">eventid, eventdate, country, gname,</span>
@@ -90,14 +90,14 @@
                    <div v-if="lesson_index == 4" style="padding-bottom: 2em;">
                     <center>
 
-                      <v-btn :href='require("@/assets/data/data.csv")' target="_blank" color="primary" download>
+                      <v-btn :href='require("@/assets/practice/data/data.csv")' target="_blank" color="primary" download>
                         Stáhnout data.csv
-                        <v-icon right dark>get_app</v-icon>
+                        <v-icon right dark>mdi-download</v-icon>
                       </v-btn>
 
-                      <v-btn :href='require("@/assets/data/ukol.csv")' target="_blank" color="primary" download>
+                      <v-btn :href='require("@/assets/practice/data/ukol.csv")' target="_blank" color="primary" download>
                         Stáhnout ukol.csv
-                        <v-icon right dark>get_app</v-icon>
+                        <v-icon right dark>mdi-download</v-icon>
                       </v-btn>
                     </center>
                   </div>
@@ -111,9 +111,9 @@
                              <li v-for="(note, note_index) in lecture['notes']" :key="note_index">{{ note }}</li>
                           </ul>
                         </v-flex>
-                        <v-flex class="text-xs-right" xs8>
-                          <v-btn color="warning" title="Zobrazit řešení" @click="showClicked(lesson_index, lecture_index)" fab small dark outline>
-                            <v-icon>{{ lecture['visible'] ? "visibility_off" : "import_contacts" }}</v-icon>
+                        <v-flex class="text-right" xs8>
+                          <v-btn color="warning" title="Zobrazit řešení" @click="showClicked(lesson_index, lecture_index)" fab small dark outlined>
+                            <v-icon>{{ lecture['visible'] ? "mdi-eye-off" : "mdi-presentation" }}</v-icon>
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
@@ -133,12 +133,12 @@
                   <div v-if="lesson_index == 3" style="padding: 2em 0;">
                     <center>
                       <viewer style="cursor: zoom-in;"  :images="['../assets/join2.png']" :options="viewerOptions">
-                        <img src="../assets/join2.png" alt="join" title="join" />
+                        <img src="../assets/practice/join2.png" alt="join" title="join" />
                       </viewer>
                     </center>
                   </div>
 
-                  <v-alert v-if="lesson['tasks'].length > 0" value="info" type="info" color="info" label="info" outline style="margin-bottom: 2em;">
+                  <v-alert v-if="lesson['tasks'].length > 0" type="info" color="info" label="info" outlined style="margin-bottom: 2em;">
                     ÚKOLY
                   </v-alert>
 
@@ -148,12 +148,12 @@
                         <v-flex xs10>
                           <span class="subheading">{{ task["header"] }}</span>
                         </v-flex>
-                        <v-flex class="text-xs-right" xs2>
-                          <v-btn v-if="task['code']" color="error" title="Zobrazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outline>
-                            <v-icon>{{ task['code_visible'] ? "visibility_off" : "visibility" }}</v-icon>
+                        <v-flex class="text-right" xs2>
+                          <v-btn v-if="task['code']" color="error" title="Zobrazit kód" @click="hintClicked(lesson_index, 'code', task_index)" fab small dark outlined>
+                            <v-icon>{{ task['code_visible'] ? "mdi-eye-off" : "mdi-code-braces" }}</v-icon>
                           </v-btn>
-                          <v-btn v-if="task['screen']" color="success" title="Zobrazit výsledek" @click="hintClicked(lesson_index, 'screen', task_index)" fab small dark outline>
-                            <v-icon>{{ task['screen_visible'] ? "visibility_off" : "insert_photo" }}</v-icon>
+                          <v-btn v-if="task['screen']" color="success" title="Zobrazit výsledek" @click="hintClicked(lesson_index, 'screen', task_index)" fab small dark outlined>
+                            <v-icon>{{ task['screen_visible'] ? "mdi-eye-off" : "mdi-help" }}</v-icon>
                           </v-btn>
                         </v-flex>
                         <v-flex xs12>
@@ -185,14 +185,13 @@
 
 <script>
 import Vue from 'vue'
-import 'viewerjs/dist/viewer.css'
 
 export default {
   name: "Practice",
   data() {
     return {
       viewerOptions: { "toolbar": false, "navbar": false, "title": false },
-      taskLink: require("@/assets/data/ukol.csv"),
+      taskLink: require("@/assets/practice/data/ukol.csv"),
       lessons: [
         {
           name: "Základy",
@@ -277,14 +276,14 @@ export default {
               header: "Vyber vše z tabulky teror",
               code: "SELECT * FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1A.png"),
+              screen: require("@/assets/practice/lessons/1A.png"),
               screen_visible: false
             },
             {
               header: "Zobraz náhodných deset řádek z tabulky teror",
               code: "SELECT * FROM teror LIMIT 10;",
               code_visible: false,
-              screen: require("@/assets/lessons/1A.png"),
+              screen: require("@/assets/practice/lessons/1A.png"),
               screen_visible: false
 
             },
@@ -292,7 +291,7 @@ export default {
               header: "Vypiš jen sloupce eventid, iyear, country_txt, region_txt",
               code: "SELECT eventid,iyear,country_txt,region_txt FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1B.png"),
+              screen: require("@/assets/practice/lessons/1B.png"),
               screen_visible: false
 
             },
@@ -300,7 +299,7 @@ export default {
               header: "Vypiš všechny roky vyskytující se v tabulce teror, tak aby byl každý rok ve výsledné tabulce jen jednou",
               code: "SELECT DISTINCT iyear FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/1C.png"),
+              screen: require("@/assets/practice/lessons/1C.png"),
               screen_visible: false
 
             },
@@ -308,7 +307,7 @@ export default {
               header: "Vyber všechny teroristické útoky v roce 2016",
               code: "SELECT * FROM teror WHERE iyear=2016;",
               code_visible: false,
-              screen: require("@/assets/lessons/1D.png"),
+              screen: require("@/assets/practice/lessons/1D.png"),
               screen_visible: false
 
             },
@@ -316,7 +315,7 @@ export default {
               header: "Vypiš všechny útoky za rok 2015 a vyber pouze sloupce eventid, iyear, country_txt, region_txt a přejmenuj je na udalost, rok, zeme, region",
               code: "SELECT eventid AS udalost,iyear AS rok,country_txt AS zeme,region_txt AS region FROM teror WHERE iyear=2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/1E.png"),
+              screen: require("@/assets/practice/lessons/1E.png"),
               screen_visible: false
 
             },
@@ -324,7 +323,7 @@ export default {
               header: "Vyber všechny události v roce 2014 a vyber pouze sloupce iyear, imonth a iday. Spoj je do jednoho sloupce oddělené pomlčkou a pojmenuj ho datum",
               code: "SELECT iyear||'-'||imonth||'-'||iday AS datum FROM teror WHERE iyear=2014;",
               code_visible: false,
-              screen: require("@/assets/lessons/1F.png"),
+              screen: require("@/assets/practice/lessons/1F.png"),
               screen_visible: false
 
             },
@@ -332,7 +331,7 @@ export default {
               header: "Seřaď datum z předchozího selektu sestupně (desc) a vypiš jen jedinečné záznamy",
               code: "SELECT DISTINCT iyear||'-'||imonth||'-'||iday AS datum FROM teror WHERE iyear=2014 ORDER BY datum DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/1G.png"),
+              screen: require("@/assets/practice/lessons/1G.png"),
               screen_visible: false
 
             },
@@ -340,7 +339,7 @@ export default {
               header: "Vypiš počet teroristických útoků, které se staly po roce 2015",
               code: "SELECT COUNT(*) FROM teror WHERE iyear>2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/1H.png"),
+              screen: require("@/assets/practice/lessons/1H.png"),
               screen_visible: false
 
             }
@@ -441,49 +440,49 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: "Vyber z tabulky útoky v Německu, kde zemřel alespoň jeden terorista",
               code: "SELECT * FROM teror WHERE nkillter > 0 AND country_txt = 'Germany';",
               code_visible: false,
-              screen: require("@/assets/lessons/2A.jpg"),
+              screen: require("@/assets/practice/lessons/2A.jpg"),
               screen_visible: false
             },
             {
               header: "Zobraz jen sloupečky GNAME, COUNTRY_TXT, NKILL a všechny řádky (seřazené podle počtu obětí sestupně), na kterých je víc než 340 obětí (počet obětí je ve sloupci NKILL), sloupečky přejmenuj na ORGANIZACE, ZEME, POCET_OBETI",
               code: "SELECT gname AS ORGANIZACE, country_txt AS zeme, nkill AS POCET_OBETI FROM teror WHERE nkill > 340 ORDER BY POCET_OBETI DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/2B.jpg"),
+              screen: require("@/assets/practice/lessons/2B.jpg"),
               screen_visible: false
             },
             {
               header: "Zobraz sloupečky IYEAR, IMONTH, IDAY, GNAME, CITY, ATTACKTYPE1_TXT, TARGTYPE1_TXT, WEAPTYPE1_TXT, WEAPDETAIL, NKILL, NWOUND a vyber jen útoky, které se staly v Czech Republic v letech 2015, 2016 a 2017. Všechna data seřaď chronologicky sestupně",
               code: "SELECT iyear, imonth, iday, gname, city, attacktype1_txt, targtype1_txt, weaptype1_txt, weapdetail, nkill, nwound FROM teror WHERE country_txt='Czech Republic' AND IYEAR IN (2015, 2016, 2017) ORDER BY iyear DESC, imonth DESC, iday DESC;",
               code_visible: false,
-              screen: require("@/assets/lessons/2C.jpg"),
+              screen: require("@/assets/practice/lessons/2C.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny organizace, které na jakémkoliv místě v názvu obsahují výraz „anti“ a výraz „extremists“",
               code: "SELECT DISTINCT gname FROM teror WHERE gname ilike '%anti%' AND gname ilike '%extremists%';",
               code_visible: false,
-              screen: require("@/assets/lessons/2D.jpg"),
+              screen: require("@/assets/practice/lessons/2D.jpg"),
               screen_visible: false
             },
             {
               header: "Z iYear, iMonth a iDay vytvořte sloupeček datum a vypište tohle datum a pak datum o tři měsíce později a klidně i o tři dny a tři měsíce",
               code: "SELECT DATE_FROM_PARTS(iyear, imonth, iday) datum, iyear, imonth, iday, DATEADD(month, 3, DATE_FROM_PARTS(iyear, imonth, iday)) o_tri_mesice_pozdeji, DATEADD(day, 3, DATEADD(month, 3, DATE_FROM_PARTS(iyear, imonth, iday))) o_tri_mesice_a_tri_dny_pozdeji FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/2E.jpg"),
+              screen: require("@/assets/practice/lessons/2E.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny druhy útoků ATTACKTYPE1_TXT",
               code: "SELECT DISTINCT attacktype1_txt FROM teror;",
               code_visible: false,
-              screen: require("@/assets/lessons/2F.jpg"),
+              screen: require("@/assets/practice/lessons/2F.jpg"),
               screen_visible: false
             },
             {
               header: "Vypiš všechny útoky v Německu v roce 2015, vypiš sloupečky IYEAR, IMONTH, IDAY, COUNTRY_TXT, REGION_TXT, PROVSTATE, CITY, NKILL, NKILLTER, NWOUND. Ve sloupečku COUNTRY_TXT bude všude hodnota ‘Německo’",
               code: "SELECT iyear AS rok, imonth AS mesic, iday AS den, 'Německo' AS COUNTRY_TXT /*naplni sloupecek country_txt nasim textem*/, region_txt, provstate, city, nkill, nkillter, nwound FROM teror WHERE country_txt = 'Germany' AND iyear = 2015;",
               code_visible: false,
-              screen: require("@/assets/lessons/2G.jpg"),
+              screen: require("@/assets/practice/lessons/2G.jpg"),
               screen_visible: false
             },
             {
@@ -492,13 +491,13 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  SELECT COUNT(*) FROM teror WHERE imonth IN (3,4) AND nkillter IS NOT NULL;
  SELECT COUNT(*) FROM teror WHERE (imonth = 3 OR imonth = 4) AND nkillter IS NOT NULL;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2H.png"),
+              screen: require("@/assets/practice/lessons/2H.png"),
               screen_visible: false
             },
             {
               header: "Vypiš první 3 města seřazena abecedně kde bylo zabito 30 až 100 teroristů nebo zabito 500 až 1000 lidí. Vypiš i sloupečky nkillter a nkill.",
               code: "SELECT city, nkillter, nkill FROM teror WHERE nkillter BETWEEN 30 AND 100 OR nkill BETWEEN 500 AND 1000 ORDER BY city LIMIT 3;",
-              screen: require("@/assets/lessons/2I.png"),
+              screen: require("@/assets/practice/lessons/2I.png"),
               screen_visible: false
             },
             {
@@ -517,7 +516,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  WHERE gname = 'Islamic State of Iraq and the Levant (ISIL)' AND iyear = 2014
  ORDER BY nkill DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2J.jpg"),
+              screen: require("@/assets/practice/lessons/2J.jpg"),
               screen_visible: false
             },
             {
@@ -531,7 +530,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  WHERE nkill > 0 AND COUNTRY_TXT in ('Germany', 'Austria', 'Switzerland', 'France', 'Italy')
  ORDER BY NWOUND DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2K.jpg"),
+              screen: require("@/assets/practice/lessons/2K.jpg"),
               screen_visible: false
             },
             {
@@ -544,7 +543,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
  FROM teror WHERE nwound > 100
  ORDER BY vzdalenost_od_albertova;`,
               code_visible: false,
-              screen: require("@/assets/lessons/2L.jpg"),
+              screen: require("@/assets/practice/lessons/2L.jpg"),
               screen_visible: false
             },
           ]
@@ -605,14 +604,14 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               header: "Zjisti počet obětí a raněných po letech a měsících",
               code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror GROUP BY iyear, imonth ORDER BY  iyear, imonth;",
               code_visible: false,
-              screen: require("@/assets/lessons/3A.png"),
+              screen: require("@/assets/practice/lessons/3A.png"),
               screen_visible: false
             },
             {
               header: "Zjisti počet obětí a raněných v západní Evropě po letech a měsících",
               code: "SELECT iyear, imonth, SUM(nkill) AS killed, SUM(nwound) AS wounded FROM teror WHERE region_txt = 'Western Europe' GROUP By iyear, imonth ORDER BY  iyear, imonth;",
               code_visible: false,
-              screen: require("@/assets/lessons/3B.png"),
+              screen: require("@/assets/practice/lessons/3B.png"),
               screen_visible: false
             },
             {
@@ -620,25 +619,25 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
               code: `SELECT country_txt, COUNT(*) FROM teror GROUP BY 1 ORDER BY COUNT(*) DESC;
  SELECT country_txt, COUNT(1) FROM teror GROUP BY country_txt ORDER BY COUNT(1) DESC;
  SELECT country_txt, COUNT('1') FROM teror GROUP BY country_txt ORDER BY 2 DESC;`,            
-              screen: require("@/assets/lessons/3C.png"),
+              screen: require("@/assets/practice/lessons/3C.png"),
               screen_visible: false
             },
             {
               header: "Zjisti počet útoků po zemích a letech, seřaď je podle počtu útoků sestupně",
               code: "SELECT country_txt, iyear, COUNT(*) FROM teror GROUP BY country_txt, iyear ORDER BY COUNT(*) DESC;",
-              screen: require("@/assets/lessons/3D.png"),
+              screen: require("@/assets/practice/lessons/3D.png"),
               screen_visible: false
             },
             {
               header: "(Chytak) Kolik která organizace spáchala útoků zápalnými zbraněmi (weaptype1_txt = 'Incendiary'), kolik při nich celkem zabila obětí, kolik zemřelo teroristů a kolik lidí bylo zraněno (nkill, nkillter, nwound)",
               code: "SELECT gname, COUNT(eventid), SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname;",
-              screen: require("@/assets/lessons/3E.png"),
+              screen: require("@/assets/practice/lessons/3E.png"),
               screen_visible: false
             },
             {
               header: "Stejné jako 3e, jen ve výsledném výpisu chceme jen organizace, které zápalnými útoky zranily 50 a více lidí a nechceme tam vidět “organizaci” Unknown",
               code: "SELECT gname, COUNT(eventid), SUM(nkill), SUM(nkillter), SUM(nwound) FROM teror WHERE weaptype1_txt = 'Incendiary' GROUP BY gname HAVING gname <> 'Unknown' AND sum(nwound) >= 50;",
-              screen: require("@/assets/lessons/3F.png"),
+              screen: require("@/assets/practice/lessons/3F.png"),
               screen_visible: false
             },
             {
@@ -658,7 +657,7 @@ FROM teror; -- vytvorime sloupec kontinent podle regionu`, "SELECT IFNULL(nkillt
          ELSE NULL
        END AS pocet_zranenych_na_mrtveho_teroristu
  FROM teror GROUP BY weaptype1_txt ORDER BY COUNT(*) DESC;`,
-              screen: require("@/assets/lessons/3G.png"),
+              screen: require("@/assets/practice/lessons/3G.png"),
               screen_visible: false
             }
           ]
@@ -812,7 +811,7 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
           tasks: [
             {
               header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a přes sloupeček country připoj zemi z tabulky country",
-              screen: require("@/assets/lessons/4A.png"),
+              screen: require("@/assets/practice/lessons/4A.png"),
               code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name
  FROM teror2 AS t2
  LEFT JOIN country AS c 
@@ -821,7 +820,7 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
             {
               header: "Vypiš eventdate, gname, nkill, nwound z tabulky teror2 (!) a",
               subheaders: ["přes sloupecek country pripoj zemi z tabulky country","přes sloupecek weaptype1 připoj nazev zbrane z tabulky weaptype", "přes sloupecek weaptype2 připoj nazev zbrane z tabulky weaptype"],
-              screen: require("@/assets/lessons/4B.png"),
+              screen: require("@/assets/practice/lessons/4B.png"),
               code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name, wt1.name as weapon_type1, wt2.name as weapon_type2
  FROM teror2 AS t2
  LEFT JOIN country as c ON t2.country = c.id
@@ -831,7 +830,7 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
             {
               header: "Vypis eventdate, gname, nkill, nwound z tabulky teror2 (!) a",
               subheaders: ["pres sloupecek country připoj zemi z tabulky country","pres sloupecek weaptype1 připoj nazev zbrane z tabulky weaptype","pres sloupecek weaptype2 připoj nazev zbrane z tabulky weaptype","vypis jen utoky jejichz sekundarni zbran byla zapalna ('Incendiary')"],
-              screen: require("@/assets/lessons/4C.png"),
+              screen: require("@/assets/practice/lessons/4C.png"),
               code: `SELECT t2.eventdate, t2.gname, t2.nkill, t2.nwound, c.name as country_name, wt1.name as weapon_type1, wt2.name as weapon_type2
  FROM teror2 AS t2
  LEFT JOIN country as c ON t2.country = c.id
@@ -841,7 +840,7 @@ ON t2.attacktype3 = atyp3.id; -- vrati vsechny zaznamy z tabulky teror2 a snazi 
             },
             {
               header: "Z tabulky teror2 vypis pocet utoku, pocty mrtvych a ranenych v roce 2016 -- podle pouzitych zbrani (WEAPTYPE1)",
-              screen: require("@/assets/lessons/4D.png"),
+              screen: require("@/assets/practice/lessons/4D.png"),
               code: `SELECT wt1.name as weapon_type1, count(*) as attacks, sum(t2.nkill) as nkill_sum, sum(t2.nwound) as nwound_sum 
 FROM teror2 as t2
  LEFT JOIN country as c ON t2.country = c.id
@@ -860,7 +859,7 @@ FROM teror2 as t2
  GROUP BY reg.name, year(t2.eventdate)
  ORDER BY SUM(nhostkid) DESC;`,
               code_visible: false,
-              screen: require("@/assets/lessons/4E.png"),
+              screen: require("@/assets/practice/lessons/4E.png"),
               screen_visible: false
             },
             {
@@ -883,7 +882,7 @@ FROM teror2 as t2
  --potrebujeme tabulku zgrupovat po kontinentech a letech
   kontinent,rok;`,
               code_visible: false,
-              screen: require("@/assets/lessons/4F.png"),
+              screen: require("@/assets/practice/lessons/4F.png"),
               screen_visible: false
             }
           ]
@@ -1003,11 +1002,11 @@ select * from xx_prycsemnou at(offset => -15);
               header: "Import",
               notes: ["Ukázka ve snowflake", "Použijte data.csv"],
               images: [
-                require("@/assets/screenshots/import_file_format_01.png"),
-                require("@/assets/screenshots/import_file_format_02.png"),
-                require("@/assets/screenshots/import_file_format_03.png"),
-                require("@/assets/screenshots/import_file_format_04.png"),
-                require("@/assets/screenshots/import_file_format_05.png")
+                require("@/assets/practice/screenshots/import_file_format_01.png"),
+                require("@/assets/practice/screenshots/import_file_format_02.png"),
+                require("@/assets/practice/screenshots/import_file_format_03.png"),
+                require("@/assets/practice/screenshots/import_file_format_04.png"),
+                require("@/assets/practice/screenshots/import_file_format_05.png")
               ],
               visible: false,
               code: [`CREATE TABLE gibberish
@@ -1145,7 +1144,7 @@ select * from xx_prycsemnou at(offset => -15);
           tasks: [
             { 
               header: "Vypiš všechny teroristické události v zemi, kde bylo spácháno nejvíce terosticých útoků. Vyber sloupečky city, country_txt a nkill. Výsledek seraď podle názvu města",
-              screen: require("@/assets/lessons/6A.png"),
+              screen: require("@/assets/practice/lessons/6A.png"),
               code:
 `
 SELECT city, t.country_txt, t2.country_txt, nkill 
@@ -1169,7 +1168,7 @@ ORDER BY city;
             },
             {
               header: "Vyber všechny organizace, které nespáchaly útok v evropě. Výsledek seřaď podle názvu organizace vzestupně",
-              screen: require("@/assets/lessons/6B.png"),
+              screen: require("@/assets/practice/lessons/6B.png"),
               code:
 `
 -- CTE
@@ -1283,7 +1282,7 @@ ORDER by gname;
           tasks: [
             {
               header: "Vypiš tři největší útoky pro organizace s víc než 500 obětmi. Vypiš sloupečky city, gname a nkill a rank. Výsledek seřaď podle gname a rank",
-              screen: require("@/assets/lessons/7A.png"),
+              screen: require("@/assets/practice/lessons/7A.png"),
               code:
 `
 SELECT city, gname, nkill, rank FROM (
@@ -1295,7 +1294,7 @@ ORDER BY gname, rank;
             },
             {
               header: "Vypiš 5 nejaktivnějších organizací podle regionu. Výsledek seraď podle regionu a ranku.",
-              screen: require("@/assets/lessons/7B.png"),
+              screen: require("@/assets/practice/lessons/7B.png"),
               code:
 `
  SELECT * FROM
