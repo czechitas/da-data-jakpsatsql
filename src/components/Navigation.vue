@@ -35,21 +35,21 @@ export default {
 
 
 <style scoped>
-  #app-drawer .v-list__tile--active {
+  #app-drawer .v-list-item--active {
       border-radius: 4px;
       background-color: #4caf50;
       color: white;
   }
 
-  #app-drawer .v-list__tile {
+  #app-drawer .v-list-item {
       margin: 0px 15px;
   }
 
-  #app-drawer .v-list__tile__action {
+  #app-drawer .v-list__item-action {
       color: white;
   }
 
-  #app-drawer .v-list__tile__title {
+  #app-drawer .v-list__item-title {
       color: white;
   }
 </style>

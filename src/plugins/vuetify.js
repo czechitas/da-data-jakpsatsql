@@ -10,8 +10,5 @@ export default new Vuetify({
         primary: '#4caf50',
       },
     },
-  },
-  icons: {
-    iconfont: 'mdi'
-  },
+  }
 })
