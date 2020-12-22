@@ -4,35 +4,35 @@
         <v-flex>
            <v-stepper v-model="current_index" non-linear>
             <v-stepper-header>
-              <v-stepper-step editable :color=color(1) complete-icon="check" edit-icon="check" @click=move(1) :complete=visited(1) step="1">Databáze</v-stepper-step>
+              <v-stepper-step editable :color=color(1) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(1) :complete=visited(1) step="1">Databáze</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(2) complete-icon="check" edit-icon="check" @click=move(2) :complete=visited(2) step="2">Příkazy (statementy)</v-stepper-step>
+              <v-stepper-step editable :color=color(2) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(2) :complete=visited(2) step="2">Příkazy (statementy)</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(3) complete-icon="check" edit-icon="check" @click=move(3) :complete=visited(3) step="3">Dotazy</v-stepper-step>
+              <v-stepper-step editable :color=color(3) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(3) :complete=visited(3) step="3">Dotazy</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(4) complete-icon="check" edit-icon="check" @click=move(4) :complete=visited(4) step="4">Objekty</v-stepper-step>
+              <v-stepper-step editable :color=color(4) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(4) :complete=visited(4) step="4">Objekty</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(5) complete-icon="check" edit-icon="check" @click=move(5) :complete=visited(5) step="5">Enginy</v-stepper-step>
+              <v-stepper-step editable :color=color(5) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(5) :complete=visited(5) step="5">Enginy</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(6) complete-icon="check" edit-icon="check" @click=move(6) :complete=visited(6) step="6">Funkce, rozdíly</v-stepper-step>
+              <v-stepper-step editable :color=color(6) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(6) :complete=visited(6) step="6">Funkce, rozdíly</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(7) complete-icon="check" edit-icon="check" @click=move(7) :complete=visited(7) step="7">Rezervovaná slova a další odlišnosti</v-stepper-step>
+              <v-stepper-step editable :color=color(7) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(7) :complete=visited(7) step="7">Rezervovaná slova a další odlišnosti</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(8) complete-icon="check" edit-icon="check" @click=move(8) :complete=visited(8) step="8">Tabulky a normalizace</v-stepper-step>
+              <v-stepper-step editable :color=color(8) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(8) :complete=visited(8) step="8">Tabulky a normalizace</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items>
@@ -157,7 +157,7 @@
                       Spíš? Jsi tu ještě? Haló! Teď asi nastala ta chvíle, kdy se mnou budeš souhlasit, že přeskočení teorie a hození do divoké řeky SELECTů, nebyl úplně nejhorší nápad.
                       Klid, už jsme za půlkou ;)
                     </p>
-                    <a href="http://nippon-motors.com/wp-content/uploads/2012/04/Warehouse.jpg" target="_blank"><img src="../assets/engines.png" width="800"></a>
+                    <a href="http://nippon-motors.com/wp-content/uploads/2012/04/Warehouse.jpg" target="_blank"><img src="../assets/database/engines.png" width="800"></a>
                   </v-card-text>
                 </v-card>
 
@@ -187,7 +187,7 @@
                       výkon a podobně, takže to někdo celé zařídí za tebe. Microsoft a Oracle také nabízí svoje enginy v cloudu,
                       Heroku je zase postgres v cloudu, AWS má svůj Redshit, Aurora, DynamoDB atd. 
                     </p>
-                    <img src="../assets/database_functions.png" width="800">
+                    <img src="../assets/database/database_functions.png" width="800">
                   </v-card-text>
                 </v-card>
 
@@ -211,7 +211,7 @@
                       těžší to mají aplikace, které využívají nějaký konkrétní engine. U nich to je spíš jako dostat do Oktávky motor z Chevroletu. Ještě jednou pro uklidnění,
                       když se naučíš SQL ve Snowflake, přejít na MSSQL, Oracle, Postgres nebo MySQL bude brnkačka.
                     </p>
-                    <img src="../assets/database_functions.png" width="800">
+                    <img src="../assets/database/database_functions.png" width="800">
                   </v-card-text>
                 </v-card>
 
@@ -227,7 +227,7 @@
               <v-stepper-content step="7">
                 <v-card class="mb-12" flat>
                   <v-card-text>
-                    <a href="https://my.visme.co/projects/01043rz6-sql-reserved#s1" target="_blank"><img src="../assets/forbidden_words.png" width="1000"></a>
+                    <a href="https://my.visme.co/projects/01043rz6-sql-reserved#s1" target="_blank"><img src="../assets/database/forbidden_words.png" width="1000"></a>
                     <p>
                       Aby ti engine rozuměl, má některá slova tzv. rezervovaná, tj. nejde je použít pro názvy sloupečků, tabulek apod. 
                       Příkladem takových rezervovaných slov je třeba table,

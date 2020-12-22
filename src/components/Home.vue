@@ -4,15 +4,15 @@
         <v-flex>
           <v-stepper v-model="current_index" non-linear>
             <v-stepper-header>
-              <v-stepper-step editable :color=color(1) complete-icon="check" edit-icon="check" @click=move(1) :complete=visited(1) step="1">Bylo nebylo</v-stepper-step>
+              <v-stepper-step editable :color=color(1) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(1) :complete=visited(1) step="1">Bylo nebylo</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(2) complete-icon="check" edit-icon="check" @click=move(2) :complete=visited(2) step="2">Da</v-stepper-step>
+              <v-stepper-step editable :color=color(2) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(2) :complete=visited(2) step="2">Da</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step editable :color=color(3) complete-icon="check" edit-icon="check" @click=move(3) :complete=visited(3) step="3">Foto</v-stepper-step>
+              <v-stepper-step editable :color=color(3) complete-icon="mdi-check" edit-icon="mdi-check" @click=move(3) :complete=visited(3) step="3">Foto</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items>
@@ -54,7 +54,7 @@
               <v-stepper-content step="3">
                 <v-card class="mb-12" flat>
                   <v-card-text>
-                    <img src="../assets/pavel_and_padak.png">
+                    <img src="../assets/home/pavel_and_padak.png">
                   </v-card-text>
                 </v-card>
                 
