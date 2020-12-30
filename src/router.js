@@ -8,6 +8,7 @@ import Relations from "./components/Relations"
 import Practice from "./components/Practice"
 import Tips from "./components/Tips"
 import About from "./components/About"
+import Notebook from "./components/Notebook"
 //import LongStoryShort from "./components/LongStoryShort"
 
 Vue.use(Router)
@@ -61,6 +62,12 @@ const router = new Router({
       meta: { title: "Autoři stránek", icon: "snowman" },
       name: "About",
       component: About,
+    },
+    {
+        path: "/notebook",
+        meta: { title: "Notebook", icon: "document" },
+        name: "notebook",
+        component: Notebook,
     },
     {
       path: "*",
