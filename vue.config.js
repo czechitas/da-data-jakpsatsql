@@ -16,6 +16,10 @@ module.exports = {
                 test: /\.(csv)$/,
                 use: [{ loader: "file-loader", options: { name: "static/[name].csv"}}],
             },
+            { 
+              test: /\.(ipynb)$/,
+              loader: "json-loader"
+            }
         ]
     }
   }

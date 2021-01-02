@@ -65,7 +65,7 @@ const router = new Router({
     },
     {
         path: "/notebook",
-        meta: { title: "Notebook", icon: "document" },
+        meta: { title: "Notebook", icon: "compass" },
         name: "notebook",
         component: Notebook,
     },
