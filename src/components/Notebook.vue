@@ -10,11 +10,11 @@
                 <v-card-text class="text-left" v-for="(nb,nb_index) in lesson.notebooks" v-bind:key="nb_index">
 
                     <div v-for="(cell, cell_index) in nb.nb_data['cells']" v-bind:key="cell_index">
-                      <v-layout row wrap v-if="cell.cell_type === 'markdown'">
-                        <v-flex xs10 >
-                            <br />
-                            <vue-markdown :source="cell.source.join('\n')" />
-                        </v-flex>
+                      <v-layout row wrap v-if="cell.cell_type === 'markdown'" >
+                            <v-flex xs10 >
+                                <br />
+                                    <vue-markdown :source="cleanCRLF(cell.source)" />
+                            </v-flex>
                     <v-flex xs2 class="text-right" xs8>
                       <v-btn color="warning" title="Zobrazit řešení" @click="showClicked(lesson_index, nb_index, cell_index+1)" fab small dark outlined>
                         <v-icon>{{ lessons[lesson_index].notebooks[nb_index].nb_data['cells'][cell_index+1]['visible'] ? "mdi-eye-off" : "mdi-presentation" }}</v-icon>
@@ -105,6 +105,12 @@ export default {
       console.log (this.lessons[lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'])
       this.lessons[lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'] = !this.lessons[lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible']
       console.log (this.lessons[lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'])
+    },
+    cleanCRLF(inArray) {
+     var markup  = inArray.map(function(item){
+      return item.replace('\n', '');
+     });
+     return markup.join('\n')
     }
   }
 }
