@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height>   
     <v-layout>
         <v-flex>
           <v-tabs>
@@ -40,10 +40,24 @@
 
 <script>
 import Vue from 'vue'
-
 import VueMarkdown from 'vue-markdown-render'
 
-import nb_file from "../assets/notebooks/test.ipynb";
+import lesson0_explain from "../assets/notebooks/azure/lesson00_explain.ipynb"
+import lesson0_train from "../assets/notebooks/azure/test.ipynb";
+import lesson1_explain from "../assets/notebooks/azure/lesson01_explain.ipynb"
+import lesson1_train from "../assets/notebooks/azure/test.ipynb";
+import lesson2_explain from "../assets/notebooks/azure/lesson02_explain.ipynb"
+import lesson2_train from "../assets/notebooks/azure/test.ipynb";
+import lesson3_explain from "../assets/notebooks/azure/lesson03_explain.ipynb"
+import lesson3_train from "../assets/notebooks/azure/test.ipynb";
+import lesson4_explain from "../assets/notebooks/azure/lesson04_explain.ipynb"
+import lesson4_train from "../assets/notebooks/azure/test.ipynb";
+import lesson5_explain from "../assets/notebooks/azure/lesson05_explain.ipynb"
+import lesson5_train from "../assets/notebooks/azure/test.ipynb";
+import lesson6_explain from "../assets/notebooks/azure/lesson06_explain.ipynb"
+import lesson6_train from "../assets/notebooks/azure/test.ipynb";
+
+
 
 export default {
   name: "Notebook",
@@ -52,26 +66,84 @@ export default {
   },
   data() {
     return {
-        nb_data: nb_file,
         lessons: [
           {id: 0,
-           name: "lekce 1",
+           name: "Základy",
            description: "Lekce 1 popisek",
            notebooks: [
              {nb_id:     1, 
               nb_type:   "explain",
-              nb_data:   nb_file},
+              nb_data:   lesson0_explain},
              {nb_id:     2,
               nb_type:   "train",
-              nb_data:   nb_file}
-           ]
-           
-           },
+              nb_data:   lesson0_train}
+           ]},
           {id: 1,
-           name: "lekce 2",
+           name: "WHERE",
            description: "Lekce 2 popisek",
-           notebooks: []}
-           
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson1_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson1_train}
+           ]},
+          {id: 2,
+           name: "GROUP BY + HAVING",
+           description: "Lekce 3 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson2_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson2_train}
+           ]},
+          {id: 3,
+           name: "JOINy",
+           description: "Lekce 4 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson3_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson3_train}
+           ]},
+          {id: 4,
+           name: "INSERT, DELETE, CREATE, ALTER a import dat",
+           description: "Lekce 5 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson4_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson4_train}
+           ]},
+          {id: 5,
+           name: "JOINy II, vnořený SELECT a CTE",
+           description: "Lekce 6 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson5_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson5_train}
+           ]},
+          {id: 6,
+           name: "UNION a window funkce",
+           description: "Lekce 7 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson6_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson6_train}
+           ]}           
         ]
     }
   },
