@@ -82,7 +82,7 @@
                   <ol type="A">
                     <!-- li v-for="(task, task_index) in lesson['tasks']" :key="task_index" -->
                     <div v-for="(task, task_index) in nb.nb_data['cells']" v-bind:key="task_index"> 
-                     <li v-if="task.cell_type === 'markdown' && lessons[lesson_index].notebooks[nb_index].nb_data['cells'][task_index+1].cell_type === 'code'">
+                     <li v-if="task.cell_type === 'markdown'">
                       <v-layout row wrap >
                             <v-flex xs10 >
                                 <br />
@@ -128,17 +128,17 @@ import VueMarkdown from 'vue-markdown-render'
 import lesson0_explain from "../assets/notebooks/azure/lesson00_explain.ipynb"
 import lesson0_train from "../assets/notebooks/azure/lesson00_train.ipynb";
 import lesson1_explain from "../assets/notebooks/azure/lesson01_explain.ipynb"
-import lesson1_train from "../assets/notebooks/azure/test.ipynb";
+import lesson1_train from "../assets/notebooks/azure/lesson01_train.ipynb";
 import lesson2_explain from "../assets/notebooks/azure/lesson02_explain.ipynb"
-import lesson2_train from "../assets/notebooks/azure/test.ipynb";
+import lesson2_train from "../assets/notebooks/azure/lesson02_train.ipynb";
 import lesson3_explain from "../assets/notebooks/azure/lesson03_explain.ipynb"
-import lesson3_train from "../assets/notebooks/azure/test.ipynb";
+import lesson3_train from "../assets/notebooks/azure/lesson03_train.ipynb";
 import lesson4_explain from "../assets/notebooks/azure/lesson04_explain.ipynb"
-import lesson4_train from "../assets/notebooks/azure/test.ipynb";
+import lesson4_train from "../assets/notebooks/azure/lesson04_train.ipynb";
 import lesson5_explain from "../assets/notebooks/azure/lesson05_explain.ipynb"
-import lesson5_train from "../assets/notebooks/azure/test.ipynb";
+import lesson5_train from "../assets/notebooks/azure/lesson05_train.ipynb";
 import lesson6_explain from "../assets/notebooks/azure/lesson06_explain.ipynb"
-import lesson6_train from "../assets/notebooks/azure/test.ipynb";
+import lesson6_train from "../assets/notebooks/azure/lesson06_train.ipynb";
 
 
 
