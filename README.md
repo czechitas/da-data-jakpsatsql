@@ -27,7 +27,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Lesson source & structure
 Lessons are processed by Notebook.vue component, which has a configuration in src/assets/content_config .json (now it's inline in Notebook.vue). Here each lesson/topic has its associated notebooks in ipynb files. Each file has set its type - Explain/Train. Those two are formatted a bit differently and Trainig section adds a possibility to add a screenshot to the task.
 
-```json
+```js
 import lesson_1_explain from "../assets/notebooks/azure/lesson01_explain.ipynb"
 import lesson_1_train from "../assets/notebooks/azure/lesson01_train.ipynb";
 import lesson_2_explain from "../assets/notebooks/azure/lesson02_explain.ipynb"
