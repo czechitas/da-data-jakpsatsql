@@ -3,7 +3,7 @@
     <v-layout>
         <v-flex>
           <v-tabs>
-            
+            <v-tab @click="rotatePlatform()" color="basil"> Leave {{ this.CurrentPlatform }}</v-tab>
             <v-tab v-for="(lesson, i) in lessons[CurrentPlatform]" :key="i">{{ "Lekce " + (i + 1) + " - " + lesson.name }}</v-tab>
             <v-tab-item v-for="(lesson, lesson_index) in lessons[CurrentPlatform]" :key="lesson_index">
               <v-card flat color="basil">
@@ -71,7 +71,12 @@
                     </v-flex>
                     <v-flex xs10>
                           <pre v-if="lessons[CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index+1]['visible']" v-highlightjs>
-                            <code class="sql" v-highlightjs>{{  lessons[CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index+1].source.join('')}}</code>
+                            <code class="sql" v-highlightjs>{{  lessons[CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index+1].source
+//asi z toho udelat nejakou formatovaci funkci dole v kodu
+                              .filter(
+                                function(value, index, arr){ 
+                                return value != '%%sql\n'
+                              }).join('')}}</code>
                           </pre>
                         </v-flex>
                     </v-layout>
@@ -100,7 +105,14 @@
                         <v-flex>
                               <img v-if="getTaskImage(lesson_index, task_index) != '' && task['img_visible']" :src="getTaskImage(lesson_index, task_index)" alt="xindl" />
                               <pre v-if="task['visible']" v-highlightjs>
-                               <code class="sql" v-highlightjs>{{  lessons[CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][task_index+1].source.join('')}}</code>
+                               <code class="sql" v-highlightjs>{{ 
+                                   lessons[CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][task_index+1].source
+                                   .filter(
+                                      function(value, index, arr){ 
+                                      return value != '%%sql\n'
+                                    })
+                                   .join('')
+                                 }}</code>
                               </pre>
                         </v-flex>
                         <br /><br /><br />
@@ -156,6 +168,10 @@ export default {
         imageDir: "../assets/practice/lessons/",
         viewerOptions: { "toolbar": false, "navbar": false, "title": false },
         CurrentPlatform: "Snowflake",
+        CellFilter: [
+          {filter: '%%sql'}, 
+          {filter: '#ignore'}
+          ],
         lessons: 
           {Azure: [
           {id: 0,
@@ -249,7 +265,7 @@ export default {
               nb_data:   lesson0_snflk_train}
            ]},
            {id: 1,
-           name: "Základy",
+           name: "Střechy",
            description: "Lekce 2 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -322,6 +338,14 @@ export default {
           break;
       }   
     },
+    rotatePlatform() {
+      if (this.CurrentPlatform=='Azure')
+      {
+        this.CurrentPlatform = 'Snowflake'
+      }else{
+        this.CurrentPlatform = 'Azure'
+      }
+    },
     cleanCRLF(inArray) {
      var markup  = inArray.map(function(item){
       return item.replace('\n', '');
@@ -331,10 +355,13 @@ export default {
     getTaskImage(lesson_id, task_id) {
           var images = require.context('@/assets/practice/lessons/', false, /\.png$/)
           let taskImage = ''
+          if (this.CurrentPlatform=='Snowflake') {task_id = task_id*1 - 4}
           try {
             taskImage = images(`./lesson_${lesson_id}_${task_id}.png`)
+            console.log(`img found for ./lesson_${lesson_id}_${task_id}.png`)
           } catch (error) {
             taskImage = ''
+            console.log(`img not found for ./lesson_${lesson_id}_${task_id}.png`)
           }
           console.log (`lesson_${lesson_id}_${task_id}` + taskImage)
           return taskImage
