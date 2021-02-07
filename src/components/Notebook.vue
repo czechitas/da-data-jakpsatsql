@@ -155,7 +155,7 @@ export default {
     return {
         imageDir: "../assets/practice/lessons/",
         viewerOptions: { "toolbar": false, "navbar": false, "title": false },
-        CurrentPlatform: "Azure",
+        CurrentPlatform: "Snowflake",
         lessons: 
           {Azure: [
           {id: 0,
