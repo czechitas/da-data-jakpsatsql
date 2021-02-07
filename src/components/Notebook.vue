@@ -8,10 +8,7 @@
             <v-tab-item v-for="(lesson, lesson_index) in lessons[CurrentPlatform]" :key="lesson_index">
               <v-card flat color="basil">
                 <!-- lekcovyjimky -->
-                  <div>
-                    {{lesson.id}}
-                  </div>
-                  <div v-if="lesson_index == 0" style="padding-bottom: 2em;">
+                  <div v-if="lesson_index == 0" style="padding-bottom: 2em; padding-top: 1em;">
                     <center>
                       <v-btn href="https://docs.google.com/presentation/d/1i6WRNuwMw4MuwBl2guX7sIBP3aspdHDzcAq4LbmTAnk/edit?usp=sharing" target="_blank" color="primary">
                         Prezentace
@@ -20,7 +17,7 @@
                     </center>
                   </div>
 
-                  <div v-if="lesson_index == 3" style="padding-bottom: 2em;">
+                  <div v-if="lesson_index == 3" style="padding-bottom: 2em; padding-top: 1em;">
                     <center>
                       <v-btn href="https://drive.google.com/file/d/1Etyhq-gBka5-K1do905Q5SXLF-CdEPoh/view?usp=sharing" target="_blank" color="primary">
                         Join Bingo
@@ -42,7 +39,7 @@
                     </center>
                   </div>
 
-                   <div v-if="lesson_index == 4" style="padding-bottom: 2em;">
+                   <div v-if="lesson_index == 4" style="padding-bottom: 2em; padding-top: 1em;">
                     <center>
 
                       <v-btn :href='require("@/assets/practice/data/data.csv")' target="_blank" color="primary" download>
