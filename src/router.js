@@ -54,8 +54,8 @@ const router = new Router({
     {
       path: "/practice",
       meta: { title: "Výuka", icon: "school" },
-      name: "Practice",
-      component: Practice,
+      name: "notebook",
+      component: Notebook,
     },
     {
       path: "/about",
@@ -64,10 +64,10 @@ const router = new Router({
       component: About,
     },
     {
-        path: "/notebook",
-        meta: { title: "Notebook", icon: "compass" },
-        name: "notebook",
-        component: Notebook,
+      path: "/notebook",
+      meta: { title: "Výuka - záloha", icon: "folder" },
+      name: "Practice",
+      component: Practice,
     },
     {
       path: "*",

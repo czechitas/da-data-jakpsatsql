@@ -2,8 +2,66 @@
   <v-container fluid fill-height>   
     <v-layout>
         <v-flex>
+          <v-item-group mandatory>
+            <v-container>
+              <v-row>
+                <v-col>
+                    <h6>Vyber lekci:</h6>
+                </v-col>
+                <v-col
+                  v-for="n in ['da', 'dg','lecture']"
+                  :key="n"
+                  cols="1"
+                  md="1"
+                >
+                  <v-item>
+                    <v-card
+                      :color="CurrentLecture == n ? 'primary' : ''"
+                      dark
+                      @click="setLecture(n)"
+                    >
+                        <div class="subtitle-1 text-center">
+                          <!-- <img :src='require("@/assets/practice/" + n + "-logo.png")' height="30"> -->
+                          {{n}}
+                        </div>
+                    </v-card>
+                  </v-item>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-item-group>
+          <v-item-group mandatory>
+            <v-container>
+              <v-row>
+                <v-col>
+                    <h6>Vyber databázi:</h6>
+                </v-col>
+                <v-col
+                  v-for="n in ['azure','snowflake']"
+                  :key="n"
+                  cols="1"
+                  md="1"
+                >
+                  <v-item>
+                    <v-card
+                      :color="CurrentPlatform == n ? 'primary' : ''"
+                      dark
+                      @click="setPlatform(n)"
+                    >
+                        <div class="display-3 flex-grow-1 text-center">
+                          <img :src='require("@/assets/practice/" + n + "-logo.png")' height="30">
+                        </div>
+                    </v-card>
+                  </v-item>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-item-group>
+
+        <v-row>
+          <v-col>
           <v-tabs>
-            <v-tab @click="rotatePlatform()" color="basil"> Leave {{ this.CurrentPlatform }}</v-tab>
+            <!-- <v-tab @click="rotatePlatform()" color="basil"> Leave {{ this.CurrentPlatform }}</v-tab> -->
             <v-tab v-for="(lesson, i) in lessons[CurrentPlatform]" :key="i">{{ "Lekce " + (i + 1) + " - " + lesson.name }}</v-tab>
             <v-tab-item v-for="(lesson, lesson_index) in lessons[CurrentPlatform]" :key="lesson_index">
               <v-card flat color="basil">
@@ -129,6 +187,8 @@
               </v-card>
             </v-tab-item>
           </v-tabs>
+        </v-col>
+        </v-row>
         </v-flex>
     </v-layout>
   </v-container>
@@ -167,13 +227,14 @@ export default {
     return {
         imageDir: "../assets/practice/lessons/",
         viewerOptions: { "toolbar": false, "navbar": false, "title": false },
-        CurrentPlatform: "Snowflake",
+        CurrentPlatform: "snowflake",
+        CurrentLecture: "da",
         CellFilter: [
           {filter: '%%sql'}, 
           {filter: '#ignore'}
           ],
         lessons: 
-          {Azure: [
+          {azure: [
           {id: 0,
            name: "Základy",
            description: "Lekce 1 popisek",
@@ -252,7 +313,7 @@ export default {
               nb_data:   lesson6_train}
            ]}           
         ],
-        Snowflake: [
+        snowflake: [
           {id: 0,
            name: "Základy",
            description: "Lekce 1 popisek",
@@ -281,6 +342,7 @@ export default {
   },
   mounted() {
     console.log('Component has been mounted!');
+
     this.lessons[this.CurrentPlatform].forEach(f_lesson => {
       console.log ('Lesson:' + f_lesson.name)
       f_lesson.notebooks.forEach(nb => {
@@ -338,13 +400,12 @@ export default {
           break;
       }   
     },
-    rotatePlatform() {
-      if (this.CurrentPlatform=='Azure')
-      {
-        this.CurrentPlatform = 'Snowflake'
-      }else{
-        this.CurrentPlatform = 'Azure'
-      }
+    setPlatform(platform) {
+      console.log('Setting platform to ' + platform)
+      this.CurrentPlatform = platform
+    },
+    setLecture(lecture) {
+      this.CurrentLecture = lecture
     },
     cleanCRLF(inArray) {
      var markup  = inArray.map(function(item){
@@ -355,7 +416,7 @@ export default {
     getTaskImage(lesson_id, task_id) {
           var images = require.context('@/assets/practice/lessons/', false, /\.png$/)
           let taskImage = ''
-          if (this.CurrentPlatform=='Snowflake') {task_id = task_id*1 - 4}
+          if (this.CurrentPlatform=='snowflake') {task_id = task_id*1 - 4}
           try {
             taskImage = images(`./lesson_${lesson_id}_${task_id}.png`)
             console.log(`img found for ./lesson_${lesson_id}_${task_id}.png`)
