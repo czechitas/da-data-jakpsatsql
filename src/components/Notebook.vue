@@ -65,7 +65,7 @@
             <v-tab v-for="(lesson, i) in lessons[CurrentPlatform]" :key="i">{{ "Lekce " + (i + 1) + " - " + lesson.name }}</v-tab>
             <v-tab-item v-for="(lesson, lesson_index) in lessons[CurrentPlatform]" :key="lesson_index">
               <v-card flat color="basil">
-                <!-- lekcovyjimky -->
+                <!-- lekcovyjimky do-naha.heic-->
                   <div v-if="lesson_index == 0" style="padding-bottom: 2em; padding-top: 1em;">
                     <center>
                       <v-btn href="https://docs.google.com/presentation/d/1i6WRNuwMw4MuwBl2guX7sIBP3aspdHDzcAq4LbmTAnk/edit?usp=sharing" target="_blank" color="primary">
