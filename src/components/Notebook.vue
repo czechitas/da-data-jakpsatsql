@@ -342,27 +342,29 @@ export default {
   },
   mounted() {
     console.log('Component has been mounted!');
-
-    this.lessons[this.CurrentPlatform].forEach(f_lesson => {
-      console.log ('Lesson:' + f_lesson.name)
-      f_lesson.notebooks.forEach(nb => {
-        console.log ('Notebook: ' + nb.nb_id)
-        if (nb.nb_type == 'explain') {
-          nb.nb_data['cells'].forEach(cell => {
-            console.log ('setting cell visible: ' + cell.metadata.azdata_cell_guid)
-            Vue.set(cell, 'visible', true);
-            cell['visible'] = false;
-          });
-        }
-        else{
+    const platforms = ['azure', 'snowflake']
+    platforms.forEach(f_platform => {
+      this.lessons[f_platform].forEach(f_lesson => {
+        console.log ('Lesson:' + f_lesson.name)
+        f_lesson.notebooks.forEach(nb => {
+          console.log ('Notebook: ' + nb.nb_id)
+          if (nb.nb_type == 'explain') {
             nb.nb_data['cells'].forEach(cell => {
-            console.log ('setting cell visible: ' + cell.metadata.azdata_cell_guid)
-            Vue.set(cell, 'visible', true);
-            Vue.set(cell, 'img_visible', true);
-            cell['visible'] = false;
-            cell['img_visible'] = false;
-          });
-        }
+              console.log ('setting cell visible: ' + cell.metadata.azdata_cell_guid + f_platform)
+              Vue.set(cell, 'visible', true);
+              cell['visible'] = false;
+            });
+          }
+          else{
+              nb.nb_data['cells'].forEach(cell => {
+              console.log ('setting cell visible: ' + cell.metadata.azdata_cell_guid + f_platform)
+              Vue.set(cell, 'visible', true);
+              Vue.set(cell, 'img_visible', true);
+              cell['visible'] = false;
+              cell['img_visible'] = false;
+            });
+          }
+        });
       });
     });
     this.lessons[this.CurrentPlatform].forEach(f_lesson => {
@@ -378,11 +380,10 @@ export default {
       console.log (lesson_index + ' ' + nb_index + ' ' + cell_index)
       console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_id)
       console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'])
-
-      console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'])
       this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'] = !this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible']
       console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][cell_index]['visible'])
-    },hintClicked(lesson_index, nb_index, hint_type, hint_index) {
+    },
+    hintClicked(lesson_index, nb_index, hint_type, hint_index) {
       console.log (`${lesson_index} ${nb_index} ${hint_type} ${hint_index} `)
       console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][hint_index]['visible'])
       console.log (this.lessons[this.CurrentPlatform][lesson_index].notebooks[nb_index].nb_data['cells'][hint_index]['img_visible'])
