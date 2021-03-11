@@ -8,6 +8,7 @@
           <v-tabs>
             <v-tab>Barevnej select</v-tab>
             <v-tab>Mončin tahák</v-tab>
+            <v-tab>Popisky k datasetům</v-tab>
             <!-- <v-tab>Tildy a chlupatý závorky</v-tab> -->
             <v-tab>Další odkazy ke studiu</v-tab>
             <v-tab>Slovníček</v-tab>
@@ -680,11 +681,13 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
                 </v-card-text>
               </v-card>
             </v-tab-item>
-            <!-- <v-tab-item>
+            <v-tab-item>
                  <v-card flat color="basil">
-                  <v-card-text>Středníky a spol</v-card-text>
+                  <v-card-text>
+                  <vue-markdown :source="this.Markdown" />
+                  </v-card-text>
                  </v-card>
-            </v-tab-item>-->
+            </v-tab-item>
             <v-tab-item>
               <v-card flat color="basil">
                 <v-card-text>
@@ -772,7 +775,15 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 </template>
 
 <script>
+import VueMarkdown from 'vue-markdown-render';
+
 export default {
-  name: "Tips"
-};
+  name: "Tips",
+  components: {
+    VueMarkdown
+  },
+  data() {
+    return {"Markdown" : "## Janca rulez"}
+  }
+}
 </script>
