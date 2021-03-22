@@ -216,6 +216,18 @@ import lesson6_train from "../assets/notebooks/azure/lesson06_train.ipynb";
 
 import lesson0_snflk_explain from "../assets/notebooks/snowflake/lesson00_explain.ipynb"
 import lesson0_snflk_train from "../assets/notebooks/snowflake/lesson00_train.ipynb";
+import lesson1_snflk_explain from "../assets/notebooks/snowflake/lesson01_explain.ipynb"
+import lesson1_snflk_train from "../assets/notebooks/snowflake/lesson01_train.ipynb";
+import lesson2_snflk_explain from "../assets/notebooks/snowflake/lesson02_explain.ipynb"
+import lesson2_snflk_train from "../assets/notebooks/snowflake/lesson02_train.ipynb";
+import lesson3_snflk_explain from "../assets/notebooks/snowflake/lesson03_explain.ipynb"
+import lesson3_snflk_train from "../assets/notebooks/snowflake/lesson03_train.ipynb";
+import lesson4_snflk_explain from "../assets/notebooks/snowflake/lesson04_explain.ipynb"
+import lesson4_snflk_train from "../assets/notebooks/snowflake/lesson04_train.ipynb";
+import lesson5_snflk_explain from "../assets/notebooks/snowflake/lesson05_explain.ipynb"
+import lesson5_snflk_train from "../assets/notebooks/snowflake/lesson05_train.ipynb";
+import lesson6_snflk_explain from "../assets/notebooks/snowflake/lesson06_explain.ipynb"
+import lesson6_snflk_train from "../assets/notebooks/snowflake/lesson06_train.ipynb";
 
 
 export default {
@@ -326,15 +338,70 @@ export default {
               nb_data:   lesson0_snflk_train}
            ]},
            {id: 1,
-           name: "Střechy",
+           name: "WHERE",
            description: "Lekce 2 popisek",
            notebooks: [
              {nb_id:     1, 
               nb_type:   "explain",
-              nb_data:   lesson0_snflk_explain},
+              nb_data:   lesson1_snflk_explain},
              {nb_id:     2,
               nb_type:   "train",
-              nb_data:   lesson0_snflk_train}
+              nb_data:   lesson1_snflk_train}
+           ]},
+           {id: 2,
+           name: "Group by",
+           description: "Lekce 3 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson2_snflk_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson2_snflk_train}
+           ]},
+           {id: 3,
+           name: "Joiny",
+           description: "Lekce 4 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson3_snflk_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson3_snflk_train}
+           ]},
+           {id: 4,
+           name: "Insert, delete, create, alter, a import dat",
+           description: "Lekce 5 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson4_snflk_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson4_snflk_train}
+           ]},
+           {id: 5,
+           name: "Joiny, vnořený select a CTE",
+           description: "Lekce 6 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson5_snflk_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson5_snflk_train}
+           ]},
+           {id: 6,
+           name: "Union a windows funkce",
+           description: "Lekce 7 popisek",
+           notebooks: [
+             {nb_id:     1, 
+              nb_type:   "explain",
+              nb_data:   lesson6_snflk_explain},
+             {nb_id:     2,
+              nb_type:   "train",
+              nb_data:   lesson6_snflk_train}
            ]}
         ]
         }
