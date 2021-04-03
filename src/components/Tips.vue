@@ -684,7 +684,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
             <v-tab-item>
                  <v-card flat color="basil">
                   <v-card-text>
-                  <vue-markdown :source="this.teror_md_file" />
+                  <vue-markdown :source="this.Markdown" />
                   </v-card-text>
                  </v-card>
             </v-tab-item>
