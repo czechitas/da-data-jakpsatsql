@@ -62,7 +62,7 @@
           <v-col>
           <v-tabs>
             <!-- <v-tab @click="rotatePlatform()" color="basil"> Leave {{ this.CurrentPlatform }}</v-tab> -->
-            <v-tab v-for="(lesson, i) in lessons[CurrentPlatform]" :key="i">{{ "Lekce " + (i + 1) + " - " + lesson.name }}</v-tab>
+            <v-tab v-for="(lesson, i) in lessons[CurrentPlatform]" :key="i">{{ lesson.name }}</v-tab>
             <v-tab-item v-for="(lesson, lesson_index) in lessons[CurrentPlatform]" :key="lesson_index">
               <v-card flat color="basil">
                 <!-- lekcovyjimky -->
@@ -248,7 +248,7 @@ export default {
         lessons: 
           {azure: [
           {id: 0,
-           name: "Základy",
+           name: "SELECT, ORDER BY, LIMIT",
            description: "Lekce 1 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -270,7 +270,7 @@ export default {
               nb_data:   lesson1_train}
            ]},
           {id: 2,
-           name: "GROUP BY + HAVING",
+           name: "GROUP BY & HAVING",
            description: "Lekce 3 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -327,7 +327,7 @@ export default {
         ],
         snowflake: [
           {id: 0,
-           name: "Základy",
+           name: "SELECT, ORDER BY, LIMIT",
            description: "Lekce 1 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -349,7 +349,7 @@ export default {
               nb_data:   lesson1_snflk_train}
            ]},
            {id: 2,
-           name: "Group by",
+           name: "GROUP BY & HAVING",
            description: "Lekce 3 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -360,7 +360,7 @@ export default {
               nb_data:   lesson2_snflk_train}
            ]},
            {id: 3,
-           name: "Joiny",
+           name: "JOINy",
            description: "Lekce 4 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -371,7 +371,7 @@ export default {
               nb_data:   lesson3_snflk_train}
            ]},
            {id: 4,
-           name: "Insert, delete, create, alter, a import dat",
+           name: "INSERT, DELETE, CREATE, ALTER a import dat",
            description: "Lekce 5 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -382,7 +382,7 @@ export default {
               nb_data:   lesson4_snflk_train}
            ]},
            {id: 5,
-           name: "Joiny, vnořený select a CTE",
+           name: "JOINy, vnořený select a CTE",
            description: "Lekce 6 popisek",
            notebooks: [
              {nb_id:     1, 
@@ -393,7 +393,7 @@ export default {
               nb_data:   lesson5_snflk_train}
            ]},
            {id: 6,
-           name: "Union a windows funkce",
+           name: "UNION a windows funkce",
            description: "Lekce 7 popisek",
            notebooks: [
              {nb_id:     1, 
