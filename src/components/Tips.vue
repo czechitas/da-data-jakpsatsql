@@ -777,7 +777,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 <script>
 import VueMarkdown from 'vue-markdown-render';
 
-import teror_md_file from "../assets/datasets-docs/teror.md";
+import teror_md_file from "raw-loader!../assets/datasets-docs/teror.md";
 
 export default {
   name: "Tips",
