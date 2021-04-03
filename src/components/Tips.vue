@@ -684,7 +684,7 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
             <v-tab-item>
                  <v-card flat color="basil">
                   <v-card-text>
-                  <vue-markdown :source="this.Markdown" />
+                  <vue-markdown :source="this.teror_md_file" />
                   </v-card-text>
                  </v-card>
             </v-tab-item>
@@ -777,13 +777,17 @@ LIMIT 11	-- nakonec můžeme omezit počet řádek, které chceme zobrazit
 <script>
 import VueMarkdown from 'vue-markdown-render';
 
+import teror_md_file from "../assets/datasets-docs/teror.md";
+
 export default {
   name: "Tips",
   components: {
     VueMarkdown
   },
   data() {
-    return {"Markdown" : "## Janca rulez"}
+    return { 
+      "Markdown": teror_md_file
+    }
   }
 }
 </script>
