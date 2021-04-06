@@ -47,7 +47,7 @@ Dataset obsahuje přes 50 tisíc řádků a 135 sloupců.
 | nwoundte | počet zraněných teroristů | |
 | property | existují-li důkazy o škodách na majetku v důsledku incidentu | 1 = "Ano", 0 = "Ne", -9 = "Neznámo" |
 | ishostkid | zaznamenává, zda byli zajati růkojmí či došlo k únosu | 1 = "Ano", 0 = "Ne", -9 = "Neznámo" |
-| nhostkid| celkový počet rukojmích či obětí únosu | |
+| nhostkid| celkový počet rukojmích či obětí únosu | -99 = počet je neznámý/nezjištěný |
 | nhostkidus | počet občanů USA, kteří byly uneseni či zajati jako rukojmí | |
 | nhours | zaznamenává dobu trvání incidentu v případě, že událost trvala méně než 24 hodin | pokud je typ útoku “Hostage Taking (Kidnapping),” “Hostage Taking (Barricade Incident),” nebo úspěšný “Hijacking” |
 | ndays | zaznamenává dobu trvání incidentu v případě, že událost trvala déle než 24 hodin | pokud je typ útoku “Hostage Taking (Kidnapping),” “Hostage Taking (Barricade Incident),” nebo úspěšný “Hijacking” |
