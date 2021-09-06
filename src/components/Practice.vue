@@ -10,7 +10,7 @@
 
             <v-list-item-content>
               <v-list-item-title>Snowflake</v-list-item-title>
-              <v-list-item-subtitle><a href="https://gn56074.west-europe.azure.snowflakecomputing.com/" target="_blank">https://revolt_bi_partner.eu-central-1.snowflakecomputing.com/console/login#/</a></v-list-item-subtitle>
+              <v-list-item-subtitle><a href="https://gn56074.west-europe.azure.snowflakecomputing.com/" target="_blank">https://gn56074.west-europe.azure.snowflakecomputing.com</a></v-list-item-subtitle>
               <v-list-item-subtitle>Prihlaseni: czechita_prijmenik</v-list-item-subtitle>
               <v-list-item-subtitle>(k je 1. písmeno křestního jména)</v-list-item-subtitle>
             </v-list-item-content>
