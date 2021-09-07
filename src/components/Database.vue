@@ -41,7 +41,8 @@
                   <v-card-text>
                     <p>
                       O každého by se měl někdo postarat, když má rýmu, nepouštět k němu neohlášené návštěvy, uvařit čaj a tak. O databáze se stará server. 
-                      I když rýmu zrovna nemají. Mezi tebou a databázemi stojí server jako gardedáma a tlumočník v jedné osobě. Může se starat o jedinou databázi, nebo taky o gazilión databází.
+                      I když rýmu zrovna nemají. Mezi tebou a databázemi stojí server jako gardedáma a tlumočník v jedné osobě. 
+                      Může se starat o jedinou databázi, nebo taky o gazilión databází.
                       Když ho požádáš o data z tabulky v databázi, zjistí nejdřív,
                       jak se ta databáze cítí, jestli je ready. Když jsou v databázi požadovaná data a máš k nim ta správná oprávnění, server do ní pošle
                       tvůj dotaz a vrátí ti výsledek.
@@ -109,31 +110,32 @@
                     <p>
                     Začíná to aplikací, jedno, jestli je to pokladna v Bille, Tinder, nebo realtime monitoring Tesla, každá appka pod sebou má databázi,
                     kde je uloženo minimálně to, co mají uživatelé vidět a co do ní vkládají. Jasně, uživatel může být auto i prodavačka. A protože žijeme
-                    ve zvědavé době, ukládá se do databází i to, jak uživatelé aplikaci používají a jak v aplikaci dochazí k chybám a vlastně úplně všechno.
+                    ve zvědavé době, ukládá se do databází i to, jak uživatelé aplikaci používají, jak v aplikaci dochazí k chybám a vlastně úplně všechno.
                     </p>
                     <p>
-                    Paráda, všechno v appce máme, každý vidí anebo ukládá, co má. Jenže. Jenže vždycky se najde někdo, kdo by chtěl vědět, kolik máme 
+                    Paráda, všechno v appce máme. Každý vidí anebo ukládá, co má. Jenže. Jenže vždycky se najde někdo, kdo by chtěl vědět, kolik máme 
                     zákazníků, nákupů, vozidel, výpadků atd. Samozřejmě, že v aplikacích jsou různé přehledy (dashboardy), reporty a tak. Dřív nebo později
-                    ale někdo chce data vidět jinak. A tak se data přelijí do místa, kde se dají mučit donekonečna a všemi metodami do data martu, nebo datového
-                    skladu. Důvodů je několik. Když se analytik zeptá přímo do databáze Billy, kterých 10 prodejen mělo v kterých měsících  největší meziměsíční nárůst prodejů
-                    mléčných výrobků se zahrnutím vlivu růstu jejich ceny, zní to jako legitimní dotaz. Ale aplikační databáze je stavěná na velikém množství 
-                    "malých" dotazů, respektive dotazů, které vrátí, nebo upravují malé množství řádek. Takovýhle analytický dotaz naproti tomu několikrát
-                    prošmejdí celou databázi křížem krážem aby nakomec ukázal deset prodejen. Může to trvat minuty, hodiny, nebo i déle. A celou dobu můžou
-                    ve skladech skladníci koukat na točící se kolečka na čtečkách, pokladní na "waiting..." na kasách a tak. Když ten samý dotaz analytik
-                    pustí ve warehousu, neovlivní nijak provoz. Další výhodou warehousu je, že se v něm nachází i data z ostatních systémů, nebo společností
+                    ale někdo chce data vidět jinak. Spojit je s daty z jiné aplikace, kupříkladu účetnictví. A tak se data přelijí do místa, kde se dají mučit donekonečna
+                    a všemi metodami. Do data martu, nebo datového skladu, neboli data warehouse (DWH). Důvodů je několik. Když se analytik zeptá přímo do 
+                    aplikační databáze Billy, <i> kterých 10 prodejen mělo v kterých měsících  největší meziměsíční nárůst prodejů
+                    mléčných výrobků se zahrnutím vlivu růstu jejich ceny</i>, zní to jako legitimní dotaz. Ale aplikační databáze je stavěná na veliké množství 
+                    "malých" dotazů, respektive dotazů, které rychle vrátí, nebo upravují malé množství řádek. Takovýhle analytický dotaz naproti tomu několikrát
+                    prošmejdí celou databázi křížem krážem aby nakonec ukázal deset prodejen. Může to trvat minuty, hodiny, nebo i déle. A po celou tu dobu můžou
+                    ve skladech skladníci koukat na točící se kolečka na čtečkách, pokladní na "waiting..." na kasách a tak. Když ten samý dotaz pustí analytik
+                    ve warehousu, neovlivní nijak provoz aplikace. Další výhodou warehousu je, že se v něm nachází i data z ostatních systémů, nebo společností
                     v Aholdu tak maji na jedné hromadě Alberty, Hyperalberty, Spar, Interspar, Manu a vlastně všechno, co kdy aspoň na chvilku vlastnili. 
                     </p>
                     <p>
                     Když máme data ve skladu, najednou po nás každý chce analýzy. BI kavárna je stejně líná, jako ta programátorská a tak většinou 
-                    při třetí stejné analýze vznikne nějaký report, nebo dashboard a v něm ať se kdo chce drilldownuje do haleluja. Po pár letech je v tom 
-                    takový guláš, protože různé reporty ukazují totéž tolika rozmanitými způsoby, že už i otrlému business pankáčovi přijde moc 
+                    při třetí stejné analýze vznikne nějaký report, nebo dashboard a v něm ať si kdo chce drilldownuje do haleluja. Po pár letech je v tom 
+                    takový guláš (protože různé reporty ukazují totéž tolika rozmanitými způsoby), že už i otrlému business pankáčovi to přijde moc 
                     a vznikne nějaký datový katalog, bible, korán, dokumentace. Tam je vysvětleno jednotným jazykem (korporátní newspeak, geekovština, úředničtina...),
-                    co která hodnota (KPI) znamená, jak vzniká a který report slouží pro koho a k čemu.
+                    co která hodnota (tabulka, sloupecek, KPI) znamená, jak vzniká a který report slouží pro koho a k čemu.
                     </p>
                     <p>
                     Umřou někdy data? Všichni umřeme. Data o prodejích z devadesátek už asi nikdo k ničemu nepoužije a tak se prostě zahodí.
                     Data o návštěvnících B2B portálu, na co klikali, kde strávili kolik času atp., ty asi můžeme zahodit ještě dřív.
-                    Zahazování se učeně říká retence. U některých dat je skoro nekonečná, třeba u lékařských záznamů, ale najdou se i jiné příklady.
+                    Zahazování se učeně říká retence. U některých dat je skoro nekonečná, např. u lékařských záznamů, ale najdou se i jiné příklady.
                     </p>
                   </v-card-text>
                 </v-card>
@@ -185,7 +187,7 @@
                       Všechny zmíněné databázové servery je potřeba někam instalovat, respektive mít pro ně server, kde poběží. Snowflake je 
                       reprezentantem tzv. cloudových databází, které se sice "nikam neinstalují", ale jen někomu dáš číslo své kreditky a platíš za místo,
                       výkon a podobně, takže to někdo celé zařídí za tebe. Microsoft a Oracle také nabízí svoje enginy v cloudu,
-                      Heroku je zase postgres v cloudu, AWS má svůj Redshit, Aurora, DynamoDB atd. 
+                      Heroku je zase postgres v cloudu, AWS má svůj Redshift, Aurora, DynamoDB atd. 
                     </p>
                     <img src="../assets/database/database_functions.png" width="800">
                   </v-card-text>
@@ -231,7 +233,7 @@
                     <p>
                       Aby ti engine rozuměl, má některá slova tzv. rezervovaná, tj. nejde je použít pro názvy sloupečků, tabulek apod. 
                       Příkladem takových rezervovaných slov je třeba table,
-                      column, view, date, int apod. V rezervovaných se různé flavory (implementace) taky liší. Ale klid, nic zásadního. Některé enginy
+                      column, view, date, int apod. V rezervovaných slovech se různé flavory (implementace) taky liší. Ale klid, nic zásadního. Některé enginy
                       rozlišují v názvech objektů velká a malá písmena, jiné ne. Některé jsou velmi omezené v délce těchto názvů 
                       (nejmenší, co pamatuju, je 30 znaků limit na název v DB2 od IBM, Postgres má limit 63).
                     </p>
@@ -253,7 +255,7 @@
                     <p>
                       Nápad na propojování tabulek pochází z relační algebry (viz úplně první obrázek), podle ní jsou i databáze pojmenované,
                       celým jménem se jim říká relační databáze. Ale na původu nezáleží. Důležíté je, k čemu je spojování tabulek dobré.
-                      Procesu vnášení vztahů mezi tabulky se říká normalizace. Vztahům se chytře říká relace. Jde v něm o to nemít v databázi žádná data víckrát.
+                      Procesu vnášení vztahů mezi tabulky se říká normalizace. Jde v něm o to nemít v databázi žádná data víckrát. Vztahům se chytře říká relace.
                     </p>
                     <p>
                     <i>
